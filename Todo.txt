@@ -1,0 +1,76 @@
+Utilisateur:
+    - poids
+    - genre
+    - taille
+
+Fonction pour calculer IMC de l'Utilisateur
+
+
+User:
+    - nom
+    - prenom
+    - email
+    - username
+    - password
+    - poids
+    - genre
+    - taille
+
+Objectifs:
+    - 1, Augmenter son poids
+    - 2, Reduire son poids
+    - 3, Atteindre son IMC ideal
+
+Fonction pour suggerer les regimes et l'activite sportive necessaire pendant une duree
+
+fonction pour exporter pdf la suggestion et les activites sportive
+
+Code:
+    - id 
+    - valeur
+    - montant  //mitombo de firy ny argent ao anaty porte feuille anle Utilisateur nampiditra code
+
+
+
+Option:
+    - id
+    - libelle
+    - montant
+
+    ex: (1, gratuit, 0.00); (2, gold, 20.00)
+
+
+Mouvement: 
+    - id    
+    - type (D, C) (mampiditra, mamoaka)
+    - user_id 
+    - montant
+    - datetime
+
+
+
+
+creer compte -> mampiditra quelque part oe gratuit nenazy -> payer option gold
+
+User_option:
+    - id 
+    - user_id
+    - option_id
+    - datetime
+
+rehefa mcreer compte vaovao, de mcreer automatiquement user_option avec option_id = gratuit
+
+
+fonction pour verifier oe gold sa gratuit le Utilisateur
+
+page: se connecter
+
+Page: pour afficher le tableau de bord
+      statistiques
+      graphes: visualisation evolution poids reel de l'Utilisateur
+               visualisation simulation poids de l'Utilisateur selon le regime qu'il a pris
+               
+
+
+
+
