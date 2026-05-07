@@ -10,7 +10,8 @@ create table user (
     username varchar(255),
     poids_initial float,
     genre enum('Homme', 'Femme'), 
-    taille float
+    taille float,
+    role_user enum('admin', 'user')
 );
 
 create table poids_user (
