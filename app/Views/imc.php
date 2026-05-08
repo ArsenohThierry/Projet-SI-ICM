@@ -6,6 +6,6 @@
     <title>Document</title>
 </head>
 <body>
-    salut
+    <?php echo "Votre IMC est : " . $imc; ?>
 </body>
 </html>

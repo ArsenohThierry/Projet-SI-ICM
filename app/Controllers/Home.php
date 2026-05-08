@@ -8,4 +8,16 @@ class Home extends BaseController
     {
         return view('login');
     }
+    public function calculIMC() {
+        // get les valeurs du formulaire 
+        $poids = $this->request->getPost('poids');
+        $taille = $this->request->getPost('taille');
+        $imc = $poids / ($taille * $taille);
+        
+        $data['imc'] = $imc;
+        return view('imc', $data);
+    }
+    public function toimcform() {
+        return view('form');
+    }
 }
