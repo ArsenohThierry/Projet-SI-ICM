@@ -308,9 +308,7 @@
 
             <!-- Actions -->
             <div style="display:flex; gap:1rem;" class="delay-3 anim-fade-up">
-                <a href="/imc" class="btn btn-outline" style="flex:1;">
-                    <i class="fa-solid fa-arrow-left"></i> Calculer mon IMC
-                </a>
+               
                 <a href="/logout" class="btn btn-danger" style="flex:1;">
                     <i class="fa-solid fa-right-from-bracket"></i> Deconnexion
                 </a>
