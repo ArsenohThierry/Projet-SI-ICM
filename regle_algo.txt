@@ -161,5 +161,5 @@ Table ilaina:
 - user_regime ok
 - user_objectif ok
 - sport ok
-- sport_objectif
+- sport_objectif ok
 - user_sport
