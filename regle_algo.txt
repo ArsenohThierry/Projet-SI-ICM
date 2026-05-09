@@ -1,0 +1,153 @@
+ FOmba itondrana anle algo pour le choix de regime en fonction de l'objectif et du poids :
+ Objectif PRISE_POIDS
+ → Régime riche en viande/volaille (protéines)
+ → variation_poids la plus haute (+ de kg/semaine)
+ → ORDER BY (variation_poids * 0.7) - (montant * 0.3) DESC
+ On veut variation_poids MAX et montant MIN
+
+ Objectif PERTE_POIDS
+ → Régime riche en poisson (moins calorique)
+ → variation_poids la plus basse (- de kg/semaine)
+ → ORDER BY (ABS(variation_poids) * 0.7) - (montant * 0.3) DESC
+ On veut variation_poids MIN et montant MIN
+
+ Objectif IMC_IDEAL
+ → Régime équilibré entre les 3
+ → variation_poids modérée
+ → ORDER BY (ABS(variation_poids) * 0.7) - (montant * 0.3) ASC
+ On veut variation_poids proche de 0 et montant MIN
+
+ score = (variation_poids x poids_efficacite) - (montant x poids_cout)
+ score = (variation_poids x 0.7) - (montant x 0.3)
+
+
+
+ Le problème
+ IMC actuel = 27 (surpoids)
+ IMC idéal  = 18.5 à 25
+ Objectif choisi = IMC_IDEAL
+
+ → La personne doit D'ABORD perdre du poids avant d'atteindre l'équilibre
+ Solution — Calculer l'écart IMC
+ IMC = poids / (taille_m)²
+ IMC_ideal_cible = 22  (milieu de la fourchette 18.5-25)
+
+ écart = IMC_actuel - IMC_ideal_cible
+ Si IMC > 25 (surpoids)
+ → écart positif
+ → Appliquer logique PERTE_POIDS d'abord
+ → ORDER BY (ABS(variation_poids) * 0.7) - (montant * 0.3) DESC
+ Si IMC < 18.5 (insuffisance)
+ → écart négatif
+ → Appliquer logique PRISE_POIDS d'abord
+ → ORDER BY (variation_poids * 0.7) - (montant * 0.3) DESC
+ Si 18.5 ≤ IMC ≤ 25 (déjà dans la zone)
+ → Appliquer logique IMC_IDEAL (maintien)
+ → ORDER BY (ABS(variation_poids) * 0.7) - (montant * 0.3) ASC
+ Algorithme complet
+ 1. Calculer IMC = poids / (taille_m)²
+
+ 2. SI objectif = IMC_IDEAL
+       SI IMC > 25
+           → utiliser formule PERTE_POIDS
+           → afficher message "Vous devez d'abord perdre X kg"
+       SINON SI IMC < 18.5
+           → utiliser formule PRISE_POIDS
+           → afficher message "Vous devez d'abord gagner X kg"
+       SINON
+           → utiliser formule IMC_IDEAL
+           → afficher message "Vous êtes proche de votre IMC idéal !"
+
+ 3. Calculer le poids cible
+    poids_cible = IMC_ideal_cible x (taille_m)²
+    poids_a_perdre/gagner = poids_actuel - poids_cible
+
+
+
+ Fomba itondrana anle algo pour le choix de sport en fonction de l'objectif et de l'âge :
+
+ Objectif PERTE_POIDS → ORDER BY (calories_brulees x duree_proposee) DESC
+ Objectif PRISE_POIDS → ORDER BY (calories_brulees x duree_proposee) ASC
+ Objectif IMC_IDEAL   → ORDER BY (calories_brulees x duree_proposee) DESC
+                         WHERE (calories_brulees x duree_proposee) BETWEEN 200 AND 400
+
+
+SI IMC > 25 → appliquer logique PERTE_POIDS
+SI IMC < 18.5 → appliquer logique PRISE_POIDS
+SI IMC entre 18.5 et 25 → appliquer logique IMC_IDEAL
+
+Donc l'algorithme final
+1. Calculer IMC
+
+2. SI objectif = IMC_IDEAL
+      SI IMC > 25
+          → utiliser requête PERTE_POIDS
+      SINON SI IMC < 18.5
+          → utiliser requête PRISE_POIDS
+      SINON
+          → utiliser requête IMC_IDEAL (BETWEEN 200 AND 400)
+
+3. SI objectif = PERTE_POIDS
+      → utiliser requête PERTE_POIDS
+
+4. SI objectif = PRISE_POIDS
+      → utiliser requête PRISE_POIDS
+
+
+
+
+
+
+
+PERTE_POIDS
+SI objectif = PERTE_POIDS ET IMC < 18.5
+    → BLOQUER
+    → "Vous êtes en sous poids, la perte de poids est dangereuse"
+    → Proposer : PRISE_POIDS ou IMC_IDEAL
+
+SI objectif = PERTE_POIDS ET IMC >= 18.5 ET IMC <= 25
+    → BLOQUER
+    → "Votre poids est déjà dans la zone saine !"
+    → Proposer : IMC_IDEAL
+
+SI objectif = PERTE_POIDS ET IMC > 25
+    → ✅ AUTORISER
+    → Calculer poids cible et durée
+
+
+
+
+PRISE_POIDS
+SI objectif = PRISE_POIDS ET IMC > 25
+    → BLOQUER
+    → "Vous êtes en surpoids, la prise de poids est dangereuse"
+    → Proposer : PERTE_POIDS ou IMC_IDEAL
+
+SI objectif = PRISE_POIDS ET IMC >= 18.5 ET IMC <= 25
+    → BLOQUER
+    → "Votre poids est déjà dans la zone saine !"
+    → Proposer : IMC_IDEAL
+
+SI objectif = PRISE_POIDS ET IMC < 18.5
+    → ✅ AUTORISER
+    → Calculer poids cible et durée
+
+
+
+
+
+IMC_IDEAL
+SI objectif = IMC_IDEAL ET IMC > 25
+    → ✅ AUTORISER
+    → "Vous devez perdre X kg"
+    → Appliquer logique PERTE_POIDS
+
+SI objectif = IMC_IDEAL ET IMC < 18.5
+    → ✅ AUTORISER
+    → "Vous devez gagner X kg"
+    → Appliquer logique PRISE_POIDS
+
+SI objectif = IMC_IDEAL ET IMC >= 18.5 ET IMC <= 25
+    → ✅ AUTORISER
+    → "Vous êtes déjà dans la zone idéale, continuez !"
+    → Appliquer logique MAINTIEN

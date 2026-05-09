@@ -6,6 +6,6 @@ class HomeController extends BaseController
 {
     public function login(): string
     {
-        return view('form');
+        return view('login');
     }
 }
