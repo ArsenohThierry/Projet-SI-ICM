@@ -78,12 +78,14 @@ class RegimeService
             throw new \InvalidArgumentException("Objectif non trouvé.");
         }
 
-        if ($objectif['libelle'] === 'Prise de poids' && $imc >= 18.5) {
-            throw new \InvalidArgumentException("L'objectif 'Prise de poids' n'est pas adapté pour un IMC de $imc.");
-        }
+        $objectifsDisponibles = $this->getObjectifsDisponible($imc);
+        $availableIds = array_values(array_filter(array_map(
+            static fn($item) => (int) ($item['id'] ?? 0),
+            $objectifsDisponibles
+        )));
 
-        if ($objectif['libelle'] === 'Perte de poids' && $imc < 18.5) {
-            throw new \InvalidArgumentException("L'objectif 'Perte de poids' n'est pas adapté pour un IMC de $imc.");
+        if (!in_array((int) $objectifId, $availableIds, true)) {
+            throw new \InvalidArgumentException("Cet objectif n'est pas adapté pour un IMC de $imc.");
         }
 
         return true;
