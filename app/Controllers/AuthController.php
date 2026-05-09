@@ -100,7 +100,13 @@ class AuthController extends BaseController
         $user = $userModel->find($userId);
         $this->setUserSession($user, $plan);
 
-        return redirect()->to('/imc');
+        // Calcul direct de l'IMC avec les données initiales
+        $taille = (float) $userData['taille'] / 100; // convertir cm en m
+        $imc = (float) $userData['poids_initial'] / ($taille * $taille);
+
+        $data['imc'] = $imc;
+        $data['user'] = $user;
+        return view('imc', $data);
     }
 
     public function logout()
