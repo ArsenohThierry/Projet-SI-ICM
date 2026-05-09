@@ -151,3 +151,15 @@ SI objectif = IMC_IDEAL ET IMC >= 18.5 ET IMC <= 25
     → ✅ AUTORISER
     → "Vous êtes déjà dans la zone idéale, continuez !"
     → Appliquer logique MAINTIEN
+
+
+
+
+Table ilaina: 
+- objectif ok
+- regime ok
+- user_regime ok
+- user_objectif
+- sport 
+- sport_objectif
+- user_sport
