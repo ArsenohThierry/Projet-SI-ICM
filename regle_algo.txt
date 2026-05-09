@@ -159,7 +159,7 @@ Table ilaina:
 - objectif ok
 - regime ok
 - user_regime ok
-- user_objectif
-- sport 
+- user_objectif ok
+- sport ok
 - sport_objectif
 - user_sport
