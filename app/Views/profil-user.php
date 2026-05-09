@@ -124,6 +124,7 @@
         prenom: "<?php echo esc($prenom ?? ''); ?>",
         nom: "<?php echo esc($nom ?? ''); ?>",
         email: "<?php echo esc($email ?? ''); ?>",
+        role_user: "<?php echo esc($role_user ?? ''); ?>",
         gold: <?php echo session()->get('user_option') === 'gold' ? 'true' : 'false'; ?>
     };
 </script>
@@ -141,6 +142,7 @@
     $poids_initial  = $user['poids_initial'];   
     $genre          = $user['genre'];           
     $taille         = $user['taille'];    
+    $role_user      = $user['role_user'] ?? '';
 
     /* -- Calculs dérivés -- */
     $initiales = strtoupper(substr($prenom, 0, 1) . substr($nom, 0, 1));
@@ -306,9 +308,7 @@
 
             <!-- Actions -->
             <div style="display:flex; gap:1rem;" class="delay-3 anim-fade-up">
-                <a href="/imc" class="btn btn-outline" style="flex:1;">
-                    <i class="fa-solid fa-arrow-left"></i> Calculer mon IMC
-                </a>
+               
                 <a href="/logout" class="btn btn-danger" style="flex:1;">
                     <i class="fa-solid fa-right-from-bracket"></i> Deconnexion
                 </a>

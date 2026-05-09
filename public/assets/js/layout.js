@@ -12,6 +12,7 @@ const NF_LAYOUT = {
   sidebar(activePage) {
     const user = this.getUser() || { prenom: 'Jean', nom: 'Rakoto', gold: false };
     const initials = ((user.prenom || 'J')[0] + (user.nom || 'R')[0]).toUpperCase();
+    const isAdmin = user.role_user === 'admin';
 
     const navItems = [
       { id: 'imc',         icon: 'fa-calculator',    label: 'IMC',               href: '/imc' },
@@ -20,6 +21,11 @@ const NF_LAYOUT = {
       { id: 'regimes',     icon: 'fa-bowl-food',     label: 'Régimes',           href: 'regimes.html',   badge: null },
       { id: 'activities',  icon: 'fa-dumbbell',      label: 'Activités',         href: 'activities.html' },
       { id: 'abonnement',  icon: 'fa-crown',         label: 'Abonnement Gold',   href: 'abonnement.html', gold: true },
+    ];
+
+    const adminItems = [
+      { id: 'admin-regimes', icon: 'fa-bowl-food', label: 'Regimes', href: '/admin/regimes' },
+      { id: 'admin-sports', icon: 'fa-dumbbell', label: 'Activites', href: '/admin/sports' }
     ];
 
     const links = navItems.map(n => `
@@ -42,6 +48,13 @@ const NF_LAYOUT = {
         <nav class="sidebar-nav">
           <div class="nav-section-title">Menu</div>
           ${links}
+          ${isAdmin ? '<div class="nav-section-title" style="margin-top:1rem">Administration</div>' : ''}
+          ${isAdmin ? adminItems.map(n => `
+            <a href="${n.href}" class="nav-item ${activePage === n.id ? 'active' : ''}">
+              <i class="fa-solid ${n.icon} nav-icon"></i>
+              ${n.label}
+            </a>
+          `).join('') : ''}
           <div class="nav-section-title" style="margin-top:1rem">Compte</div>
           <a href="/logout" class="nav-item">
             <i class="fa-solid fa-right-from-bracket nav-icon"></i> Déconnexion

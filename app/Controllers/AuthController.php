@@ -17,6 +17,7 @@ class AuthController extends BaseController
         return view('login');
     }
 
+
     public function authenticate()
     {
         $rules = [
@@ -48,7 +49,7 @@ class AuthController extends BaseController
         $plan = $userOptionModel->getLatestPlanByUserId((int) $user['id']);
         $this->setUserSession($user, $plan);
 
-        return redirect()->to('/imc');
+        return redirect()->to('/profile');
     }
 
     public function register()
@@ -106,7 +107,7 @@ class AuthController extends BaseController
 
         $data['imc'] = $imc;
         $data['user'] = $user;
-        return view('imc', $data);
+        return view('imcRegister', $data);
     }
 
     public function logout()
@@ -124,7 +125,8 @@ class AuthController extends BaseController
             'username' => $user['username'],
             'email' => $user['email'],
             'role_user' => $user['role_user'] ?? 'user',
-            'user_option' => $plan
+            'user_option' => $plan,
+            'logged_in' => true
         ]);
     }
 
