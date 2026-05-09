@@ -10,7 +10,26 @@ class UserController extends BaseController
 {
     public function imcForm(): string
     {
-        $data['user'] = $this->getSessionUser();
+        return $this->getIMC();
+    }
+
+    public function getIMC()
+    {
+        $user = $this->getSessionUser();
+        $data['user'] = $user;
+
+        if (!$user) {
+            return redirect()->to('/login');
+        }
+
+        $poids = (float) ($user['poids_initial'] ?? 0);
+        $taille = (float) ($user['taille'] ?? 0);
+
+        if ($poids > 0 && $taille > 0) {
+            $taille = $taille / 100; // convertir en metres
+            $data['imc'] = $poids / ($taille * $taille);
+        }
+
         return view('imc', $data);
     }
 

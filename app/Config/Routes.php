@@ -12,7 +12,7 @@ $routes->post('/login', 'AuthController::authenticate');
 $routes->post('/register', 'AuthController::register');
 $routes->get('/logout', 'AuthController::logout');
 
-$routes->get('/imc', 'UserController::imcForm', ['filter' => 'auth']);
+$routes->get('/imc', 'UserController::getIMC', ['filter' => 'auth']);
 $routes->post('/imc', 'UserController::IMCresult', ['filter' => 'auth']);
 $routes->get('/profile', 'UserController::userProfile', ['filter' => 'auth']);
 $routes->post('/upgrade/gold', 'UserController::upgradeToGold', ['filter' => 'auth']);
