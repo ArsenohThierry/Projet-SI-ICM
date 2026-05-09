@@ -9,7 +9,6 @@ create table user (
     password_hash varchar(255),
     username varchar(255),
     poids_initial float,
-    age int,
     genre enum('Homme', 'Femme'), 
     taille float,
     role_user enum('admin', 'user')
