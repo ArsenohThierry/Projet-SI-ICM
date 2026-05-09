@@ -52,6 +52,9 @@ class RegimeService
 
     public function calculDureeRegime($poids, $poidsIdeal, $variationPoids)
     {
+        if ($variationPoids == 0) {
+            return 0; // Pas de changement de poids attendu (IMC Ideal déjà atteint)
+        }
         return abs($poids - $poidsIdeal) / abs($variationPoids);
     }
 
@@ -171,7 +174,7 @@ class RegimeService
             'user_id' => $userId,
             'regime_id' => $regimeId,
             'date_save' => date('Y-m-d H:i:s'),
-            'date_debut' => $dateDebut,
+            'date_debut' => $dateDebut->format('Y-m-d H:i:s'),
             'duree' => $duree
         ]);
     }
@@ -182,7 +185,7 @@ class RegimeService
             'user_id' => $userId,
             'sport_objectif_id' => $sportObjectifId,
             'date_save' => date('Y-m-d H:i:s'),
-            'date_debut' => $dateDebut
+            'date_debut' => $dateDebut->format('Y-m-d H:i:s')
         ]);
     }
 }
