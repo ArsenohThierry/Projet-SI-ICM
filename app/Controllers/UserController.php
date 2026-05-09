@@ -7,6 +7,7 @@ use App\Models\UserModel;
 use App\Models\OptionModel;
 use App\Models\UserOptionModel;
 use App\Models\UserObjectifModel;
+use App\Services\RegimeService;
 
 class UserController extends BaseController
 {
@@ -51,16 +52,29 @@ class UserController extends BaseController
         return view('imc', $data);
     }
 
-    public function objectifUser(): string
+    public function objectifUser()
     {
-        // $data['user'] = $this->getSessionUser();
+        $user = $this->getSessionUser();
+        if (!$user) {
+            return redirect()->to('/login');
+        }
+
         $objectifModel = new ObjectifModel();
+        $data['user'] = $user;
         $data['objectifs'] = $objectifModel->getObjectifs();
+        $data['disableUnavailable'] = false;
+        $data['availableObjectifIds'] = [];
+
         return view('objectifUser', $data);
     }
 
     public function setObjectif()
     {
+        $user = $this->getSessionUser();
+        if (!$user) {
+            return redirect()->to('/login');
+        }
+
         $id = (int) $this->request->getPost('objectif_id');
         if ($id <= 0) {
             return redirect()->back()->with('error', 'Veuillez sélectionner un objectif.');
@@ -70,6 +84,31 @@ class UserController extends BaseController
         $objectif = $objectifModel->find($id);
         if (!$objectif) {
             return redirect()->back()->with('error', 'Objectif invalide.');
+        }
+
+        $regimeService = new RegimeService();
+        try {
+            $imc = $regimeService->calculIMC((float) ($user['poids_initial'] ?? 0), (float) ($user['taille'] ?? 0));
+        } catch (\InvalidArgumentException $e) {
+            return redirect()->to('/imc')->with('error', 'Veuillez d\'abord renseigner votre poids et votre taille pour choisir un objectif.');
+        }
+
+        try {
+            $regimeService->validerObjectif((int) $objectif['id'], $imc);
+        } catch (\InvalidArgumentException $e) {
+            $objectifsDisponibles = $regimeService->getObjectifsDisponible($imc);
+            $availableObjectifIds = array_values(array_filter(array_map(
+                static fn($item) => (int) ($item['id'] ?? 0),
+                $objectifsDisponibles
+            )));
+
+            return view('objectifUser', [
+                'user' => $user,
+                'objectifs' => $objectifModel->getObjectifs(),
+                'disableUnavailable' => true,
+                'availableObjectifIds' => $availableObjectifIds,
+                'errorMessage' => "Cet objectif ne correspond pas avec votre IMC. Merci de choisir parmi les objectifs disponibles.",
+            ]);
         }
 
         $userId = (int) session()->get('user_id');

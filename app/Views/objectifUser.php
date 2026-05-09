@@ -79,6 +79,22 @@
             box-shadow: 0 0 0 4px var(--primary-glow), var(--shadow);
         }
 
+        .objectif-card.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            background: #f3f4f6;
+            border-color: #d1d5db;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .objectif-card.disabled:hover {
+            transform: none;
+            box-shadow: none;
+            border-color: #d1d5db;
+            background: #f3f4f6;
+        }
+
         .objectif-check {
             position: absolute;
             top: 12px;
@@ -221,9 +237,23 @@
             <p>Choisissez l'objectif qui correspond le mieux à votre démarche santé.</p>
         </div>
 
+        <?php if (!empty($errorMessage)): ?>
+            <div class="alert alert-danger" role="alert">
+                <i class="fa-solid fa-circle-exclamation"></i>
+                <?php echo esc($errorMessage); ?>
+            </div>
+        <?php elseif (session()->getFlashdata('error')): ?>
+            <div class="alert alert-danger" role="alert">
+                <i class="fa-solid fa-circle-exclamation"></i>
+                <?php echo esc((string) session()->getFlashdata('error')); ?>
+            </div>
+        <?php endif; ?>
+
         <!-- Grille des objectifs -->
         <?php
             $objectifs = $objectifs ?? [];
+            $disableUnavailable = (bool) ($disableUnavailable ?? false);
+            $availableObjectifIds = array_map('intval', $availableObjectifIds ?? []);
 
             /*
              * Icônes et descriptions de secours affichées si le libellé
@@ -260,11 +290,14 @@
         <div class="objectif-grid">
             <?php foreach ($objectifs as $i => $obj):
                 [$icon, $desc] = getIconForObjectif($obj['libelle'], $i, $iconMap, $defaultIcons);
+                $objectifId = (int) $obj['id'];
+                $isDisabled = $disableUnavailable && !in_array($objectifId, $availableObjectifIds, true);
             ?>
-                <div class="objectif-card"
-                     data-id="<?php echo (int)$obj['id']; ?>"
+                <div class="objectif-card<?php echo $isDisabled ? ' disabled' : ''; ?>"
+                     data-id="<?php echo $objectifId; ?>"
                      data-label="<?php echo htmlspecialchars($obj['libelle']); ?>"
-                     data-icon="<?php echo $icon; ?>">
+                     data-icon="<?php echo $icon; ?>"
+                     data-disabled="<?php echo $isDisabled ? '1' : '0'; ?>">
 
                     <div class="objectif-check"><i class="fa-solid fa-check"></i></div>
 
@@ -314,6 +347,10 @@
 
     cards.forEach(card => {
         card.addEventListener('click', () => {
+            if (card.getAttribute('data-disabled') === '1') {
+                return;
+            }
+
             // Reset toutes les cartes
             cards.forEach(c => c.classList.remove('selected'));
 
