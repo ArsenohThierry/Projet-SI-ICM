@@ -17,7 +17,9 @@ class UserModel extends Model
         'username',
         'poids_initial',
         'genre',
-        'taille'
+        'taille',
+        'age',
+        'role_user'
     ];
 
     // ##################### les fonctions comencent ici #################

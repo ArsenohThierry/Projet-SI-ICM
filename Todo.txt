@@ -70,6 +70,7 @@ Page: pour afficher le tableau de bord
       graphes: visualisation evolution poids reel de l'Utilisateur
                visualisation simulation poids de l'Utilisateur selon le regime qu'il a pris
                
+--Authentification--
 
 
 

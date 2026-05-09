@@ -114,7 +114,19 @@
 </head>
 <body>
 
+<?php $sessionUser = $user ?? []; ?>
+<script>
+    window.NF_USER = {
+        prenom: "<?php echo esc($sessionUser['prenom'] ?? ''); ?>",
+        nom: "<?php echo esc($sessionUser['nom'] ?? ''); ?>",
+        email: "<?php echo esc($sessionUser['email'] ?? ''); ?>",
+        gold: <?php echo session()->get('user_option') === 'gold' ? 'true' : 'false'; ?>
+    };
+</script>
+
 <?php
+    $hasResult = isset($imc);
+
     // Calcul de la catégorie IMC
     $categorie     = '';
     $badgeClass    = '';
@@ -123,39 +135,49 @@
     $cursorPercent = 0;
     $conseil       = '';
 
-    if ($imc < 18.5) {
-        $categorie     = 'Maigreur';
-        $badgeClass    = 'badge-info';
-        $activeClass   = 'active-info';
-        $icone         = 'fa-arrow-trend-down';
-        $cursorPercent = max(2, ($imc / 18.5) * 20);
-        $conseil       = 'Votre poids est inférieur à la normale. Un suivi nutritionnel est conseillé.';
-    } elseif ($imc < 25) {
-        $categorie     = 'Normal';
-        $badgeClass    = 'badge-green';
-        $activeClass   = 'active-green';
-        $icone         = 'fa-circle-check';
-        $cursorPercent = 20 + (($imc - 18.5) / 6.5) * 35;
-        $conseil       = 'Votre poids est dans la plage normale. Continuez vos bonnes habitudes !';
-    } elseif ($imc < 30) {
-        $categorie     = 'Surpoids';
-        $badgeClass    = 'badge-gold';
-        $activeClass   = 'active-gold';
-        $icone         = 'fa-triangle-exclamation';
-        $cursorPercent = 55 + (($imc - 25) / 5) * 25;
-        $conseil       = 'Un léger surpoids détecté. Adopter une alimentation équilibrée peut aider.';
-    } else {
-        $categorie     = 'Obésité';
-        $badgeClass    = 'badge-red';
-        $activeClass   = 'active-danger';
-        $icone         = 'fa-circle-exclamation';
-        $cursorPercent = min(98, 80 + (($imc - 30) / 10) * 18);
-        $conseil       = 'Un suivi médical personnalisé est fortement recommandé.';
+    if ($hasResult) {
+        if ($imc < 18.5) {
+            $categorie     = 'Maigreur';
+            $badgeClass    = 'badge-info';
+            $activeClass   = 'active-info';
+            $icone         = 'fa-arrow-trend-down';
+            $cursorPercent = max(2, ($imc / 18.5) * 20);
+            $conseil       = 'Votre poids est inférieur à la normale. Un suivi nutritionnel est conseillé.';
+        } elseif ($imc < 25) {
+            $categorie     = 'Normal';
+            $badgeClass    = 'badge-green';
+            $activeClass   = 'active-green';
+            $icone         = 'fa-circle-check';
+            $cursorPercent = 20 + (($imc - 18.5) / 6.5) * 35;
+            $conseil       = 'Votre poids est dans la plage normale. Continuez vos bonnes habitudes !';
+        } elseif ($imc < 30) {
+            $categorie     = 'Surpoids';
+            $badgeClass    = 'badge-gold';
+            $activeClass   = 'active-gold';
+            $icone         = 'fa-triangle-exclamation';
+            $cursorPercent = 55 + (($imc - 25) / 5) * 25;
+            $conseil       = 'Un léger surpoids détecté. Adopter une alimentation équilibrée peut aider.';
+        } else {
+            $categorie     = 'Obésité';
+            $badgeClass    = 'badge-red';
+            $activeClass   = 'active-danger';
+            $icone         = 'fa-circle-exclamation';
+            $cursorPercent = min(98, 80 + (($imc - 30) / 10) * 18);
+            $conseil       = 'Un suivi médical personnalisé est fortement recommandé.';
+        }
     }
 ?>
 
-<div class="imc-page">
-    <div class="imc-wrapper anim-fade-up">
+<div id="pageContent">
+    <div class="imc-page">
+        <div class="imc-wrapper anim-fade-up">
+
+        <?php if (session()->getFlashdata('error')): ?>
+        <div class="toast error" style="position:relative; margin-bottom:1rem;">
+            <i class="fa-solid fa-times-circle toast-icon"></i>
+            <span><?php echo esc(session()->getFlashdata('error')); ?></span>
+        </div>
+        <?php endif; ?>
 
         <!-- Brand -->
         <div class="imc-brand">
@@ -165,10 +187,40 @@
             <span class="logo-text">Nutri<span>Fit</span></span>
         </div>
 
-        <!-- Card résultat principal -->
+        <!-- Formulaire IMC -->
         <div class="card">
             <div class="card-header">
-                <h3><i class="fa-solid fa-weight-scale" style="color:var(--primary); margin-right:8px;"></i>Résultat de votre IMC</h3>
+                <h3><i class="fa-solid fa-calculator" style="color:var(--primary); margin-right:8px;"></i>Calculer votre IMC</h3>
+            </div>
+            <div class="card-body" style="display:flex; flex-direction:column; gap:1rem;">
+                <form method="post" action="/imc" style="display:flex; flex-direction:column; gap:1rem;">
+                    <div class="form-group">
+                        <label class="form-label">Taille (cm)</label>
+                        <div class="input-wrapper">
+                            <i class="fa-solid fa-ruler-vertical input-icon"></i>
+                            <input type="number" class="form-control" name="taille" placeholder="170" min="100" max="250" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Poids (kg)</label>
+                        <div class="input-wrapper">
+                            <i class="fa-solid fa-weight-scale input-icon"></i>
+                            <input type="number" class="form-control" name="poids" placeholder="72" min="20" max="300" required>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary btn-block" type="submit">
+                        <i class="fa-solid fa-weight-scale"></i>
+                        Calculer
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <?php if ($hasResult): ?>
+        <!-- Card resultat principal -->
+        <div class="card">
+            <div class="card-header">
+                <h3><i class="fa-solid fa-weight-scale" style="color:var(--primary); margin-right:8px;"></i>Resultat de votre IMC</h3>
                 <span class="badge <?php echo $badgeClass; ?>">
                     <i class="fa-solid <?php echo $icone; ?>"></i>
                     <?php echo $categorie; ?>
@@ -198,7 +250,7 @@
                     </div>
                 </div>
 
-                <!-- Catégories -->
+                <!-- Categories -->
                 <div class="imc-categories">
                     <div class="imc-category-item <?php echo ($imc < 18.5) ? 'active-info' : ''; ?>">
                         Maigreur
@@ -225,15 +277,22 @@
                 <span style="font-size:0.85rem; color:var(--text-secondary);"><?php echo $conseil; ?></span>
             </div>
         </div>
+        <?php endif; ?>
 
-        <!-- Bouton retour -->
-        <a href="index.php" class="btn btn-outline btn-block">
-            <i class="fa-solid fa-arrow-left"></i>
-            Recalculer mon IMC
-        </a>
-
+        </div>
     </div>
 </div>
+
+    <script src="/assets/js/app.js"></script>
+    <script src="/assets/js/layout.js"></script>
+    <script>
+        NF_LAYOUT.inject('imc', 'IMC', 'Calcul IMC');
+        const mc = document.getElementById('mainContent');
+        const content = document.getElementById('pageContent');
+        if (mc && content) {
+            mc.appendChild(content);
+        }
+    </script>
 
 </body>
 </html>
