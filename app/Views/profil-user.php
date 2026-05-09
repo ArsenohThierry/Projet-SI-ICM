@@ -153,16 +153,24 @@
     ?>
 
         <div id="pageContent">
+            <div class="page-header">
+                <div class="header-title">
+                    <div class="logo-icon" style="background: var(--primary);">
+                        <i class="fa-solid fa-user" style="color:white;"></i>
+                    </div>
+                    <div>
+                        <h2>Mon profil</h2>
+                        <p class="text-muted">Informations personnelles et sante.</p>
+                    </div>
+                </div>
+                <div class="header-actions">
+                    <a href="/codes/redeem" class="btn btn-outline">Codes</a>
+                    <a href="/imc" class="btn btn-primary">IMC</a>
+                </div>
+            </div>
+
             <div class="profile-page">
                 <div class="profile-wrapper anim-fade-up">
-
-            <!-- Brand -->
-            <div style="display:flex; align-items:center; gap:10px;">
-                <div class="logo-icon">
-                    <i class="fa-solid fa-leaf" style="color:white;"></i>
-                </div>
-                <span class="logo-text">Nutri<span>Fit</span></span>
-            </div>
 
             <!-- Header Profil -->
             <div class="card">

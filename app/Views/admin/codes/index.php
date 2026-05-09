@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Activites</title>
+    <title>Admin Codes</title>
     <link rel="stylesheet" href="/assets/css/style.css">
     <link rel="stylesheet" href="/assets/css/all.min.css">
 </head>
@@ -22,20 +22,20 @@
 
 <div id="pageContent">
     <div class="page-header">
-    <div class="header-title">
-      <div class="logo-icon" style="background: var(--primary);">
-        <i class="fa-solid fa-dumbbell" style="color:white;"></i>
-      </div>
-      <div>
-        <h2>Activites sportives</h2>
-        <p class="text-muted">Gestion des activites disponibles.</p>
-      </div>
-    </div>
-    <div class="header-actions">
-      <a href="/admin/sports/new" class="btn btn-primary">
-        <i class="fa-solid fa-plus"></i> Nouvelle activite
-      </a>
-    </div>
+        <div class="header-title">
+            <div class="logo-icon" style="background: var(--primary);">
+                <i class="fa-solid fa-ticket" style="color:white;"></i>
+            </div>
+            <div>
+                <h2>Codes de credit</h2>
+                <p class="text-muted">Creation et suivi des codes.</p>
+            </div>
+        </div>
+        <div class="header-actions">
+            <a href="/admin/codes/new" class="btn btn-primary">
+                <i class="fa-solid fa-plus"></i> Nouveau code
+            </a>
+        </div>
     </div>
 
     <?php if (session()->getFlashdata('error')): ?>
@@ -53,24 +53,28 @@
     <?php endif; ?>
 
     <div class="card">
-      <div class="card-body" style="padding:0;">
-        <div class="table-wrapper">
-          <table class="table">
+        <div class="card-body" style="padding:0;">
+            <div class="table-wrapper">
+              <table class="table">
                 <thead>
                     <tr>
-                      <th>Nom</th>
-                      <th>Actions</th>
+                        <th>Code</th>
+                        <th>Montant</th>
+                        <th>Statut</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
-                <?php if (!empty($sports)): ?>
-                    <?php foreach ($sports as $s): ?>
+                <?php if (!empty($codes)): ?>
+                    <?php foreach ($codes as $c): ?>
                     <tr>
-                        <td><?php echo esc($s['nom']); ?></td>
+                        <td><?php echo esc($c['valeur']); ?></td>
+                        <td><?php echo esc($c['montant']); ?></td>
+                        <td>
+                            <?php echo $c['status'] === 'used' ? 'Utilise' : 'Disponible'; ?>
+                        </td>
                         <td class="table-actions">
-                            <a href="/admin/sports/<?php echo $s['id']; ?>" class="btn btn-outline btn-sm">Voir</a>
-                            <a href="/admin/sports/<?php echo $s['id']; ?>/edit" class="btn btn-outline btn-sm">Modifier</a>
-                            <form method="post" action="/admin/sports/<?php echo $s['id']; ?>/delete" onsubmit="return confirm('Supprimer cette activite ?');">
+                            <form method="post" action="/admin/codes/<?php echo $c['id']; ?>/delete" onsubmit="return confirm('Supprimer ce code ?');">
                                 <button type="submit" class="btn btn-danger btn-sm">Supprimer</button>
                             </form>
                         </td>
@@ -78,12 +82,12 @@
                     <?php endforeach; ?>
                 <?php else: ?>
                     <tr>
-                        <td colspan="2" style="text-align:center; padding:1rem;">Aucune activite.</td>
+                        <td colspan="4" style="text-align:center; padding:1rem;">Aucun code.</td>
                     </tr>
                 <?php endif; ?>
                 </tbody>
-                </table>
-              </div>
+              </table>
+            </div>
         </div>
     </div>
 </div>
@@ -91,7 +95,7 @@
 <script src="/assets/js/app.js"></script>
 <script src="/assets/js/layout.js"></script>
 <script>
-  NF_LAYOUT.inject('admin-sports', 'Administration', 'Activites');
+  NF_LAYOUT.inject('admin-codes', 'Administration', 'Codes');
   const mc = document.getElementById('mainContent');
   const content = document.getElementById('pageContent');
   if (mc && content) {

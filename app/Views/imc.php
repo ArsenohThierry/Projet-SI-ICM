@@ -193,8 +193,8 @@
             <div class="card-header">
                 <h3><i class="fa-solid fa-calculator" style="color:var(--primary); margin-right:8px;"></i>Calculer votre IMC</h3>
             </div>
-            <div class="card-body" style="display:flex; flex-direction:column; gap:1rem;">
-                <form method="post" action="/imc" style="display:flex; flex-direction:column; gap:1rem;">
+            <div class="card-body">
+                <form method="post" action="/imc" class="form-stack">
                     <div class="form-group">
                         <label class="form-label">Taille (cm)</label>
                         <div class="input-wrapper">
@@ -209,10 +209,12 @@
                             <input type="number" class="form-control" name="poids" placeholder="72" min="20" max="300" required>
                         </div>
                     </div>
-                    <button class="btn btn-primary btn-block" type="submit">
-                        <i class="fa-solid fa-weight-scale"></i>
-                        Calculer
-                    </button>
+                    <div class="form-actions" style="justify-content:stretch;">
+                        <button class="btn btn-primary btn-block" type="submit">
+                            <i class="fa-solid fa-weight-scale"></i>
+                            Calculer
+                        </button>
+                    </div>
                 </form>
             </div>
         </div>

@@ -22,11 +22,18 @@
 
 <div id="pageContent">
     <div class="page-header">
-        <div>
-            <h2>Ajouter un regime</h2>
-            <p class="text-muted">Definir les proportions et le prix.</p>
+        <div class="header-title">
+            <div class="logo-icon" style="background: var(--primary);">
+                <i class="fa-solid fa-plus" style="color:white;"></i>
+            </div>
+            <div>
+                <h2>Ajouter un regime</h2>
+                <p class="text-muted">Definir les proportions et le prix.</p>
+            </div>
         </div>
-        <a href="/admin/regimes" class="btn btn-outline">Retour</a>
+        <div class="header-actions">
+            <a href="/admin/regimes" class="btn btn-outline">Retour</a>
+        </div>
     </div>
 
     <?php $errors = session()->getFlashdata('errors') ?? []; ?>
@@ -38,8 +45,11 @@
     <?php endif; ?>
 
     <div class="card">
+        <div class="card-header">
+            <h3>Informations principales</h3>
+        </div>
         <div class="card-body">
-            <form method="post" action="/admin/regimes">
+            <form method="post" action="/admin/regimes" class="form-stack">
                 <div class="form-group">
                     <label class="form-label">Nom</label>
                     <input class="form-control" name="nom" value="<?php echo esc(old('nom')); ?>" required>
@@ -68,7 +78,10 @@
                         <input type="number" class="form-control" name="variation_poids" value="<?php echo esc(old('variation_poids')); ?>" required>
                     </div>
                 </div>
-                <button class="btn btn-primary" type="submit">Enregistrer</button>
+                <div class="form-actions">
+                    <a href="/admin/regimes" class="btn btn-outline">Annuler</a>
+                    <button class="btn btn-primary" type="submit">Enregistrer</button>
+                </div>
             </form>
         </div>
     </div>

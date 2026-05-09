@@ -336,6 +336,12 @@ select.form-control {
 }
 
 .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.form-group { display: flex; flex-direction: column; gap: 0.45rem; margin-bottom: 0.75rem; }
+.form-stack { display: flex; flex-direction: column; gap: 1rem; }
+.form-actions { display: flex; gap: 0.75rem; justify-content: flex-end; margin-top: 0.5rem; flex-wrap: wrap; }
+
+.page-header .header-title { display: flex; align-items: center; gap: 0.75rem; }
+.page-header .header-actions { display: flex; gap: 0.6rem; align-items: center; flex-wrap: wrap; }
 
 /* Radio / Checkbox Pill */
 .pill-group { display: flex; gap: 0.5rem; flex-wrap: wrap; }
@@ -401,6 +407,8 @@ select.form-control {
 }
 
 .table-actions { display: flex; gap: 0.4rem; }
+.page-header { display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+.page-header .text-muted { margin: 0; }
 
 /* ── Sidebar ── */
 .sidebar {

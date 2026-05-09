@@ -48,6 +48,10 @@ class AuthController extends BaseController
         $plan = $this->getUserPlan((int) $user['id']);
         $this->setUserSession($user, $plan);
 
+        if (($user['role_user'] ?? 'user') === 'admin') {
+            return redirect()->to('/admin/regimes');
+        }
+
         return redirect()->to('/imc');
     }
 

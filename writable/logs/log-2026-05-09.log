@@ -156,3 +156,525 @@ in SYSTEMPATH/Exceptions/FrameworkException.php on line 39.
  7 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
  8 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
  9 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2026-05-09 15:37:40 --> Error connecting to the database: mysqli_sql_exception: Access denied for user 'admin'@'localhost' (using password: YES) in C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Database\MySQLi\Connection.php:201
+Stack trace:
+#0 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Database\MySQLi\Connection.php(201): mysqli->real_connect('localhost', 'admin', Object(SensitiveParameterValue), 'regime', 3306, '', 0)
+#1 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Database\BaseConnection.php(555): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#2 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Database\BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+#3 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Model.php(192): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\BaseModel.php(615): CodeIgniter\Model->doFind(true, 4)
+#6 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\app\Models\UserModel.php(36): CodeIgniter\BaseModel->find(4)
+#7 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\app\Controllers\UserController.php(83): App\Models\UserModel->getUserById(4)
+#8 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\app\Controllers\UserController.php(13): App\Controllers\UserController->getSessionUser()
+#9 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\CodeIgniter.php(951): App\Controllers\UserController->imcForm()
+#10 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UserController))
+#11 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#12 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Boot.php(417): CodeIgniter\CodeIgniter->run()
+#13 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#14 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#15 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\rewrite.php(44): require_once('C:\\Users\\USER\\D...')
+#16 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Access denied for user '****'@'localhost' (using password: YES) in C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Database\MySQLi\Connection.php:231
+Stack trace:
+#0 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Database\BaseConnection.php(555): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#1 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Database\BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+#2 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#3 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Model.php(192): CodeIgniter\Database\BaseBuilder->get()
+#4 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\BaseModel.php(615): CodeIgniter\Model->doFind(true, 4)
+#5 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\app\Models\UserModel.php(36): CodeIgniter\BaseModel->find(4)
+#6 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\app\Controllers\UserController.php(83): App\Models\UserModel->getUserById(4)
+#7 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\app\Controllers\UserController.php(13): App\Controllers\UserController->getSessionUser()
+#8 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\CodeIgniter.php(951): App\Controllers\UserController->imcForm()
+#9 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UserController))
+#10 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Boot.php(417): CodeIgniter\CodeIgniter->run()
+#12 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\rewrite.php(44): require_once('C:\\Users\\USER\\D...')
+#15 {main}
+CRITICAL - 2026-05-09 15:37:40 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [MySQLi]: Access denied for user '****'@'localhost' (using password: YES)
+[Method: GET, Route: imc]
+in SYSTEMPATH\Database\BaseConnection.php on line 606.
+ 1 SYSTEMPATH\Database\BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `user`
+WHERE `user`.`id` = :user.id:', [...], false)
+ 3 SYSTEMPATH\Model.php(192): CodeIgniter\Database\BaseBuilder->get()
+ 4 SYSTEMPATH\BaseModel.php(615): CodeIgniter\Model->doFind(true, 4)
+ 5 APPPATH\Models\UserModel.php(36): CodeIgniter\BaseModel->find(4)
+ 6 APPPATH\Controllers\UserController.php(83): App\Models\UserModel->getUserById(4)
+ 7 APPPATH\Controllers\UserController.php(13): App\Controllers\UserController->getSessionUser()
+ 8 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\UserController->imcForm()
+ 9 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UserController))
+10 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+14 SYSTEMPATH\rewrite.php(44): require_once('C:\\Users\\USER\\Desktop\\L2\\S4\\SI\\3-IMC\\Projet-SI-ICM\\public\\index.php')
+ERROR - 2026-05-09 15:38:04 --> Error connecting to the database: mysqli_sql_exception: Access denied for user 'admin'@'localhost' (using password: YES) in C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Database\MySQLi\Connection.php:201
+Stack trace:
+#0 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Database\MySQLi\Connection.php(201): mysqli->real_connect('localhost', 'admin', Object(SensitiveParameterValue), 'regime', 3306, '', 0)
+#1 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Database\BaseConnection.php(555): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#2 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Database\BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+#3 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Model.php(192): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\BaseModel.php(615): CodeIgniter\Model->doFind(true, 4)
+#6 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\app\Models\UserModel.php(36): CodeIgniter\BaseModel->find(4)
+#7 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\app\Controllers\UserController.php(83): App\Models\UserModel->getUserById(4)
+#8 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\app\Controllers\UserController.php(13): App\Controllers\UserController->getSessionUser()
+#9 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\CodeIgniter.php(951): App\Controllers\UserController->imcForm()
+#10 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UserController))
+#11 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#12 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Boot.php(417): CodeIgniter\CodeIgniter->run()
+#13 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#14 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#15 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\rewrite.php(44): require_once('C:\\Users\\USER\\D...')
+#16 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Access denied for user '****'@'localhost' (using password: YES) in C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Database\MySQLi\Connection.php:231
+Stack trace:
+#0 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Database\BaseConnection.php(555): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#1 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Database\BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+#2 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#3 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Model.php(192): CodeIgniter\Database\BaseBuilder->get()
+#4 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\BaseModel.php(615): CodeIgniter\Model->doFind(true, 4)
+#5 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\app\Models\UserModel.php(36): CodeIgniter\BaseModel->find(4)
+#6 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\app\Controllers\UserController.php(83): App\Models\UserModel->getUserById(4)
+#7 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\app\Controllers\UserController.php(13): App\Controllers\UserController->getSessionUser()
+#8 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\CodeIgniter.php(951): App\Controllers\UserController->imcForm()
+#9 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UserController))
+#10 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Boot.php(417): CodeIgniter\CodeIgniter->run()
+#12 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\rewrite.php(44): require_once('C:\\Users\\USER\\D...')
+#15 {main}
+CRITICAL - 2026-05-09 15:38:04 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [MySQLi]: Access denied for user '****'@'localhost' (using password: YES)
+[Method: GET, Route: imc]
+in SYSTEMPATH\Database\BaseConnection.php on line 606.
+ 1 SYSTEMPATH\Database\BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `user`
+WHERE `user`.`id` = :user.id:', [...], false)
+ 3 SYSTEMPATH\Model.php(192): CodeIgniter\Database\BaseBuilder->get()
+ 4 SYSTEMPATH\BaseModel.php(615): CodeIgniter\Model->doFind(true, 4)
+ 5 APPPATH\Models\UserModel.php(36): CodeIgniter\BaseModel->find(4)
+ 6 APPPATH\Controllers\UserController.php(83): App\Models\UserModel->getUserById(4)
+ 7 APPPATH\Controllers\UserController.php(13): App\Controllers\UserController->getSessionUser()
+ 8 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\UserController->imcForm()
+ 9 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UserController))
+10 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+14 SYSTEMPATH\rewrite.php(44): require_once('C:\\Users\\USER\\Desktop\\L2\\S4\\SI\\3-IMC\\Projet-SI-ICM\\public\\index.php')
+ERROR - 2026-05-09 15:38:05 --> Error connecting to the database: mysqli_sql_exception: Access denied for user 'admin'@'localhost' (using password: YES) in C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Database\MySQLi\Connection.php:201
+Stack trace:
+#0 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Database\MySQLi\Connection.php(201): mysqli->real_connect('localhost', 'admin', Object(SensitiveParameterValue), 'regime', 3306, '', 0)
+#1 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Database\BaseConnection.php(555): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#2 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Database\BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+#3 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Model.php(192): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\BaseModel.php(615): CodeIgniter\Model->doFind(true, 4)
+#6 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\app\Models\UserModel.php(36): CodeIgniter\BaseModel->find(4)
+#7 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\app\Controllers\UserController.php(83): App\Models\UserModel->getUserById(4)
+#8 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\app\Controllers\UserController.php(13): App\Controllers\UserController->getSessionUser()
+#9 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\CodeIgniter.php(951): App\Controllers\UserController->imcForm()
+#10 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UserController))
+#11 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#12 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Boot.php(417): CodeIgniter\CodeIgniter->run()
+#13 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#14 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#15 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\rewrite.php(44): require_once('C:\\Users\\USER\\D...')
+#16 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Access denied for user '****'@'localhost' (using password: YES) in C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Database\MySQLi\Connection.php:231
+Stack trace:
+#0 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Database\BaseConnection.php(555): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#1 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Database\BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+#2 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#3 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Model.php(192): CodeIgniter\Database\BaseBuilder->get()
+#4 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\BaseModel.php(615): CodeIgniter\Model->doFind(true, 4)
+#5 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\app\Models\UserModel.php(36): CodeIgniter\BaseModel->find(4)
+#6 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\app\Controllers\UserController.php(83): App\Models\UserModel->getUserById(4)
+#7 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\app\Controllers\UserController.php(13): App\Controllers\UserController->getSessionUser()
+#8 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\CodeIgniter.php(951): App\Controllers\UserController->imcForm()
+#9 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UserController))
+#10 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Boot.php(417): CodeIgniter\CodeIgniter->run()
+#12 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\rewrite.php(44): require_once('C:\\Users\\USER\\D...')
+#15 {main}
+CRITICAL - 2026-05-09 15:38:05 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [MySQLi]: Access denied for user '****'@'localhost' (using password: YES)
+[Method: GET, Route: imc]
+in SYSTEMPATH\Database\BaseConnection.php on line 606.
+ 1 SYSTEMPATH\Database\BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `user`
+WHERE `user`.`id` = :user.id:', [...], false)
+ 3 SYSTEMPATH\Model.php(192): CodeIgniter\Database\BaseBuilder->get()
+ 4 SYSTEMPATH\BaseModel.php(615): CodeIgniter\Model->doFind(true, 4)
+ 5 APPPATH\Models\UserModel.php(36): CodeIgniter\BaseModel->find(4)
+ 6 APPPATH\Controllers\UserController.php(83): App\Models\UserModel->getUserById(4)
+ 7 APPPATH\Controllers\UserController.php(13): App\Controllers\UserController->getSessionUser()
+ 8 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\UserController->imcForm()
+ 9 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UserController))
+10 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+14 SYSTEMPATH\rewrite.php(44): require_once('C:\\Users\\USER\\Desktop\\L2\\S4\\SI\\3-IMC\\Projet-SI-ICM\\public\\index.php')
+ERROR - 2026-05-09 15:38:05 --> Error connecting to the database: mysqli_sql_exception: Access denied for user 'admin'@'localhost' (using password: YES) in C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Database\MySQLi\Connection.php:201
+Stack trace:
+#0 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Database\MySQLi\Connection.php(201): mysqli->real_connect('localhost', 'admin', Object(SensitiveParameterValue), 'regime', 3306, '', 0)
+#1 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Database\BaseConnection.php(555): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#2 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Database\BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+#3 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Model.php(192): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\BaseModel.php(615): CodeIgniter\Model->doFind(true, 4)
+#6 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\app\Models\UserModel.php(36): CodeIgniter\BaseModel->find(4)
+#7 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\app\Controllers\UserController.php(83): App\Models\UserModel->getUserById(4)
+#8 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\app\Controllers\UserController.php(13): App\Controllers\UserController->getSessionUser()
+#9 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\CodeIgniter.php(951): App\Controllers\UserController->imcForm()
+#10 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UserController))
+#11 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#12 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Boot.php(417): CodeIgniter\CodeIgniter->run()
+#13 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#14 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#15 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\rewrite.php(44): require_once('C:\\Users\\USER\\D...')
+#16 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Access denied for user '****'@'localhost' (using password: YES) in C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Database\MySQLi\Connection.php:231
+Stack trace:
+#0 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Database\BaseConnection.php(555): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#1 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Database\BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+#2 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#3 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Model.php(192): CodeIgniter\Database\BaseBuilder->get()
+#4 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\BaseModel.php(615): CodeIgniter\Model->doFind(true, 4)
+#5 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\app\Models\UserModel.php(36): CodeIgniter\BaseModel->find(4)
+#6 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\app\Controllers\UserController.php(83): App\Models\UserModel->getUserById(4)
+#7 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\app\Controllers\UserController.php(13): App\Controllers\UserController->getSessionUser()
+#8 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\CodeIgniter.php(951): App\Controllers\UserController->imcForm()
+#9 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UserController))
+#10 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Boot.php(417): CodeIgniter\CodeIgniter->run()
+#12 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\rewrite.php(44): require_once('C:\\Users\\USER\\D...')
+#15 {main}
+CRITICAL - 2026-05-09 15:38:05 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [MySQLi]: Access denied for user '****'@'localhost' (using password: YES)
+[Method: GET, Route: imc]
+in SYSTEMPATH\Database\BaseConnection.php on line 606.
+ 1 SYSTEMPATH\Database\BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `user`
+WHERE `user`.`id` = :user.id:', [...], false)
+ 3 SYSTEMPATH\Model.php(192): CodeIgniter\Database\BaseBuilder->get()
+ 4 SYSTEMPATH\BaseModel.php(615): CodeIgniter\Model->doFind(true, 4)
+ 5 APPPATH\Models\UserModel.php(36): CodeIgniter\BaseModel->find(4)
+ 6 APPPATH\Controllers\UserController.php(83): App\Models\UserModel->getUserById(4)
+ 7 APPPATH\Controllers\UserController.php(13): App\Controllers\UserController->getSessionUser()
+ 8 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\UserController->imcForm()
+ 9 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UserController))
+10 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+14 SYSTEMPATH\rewrite.php(44): require_once('C:\\Users\\USER\\Desktop\\L2\\S4\\SI\\3-IMC\\Projet-SI-ICM\\public\\index.php')
+ERROR - 2026-05-09 15:38:05 --> Error connecting to the database: mysqli_sql_exception: Access denied for user 'admin'@'localhost' (using password: YES) in C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Database\MySQLi\Connection.php:201
+Stack trace:
+#0 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Database\MySQLi\Connection.php(201): mysqli->real_connect('localhost', 'admin', Object(SensitiveParameterValue), 'regime', 3306, '', 0)
+#1 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Database\BaseConnection.php(555): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#2 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Database\BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+#3 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Model.php(192): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\BaseModel.php(615): CodeIgniter\Model->doFind(true, 4)
+#6 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\app\Models\UserModel.php(36): CodeIgniter\BaseModel->find(4)
+#7 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\app\Controllers\UserController.php(83): App\Models\UserModel->getUserById(4)
+#8 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\app\Controllers\UserController.php(13): App\Controllers\UserController->getSessionUser()
+#9 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\CodeIgniter.php(951): App\Controllers\UserController->imcForm()
+#10 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UserController))
+#11 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#12 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Boot.php(417): CodeIgniter\CodeIgniter->run()
+#13 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#14 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#15 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\rewrite.php(44): require_once('C:\\Users\\USER\\D...')
+#16 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Access denied for user '****'@'localhost' (using password: YES) in C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Database\MySQLi\Connection.php:231
+Stack trace:
+#0 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Database\BaseConnection.php(555): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#1 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Database\BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+#2 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#3 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Model.php(192): CodeIgniter\Database\BaseBuilder->get()
+#4 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\BaseModel.php(615): CodeIgniter\Model->doFind(true, 4)
+#5 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\app\Models\UserModel.php(36): CodeIgniter\BaseModel->find(4)
+#6 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\app\Controllers\UserController.php(83): App\Models\UserModel->getUserById(4)
+#7 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\app\Controllers\UserController.php(13): App\Controllers\UserController->getSessionUser()
+#8 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\CodeIgniter.php(951): App\Controllers\UserController->imcForm()
+#9 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UserController))
+#10 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Boot.php(417): CodeIgniter\CodeIgniter->run()
+#12 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\rewrite.php(44): require_once('C:\\Users\\USER\\D...')
+#15 {main}
+CRITICAL - 2026-05-09 15:38:05 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [MySQLi]: Access denied for user '****'@'localhost' (using password: YES)
+[Method: GET, Route: imc]
+in SYSTEMPATH\Database\BaseConnection.php on line 606.
+ 1 SYSTEMPATH\Database\BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `user`
+WHERE `user`.`id` = :user.id:', [...], false)
+ 3 SYSTEMPATH\Model.php(192): CodeIgniter\Database\BaseBuilder->get()
+ 4 SYSTEMPATH\BaseModel.php(615): CodeIgniter\Model->doFind(true, 4)
+ 5 APPPATH\Models\UserModel.php(36): CodeIgniter\BaseModel->find(4)
+ 6 APPPATH\Controllers\UserController.php(83): App\Models\UserModel->getUserById(4)
+ 7 APPPATH\Controllers\UserController.php(13): App\Controllers\UserController->getSessionUser()
+ 8 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\UserController->imcForm()
+ 9 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UserController))
+10 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+14 SYSTEMPATH\rewrite.php(44): require_once('C:\\Users\\USER\\Desktop\\L2\\S4\\SI\\3-IMC\\Projet-SI-ICM\\public\\index.php')
+ERROR - 2026-05-09 15:42:01 --> Error connecting to the database: mysqli_sql_exception: Access denied for user 'admin'@'localhost' (using password: YES) in C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Database\MySQLi\Connection.php:201
+Stack trace:
+#0 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Database\MySQLi\Connection.php(201): mysqli->real_connect('localhost', 'admin', Object(SensitiveParameterValue), 'regime', 3306, '', 0)
+#1 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Database\BaseConnection.php(555): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#2 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Database\BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+#3 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Model.php(192): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\BaseModel.php(615): CodeIgniter\Model->doFind(true, 4)
+#6 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\app\Models\UserModel.php(36): CodeIgniter\BaseModel->find(4)
+#7 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\app\Controllers\CodeController.php(49): App\Models\UserModel->getUserById(4)
+#8 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\app\Controllers\CodeController.php(12): App\Controllers\CodeController->getSessionUser()
+#9 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\CodeIgniter.php(951): App\Controllers\CodeController->redeemForm()
+#10 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\CodeController))
+#11 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#12 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Boot.php(417): CodeIgniter\CodeIgniter->run()
+#13 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#14 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#15 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\rewrite.php(44): require_once('C:\\Users\\USER\\D...')
+#16 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Access denied for user '****'@'localhost' (using password: YES) in C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Database\MySQLi\Connection.php:231
+Stack trace:
+#0 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Database\BaseConnection.php(555): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#1 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Database\BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+#2 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#3 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Model.php(192): CodeIgniter\Database\BaseBuilder->get()
+#4 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\BaseModel.php(615): CodeIgniter\Model->doFind(true, 4)
+#5 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\app\Models\UserModel.php(36): CodeIgniter\BaseModel->find(4)
+#6 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\app\Controllers\CodeController.php(49): App\Models\UserModel->getUserById(4)
+#7 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\app\Controllers\CodeController.php(12): App\Controllers\CodeController->getSessionUser()
+#8 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\CodeIgniter.php(951): App\Controllers\CodeController->redeemForm()
+#9 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\CodeController))
+#10 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Boot.php(417): CodeIgniter\CodeIgniter->run()
+#12 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\rewrite.php(44): require_once('C:\\Users\\USER\\D...')
+#15 {main}
+CRITICAL - 2026-05-09 15:42:01 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [MySQLi]: Access denied for user '****'@'localhost' (using password: YES)
+[Method: GET, Route: codes/redeem]
+in SYSTEMPATH\Database\BaseConnection.php on line 606.
+ 1 SYSTEMPATH\Database\BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `user`
+WHERE `user`.`id` = :user.id:', [...], false)
+ 3 SYSTEMPATH\Model.php(192): CodeIgniter\Database\BaseBuilder->get()
+ 4 SYSTEMPATH\BaseModel.php(615): CodeIgniter\Model->doFind(true, 4)
+ 5 APPPATH\Models\UserModel.php(36): CodeIgniter\BaseModel->find(4)
+ 6 APPPATH\Controllers\CodeController.php(49): App\Models\UserModel->getUserById(4)
+ 7 APPPATH\Controllers\CodeController.php(12): App\Controllers\CodeController->getSessionUser()
+ 8 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\CodeController->redeemForm()
+ 9 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\CodeController))
+10 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+14 SYSTEMPATH\rewrite.php(44): require_once('C:\\Users\\USER\\Desktop\\L2\\S4\\SI\\3-IMC\\Projet-SI-ICM\\public\\index.php')
+ERROR - 2026-05-09 15:42:26 --> Error connecting to the database: mysqli_sql_exception: Access denied for user 'admin'@'localhost' (using password: YES) in C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Database\MySQLi\Connection.php:201
+Stack trace:
+#0 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Database\MySQLi\Connection.php(201): mysqli->real_connect('localhost', 'admin', Object(SensitiveParameterValue), 'regime', 3306, '', 0)
+#1 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Database\BaseConnection.php(555): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#2 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Database\BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+#3 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Model.php(192): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\BaseModel.php(615): CodeIgniter\Model->doFind(true, 4)
+#6 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\app\Models\UserModel.php(36): CodeIgniter\BaseModel->find(4)
+#7 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\app\Controllers\CodeController.php(49): App\Models\UserModel->getUserById(4)
+#8 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\app\Controllers\CodeController.php(12): App\Controllers\CodeController->getSessionUser()
+#9 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\CodeIgniter.php(951): App\Controllers\CodeController->redeemForm()
+#10 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\CodeController))
+#11 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#12 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Boot.php(417): CodeIgniter\CodeIgniter->run()
+#13 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#14 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#15 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\rewrite.php(44): require_once('C:\\Users\\USER\\D...')
+#16 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Access denied for user '****'@'localhost' (using password: YES) in C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Database\MySQLi\Connection.php:231
+Stack trace:
+#0 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Database\BaseConnection.php(555): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#1 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Database\BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+#2 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#3 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Model.php(192): CodeIgniter\Database\BaseBuilder->get()
+#4 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\BaseModel.php(615): CodeIgniter\Model->doFind(true, 4)
+#5 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\app\Models\UserModel.php(36): CodeIgniter\BaseModel->find(4)
+#6 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\app\Controllers\CodeController.php(49): App\Models\UserModel->getUserById(4)
+#7 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\app\Controllers\CodeController.php(12): App\Controllers\CodeController->getSessionUser()
+#8 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\CodeIgniter.php(951): App\Controllers\CodeController->redeemForm()
+#9 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\CodeController))
+#10 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Boot.php(417): CodeIgniter\CodeIgniter->run()
+#12 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\rewrite.php(44): require_once('C:\\Users\\USER\\D...')
+#15 {main}
+CRITICAL - 2026-05-09 15:42:26 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [MySQLi]: Access denied for user '****'@'localhost' (using password: YES)
+[Method: GET, Route: codes/redeem]
+in SYSTEMPATH\Database\BaseConnection.php on line 606.
+ 1 SYSTEMPATH\Database\BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `user`
+WHERE `user`.`id` = :user.id:', [...], false)
+ 3 SYSTEMPATH\Model.php(192): CodeIgniter\Database\BaseBuilder->get()
+ 4 SYSTEMPATH\BaseModel.php(615): CodeIgniter\Model->doFind(true, 4)
+ 5 APPPATH\Models\UserModel.php(36): CodeIgniter\BaseModel->find(4)
+ 6 APPPATH\Controllers\CodeController.php(49): App\Models\UserModel->getUserById(4)
+ 7 APPPATH\Controllers\CodeController.php(12): App\Controllers\CodeController->getSessionUser()
+ 8 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\CodeController->redeemForm()
+ 9 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\CodeController))
+10 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+14 SYSTEMPATH\rewrite.php(44): require_once('C:\\Users\\USER\\Desktop\\L2\\S4\\SI\\3-IMC\\Projet-SI-ICM\\public\\index.php')
+ERROR - 2026-05-09 15:42:26 --> Error connecting to the database: mysqli_sql_exception: Access denied for user 'admin'@'localhost' (using password: YES) in C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Database\MySQLi\Connection.php:201
+Stack trace:
+#0 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Database\MySQLi\Connection.php(201): mysqli->real_connect('localhost', 'admin', Object(SensitiveParameterValue), 'regime', 3306, '', 0)
+#1 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Database\BaseConnection.php(555): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#2 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Database\BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+#3 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Model.php(192): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\BaseModel.php(615): CodeIgniter\Model->doFind(true, 4)
+#6 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\app\Models\UserModel.php(36): CodeIgniter\BaseModel->find(4)
+#7 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\app\Controllers\CodeController.php(49): App\Models\UserModel->getUserById(4)
+#8 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\app\Controllers\CodeController.php(12): App\Controllers\CodeController->getSessionUser()
+#9 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\CodeIgniter.php(951): App\Controllers\CodeController->redeemForm()
+#10 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\CodeController))
+#11 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#12 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Boot.php(417): CodeIgniter\CodeIgniter->run()
+#13 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#14 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#15 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\rewrite.php(44): require_once('C:\\Users\\USER\\D...')
+#16 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Access denied for user '****'@'localhost' (using password: YES) in C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Database\MySQLi\Connection.php:231
+Stack trace:
+#0 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Database\BaseConnection.php(555): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#1 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Database\BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+#2 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#3 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Model.php(192): CodeIgniter\Database\BaseBuilder->get()
+#4 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\BaseModel.php(615): CodeIgniter\Model->doFind(true, 4)
+#5 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\app\Models\UserModel.php(36): CodeIgniter\BaseModel->find(4)
+#6 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\app\Controllers\CodeController.php(49): App\Models\UserModel->getUserById(4)
+#7 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\app\Controllers\CodeController.php(12): App\Controllers\CodeController->getSessionUser()
+#8 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\CodeIgniter.php(951): App\Controllers\CodeController->redeemForm()
+#9 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\CodeController))
+#10 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Boot.php(417): CodeIgniter\CodeIgniter->run()
+#12 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\rewrite.php(44): require_once('C:\\Users\\USER\\D...')
+#15 {main}
+CRITICAL - 2026-05-09 15:42:26 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [MySQLi]: Access denied for user '****'@'localhost' (using password: YES)
+[Method: GET, Route: codes/redeem]
+in SYSTEMPATH\Database\BaseConnection.php on line 606.
+ 1 SYSTEMPATH\Database\BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `user`
+WHERE `user`.`id` = :user.id:', [...], false)
+ 3 SYSTEMPATH\Model.php(192): CodeIgniter\Database\BaseBuilder->get()
+ 4 SYSTEMPATH\BaseModel.php(615): CodeIgniter\Model->doFind(true, 4)
+ 5 APPPATH\Models\UserModel.php(36): CodeIgniter\BaseModel->find(4)
+ 6 APPPATH\Controllers\CodeController.php(49): App\Models\UserModel->getUserById(4)
+ 7 APPPATH\Controllers\CodeController.php(12): App\Controllers\CodeController->getSessionUser()
+ 8 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\CodeController->redeemForm()
+ 9 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\CodeController))
+10 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+14 SYSTEMPATH\rewrite.php(44): require_once('C:\\Users\\USER\\Desktop\\L2\\S4\\SI\\3-IMC\\Projet-SI-ICM\\public\\index.php')
+ERROR - 2026-05-09 15:42:27 --> Error connecting to the database: mysqli_sql_exception: Access denied for user 'admin'@'localhost' (using password: YES) in C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Database\MySQLi\Connection.php:201
+Stack trace:
+#0 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Database\MySQLi\Connection.php(201): mysqli->real_connect('localhost', 'admin', Object(SensitiveParameterValue), 'regime', 3306, '', 0)
+#1 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Database\BaseConnection.php(555): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#2 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Database\BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+#3 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Model.php(192): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\BaseModel.php(615): CodeIgniter\Model->doFind(true, 4)
+#6 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\app\Models\UserModel.php(36): CodeIgniter\BaseModel->find(4)
+#7 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\app\Controllers\CodeController.php(49): App\Models\UserModel->getUserById(4)
+#8 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\app\Controllers\CodeController.php(12): App\Controllers\CodeController->getSessionUser()
+#9 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\CodeIgniter.php(951): App\Controllers\CodeController->redeemForm()
+#10 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\CodeController))
+#11 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#12 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Boot.php(417): CodeIgniter\CodeIgniter->run()
+#13 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#14 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#15 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\rewrite.php(44): require_once('C:\\Users\\USER\\D...')
+#16 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Access denied for user '****'@'localhost' (using password: YES) in C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Database\MySQLi\Connection.php:231
+Stack trace:
+#0 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Database\BaseConnection.php(555): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#1 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Database\BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+#2 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#3 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Model.php(192): CodeIgniter\Database\BaseBuilder->get()
+#4 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\BaseModel.php(615): CodeIgniter\Model->doFind(true, 4)
+#5 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\app\Models\UserModel.php(36): CodeIgniter\BaseModel->find(4)
+#6 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\app\Controllers\CodeController.php(49): App\Models\UserModel->getUserById(4)
+#7 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\app\Controllers\CodeController.php(12): App\Controllers\CodeController->getSessionUser()
+#8 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\CodeIgniter.php(951): App\Controllers\CodeController->redeemForm()
+#9 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\CodeController))
+#10 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Boot.php(417): CodeIgniter\CodeIgniter->run()
+#12 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 C:\Users\USER\Desktop\L2\S4\SI\3-IMC\Projet-SI-ICM\system\rewrite.php(44): require_once('C:\\Users\\USER\\D...')
+#15 {main}
+CRITICAL - 2026-05-09 15:42:27 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [MySQLi]: Access denied for user '****'@'localhost' (using password: YES)
+[Method: GET, Route: codes/redeem]
+in SYSTEMPATH\Database\BaseConnection.php on line 606.
+ 1 SYSTEMPATH\Database\BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `user`
+WHERE `user`.`id` = :user.id:', [...], false)
+ 3 SYSTEMPATH\Model.php(192): CodeIgniter\Database\BaseBuilder->get()
+ 4 SYSTEMPATH\BaseModel.php(615): CodeIgniter\Model->doFind(true, 4)
+ 5 APPPATH\Models\UserModel.php(36): CodeIgniter\BaseModel->find(4)
+ 6 APPPATH\Controllers\CodeController.php(49): App\Models\UserModel->getUserById(4)
+ 7 APPPATH\Controllers\CodeController.php(12): App\Controllers\CodeController->getSessionUser()
+ 8 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\CodeController->redeemForm()
+ 9 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\CodeController))
+10 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+14 SYSTEMPATH\rewrite.php(44): require_once('C:\\Users\\USER\\Desktop\\L2\\S4\\SI\\3-IMC\\Projet-SI-ICM\\public\\index.php')
