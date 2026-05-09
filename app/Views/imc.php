@@ -6,6 +6,7 @@
     <title>Résultat IMC — NutriFit</title>
     <link rel="stylesheet" href="/assets/css/style.css">
     <link rel="stylesheet" href="/assets/css/all.min.css">
+        <link rel="icon" href="/assets/logo.png">
     <style>
         .imc-page {
             min-height: 100vh;
@@ -126,6 +127,7 @@
 </script>
 
 <?php
+    $imc = $imc ?? null;
     $hasResult = isset($imc);
 
     // Calcul de la catégorie IMC

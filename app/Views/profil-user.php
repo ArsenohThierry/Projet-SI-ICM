@@ -7,6 +7,7 @@
     <title>Profil — NutriFit</title>
     <link rel="stylesheet" href="/assets/css/style.css">
     <link rel="stylesheet" href="/assets/css/all.min.css">
+    <link rel="icon" href="/assets/logo.png">
     <style>
         .profile-page {
             min-height: 100vh;
@@ -119,15 +120,15 @@
 
 <body>
 
-<script>
-    window.NF_USER = {
-        prenom: "<?php echo esc($prenom ?? ''); ?>",
-        nom: "<?php echo esc($nom ?? ''); ?>",
-        email: "<?php echo esc($email ?? ''); ?>",
-        role_user: "<?php echo esc($role_user ?? ''); ?>",
-        gold: <?php echo session()->get('user_option') === 'gold' ? 'true' : 'false'; ?>
-    };
-</script>
+    <script>
+        window.NF_USER = {
+            prenom: "<?php echo esc($prenom ?? ''); ?>",
+            nom: "<?php echo esc($nom ?? ''); ?>",
+            email: "<?php echo esc($email ?? ''); ?>",
+            role_user: "<?php echo esc($role_user ?? ''); ?>",
+            gold: <?php echo session()->get('user_option') === 'gold' ? 'true' : 'false'; ?>
+        };
+    </script>
 
     <?php
     /* ============================================================
@@ -139,9 +140,9 @@
     $prenom         = $user['prenom'] ?? '';
     $email          = $user['email'] ?? '';
     $username       = $user['username'] ?? '';
-    $poids_initial  = $user['poids_initial'] ?? 0;   
-    $genre          = $user['genre'] ?? '';           
-    $taille         = $user['taille'] ?? 0;    
+    $poids_initial  = $user['poids_initial'] ?? 0;
+    $genre          = $user['genre'] ?? '';
+    $taille         = $user['taille'] ?? 0;
     $role_user      = $user['role_user'] ?? '';
 
     /* -- Calculs dérivés -- */
@@ -192,139 +193,142 @@
                         <div style="color:var(--text-muted); font-size:0.82rem; margin-top:3px;">
                             <i class="fa-solid fa-hashtag" style="margin-right:5px;"></i>ID : <?php echo $id; ?>
                         </div>
+                        <a href="edit_profil.php" class="btn btn-outline btn-sm" style="flex-shrink:0;">
+                            <i class="fa-solid fa-pen"></i> Modifier
+                        </a>
                     </div>
-                    <a href="edit_profil.php" class="btn btn-outline btn-sm" style="flex-shrink:0;">
-                        <i class="fa-solid fa-pen"></i> Modifier
+                </div>
+
+                <!-- Stats rapides -->
+                <div class="stats-row delay-1 anim-fade-up">
+                    <div class="stat-mini">
+                        <div class="stat-mini-value" style="color:var(--primary);">
+                            <?php echo number_format($poids_initial, 1); ?> <span
+                                style="font-size:1rem; font-weight:500; color:var(--text-muted);">kg</span>
+                        </div>
+                        <div class="stat-mini-label"><i class="fa-solid fa-weight-scale" style="margin-right:4px;"></i>Poids
+                            initial</div>
+                    </div>
+                    <div class="stat-mini">
+                        <div class="stat-mini-value" style="color:var(--info);">
+                            <?php echo number_format($taille, 0); ?> <span
+                                style="font-size:1rem; font-weight:500; color:var(--text-muted);">cm</span>
+                        </div>
+                        <div class="stat-mini-label"><i class="fa-solid fa-ruler-vertical"
+                                style="margin-right:4px;"></i>Taille</div>
+                    </div>
+                    <div class="stat-mini">
+                        <div class="stat-mini-value" style="color:var(--gold);">
+                            <?php echo $imc; ?>
+                        </div>
+                        <div class="stat-mini-label"><i class="fa-solid fa-calculator" style="margin-right:4px;"></i>IMC
+                            calculé</div>
+                    </div>
+                </div>
+
+                <!-- Informations détaillées -->
+                <div class="card delay-2 anim-fade-up">
+                    <div class="card-header">
+                        <h3><i class="fa-solid fa-address-card"
+                                style="color:var(--primary); margin-right:8px;"></i>Informations personnelles</h3>
+                    </div>
+                    <div class="card-body" style="padding-top:0.25rem; padding-bottom:0.25rem;">
+
+                        <div class="info-row">
+                            <div class="info-icon"><i class="fa-solid fa-user"></i></div>
+                            <div style="flex:1;">
+                                <div class="info-label">Prénom</div>
+                                <div class="info-value"><?php echo htmlspecialchars($prenom); ?></div>
+                            </div>
+                        </div>
+
+                        <div class="info-row">
+                            <div class="info-icon"><i class="fa-solid fa-user-tag"></i></div>
+                            <div style="flex:1;">
+                                <div class="info-label">Nom</div>
+                                <div class="info-value"><?php echo htmlspecialchars($nom); ?></div>
+                            </div>
+                        </div>
+
+                        <div class="info-row">
+                            <div class="info-icon"><i class="fa-solid fa-at"></i></div>
+                            <div style="flex:1;">
+                                <div class="info-label">Nom d'utilisateur</div>
+                                <div class="info-value"><?php echo htmlspecialchars($username); ?></div>
+                            </div>
+                        </div>
+
+                        <div class="info-row">
+                            <div class="info-icon"><i class="fa-solid fa-envelope"></i></div>
+                            <div style="flex:1;">
+                                <div class="info-label">Email</div>
+                                <div class="info-value"><?php echo htmlspecialchars($email); ?></div>
+                            </div>
+                        </div>
+
+                        <div class="info-row">
+                            <div class="info-icon"><i class="fa-solid <?php echo $genre_icon; ?>"></i></div>
+                            <div style="flex:1;">
+                                <div class="info-label">Genre</div>
+                                <div class="info-value">
+                                    <span class="badge <?php echo $genre_badge; ?>">
+                                        <i class="fa-solid <?php echo $genre_icon; ?>"></i>
+                                        <?php echo $genre; ?>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="info-row">
+                            <div class="info-icon" style="background:var(--info-light); color:var(--info);">
+                                <i class="fa-solid fa-ruler-vertical"></i>
+                            </div>
+                            <div style="flex:1;">
+                                <div class="info-label">Taille</div>
+                                <div class="info-value"><?php echo number_format($taille, 1); ?> cm</div>
+                            </div>
+                        </div>
+
+                        <div class="info-row">
+                            <div class="info-icon" style="background:var(--gold-light); color:var(--gold-dark);">
+                                <i class="fa-solid fa-weight-scale"></i>
+                            </div>
+                            <div style="flex:1;">
+                                <div class="info-label">Poids initial</div>
+                                <div class="info-value"><?php echo number_format($poids_initial, 1); ?> kg</div>
+                            </div>
+                        </div>
+
+                        <div class="info-row">
+                            <div class="info-icon" style="background:var(--danger-light); color:var(--danger);">
+                                <i class="fa-solid fa-lock"></i>
+                            </div>
+                            <div style="flex:1;">
+                                <div class="info-label">Mot de passe</div>
+                                <div class="info-value" style="letter-spacing:0.2em; color:var(--text-muted);">••••••••
+                                </div>
+                            </div>
+                            <a href="change_password.php" class="btn btn-sm btn-outline">Changer</a>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Actions -->
+                <div style="display:flex; gap:1rem;" class="delay-3 anim-fade-up">
+
+                    <a href="/profile/export-pdf" class="btn btn-outline" style="flex:1;">
+                        <i class="fa-solid fa-file-pdf"></i> Exporter en PDF
+                    </a>
+
+                    <a href="/logout" class="btn btn-danger" style="flex:1;">
+                        <i class="fa-solid fa-right-from-bracket"></i> Deconnexion
                     </a>
                 </div>
-            </div>
 
-            <!-- Stats rapides -->
-            <div class="stats-row delay-1 anim-fade-up">
-                <div class="stat-mini">
-                    <div class="stat-mini-value" style="color:var(--primary);">
-                        <?php echo number_format($poids_initial, 1); ?> <span
-                            style="font-size:1rem; font-weight:500; color:var(--text-muted);">kg</span>
-                    </div>
-                    <div class="stat-mini-label"><i class="fa-solid fa-weight-scale" style="margin-right:4px;"></i>Poids
-                        initial</div>
-                </div>
-                <div class="stat-mini">
-                    <div class="stat-mini-value" style="color:var(--info);">
-                        <?php echo number_format($taille, 0); ?> <span
-                            style="font-size:1rem; font-weight:500; color:var(--text-muted);">cm</span>
-                    </div>
-                    <div class="stat-mini-label"><i class="fa-solid fa-ruler-vertical"
-                            style="margin-right:4px;"></i>Taille</div>
-                </div>
-                <div class="stat-mini">
-                    <div class="stat-mini-value" style="color:var(--gold);">
-                        <?php echo $imc; ?>
-                    </div>
-                    <div class="stat-mini-label"><i class="fa-solid fa-calculator" style="margin-right:4px;"></i>IMC
-                        calculé</div>
-                </div>
-            </div>
-
-            <!-- Informations détaillées -->
-            <div class="card delay-2 anim-fade-up">
-                <div class="card-header">
-                    <h3><i class="fa-solid fa-address-card"
-                            style="color:var(--primary); margin-right:8px;"></i>Informations personnelles</h3>
-                </div>
-                <div class="card-body" style="padding-top:0.25rem; padding-bottom:0.25rem;">
-
-                    <div class="info-row">
-                        <div class="info-icon"><i class="fa-solid fa-user"></i></div>
-                        <div style="flex:1;">
-                            <div class="info-label">Prénom</div>
-                            <div class="info-value"><?php echo htmlspecialchars($prenom); ?></div>
-                        </div>
-                    </div>
-
-                    <div class="info-row">
-                        <div class="info-icon"><i class="fa-solid fa-user-tag"></i></div>
-                        <div style="flex:1;">
-                            <div class="info-label">Nom</div>
-                            <div class="info-value"><?php echo htmlspecialchars($nom); ?></div>
-                        </div>
-                    </div>
-
-                    <div class="info-row">
-                        <div class="info-icon"><i class="fa-solid fa-at"></i></div>
-                        <div style="flex:1;">
-                            <div class="info-label">Nom d'utilisateur</div>
-                            <div class="info-value"><?php echo htmlspecialchars($username); ?></div>
-                        </div>
-                    </div>
-
-                    <div class="info-row">
-                        <div class="info-icon"><i class="fa-solid fa-envelope"></i></div>
-                        <div style="flex:1;">
-                            <div class="info-label">Email</div>
-                            <div class="info-value"><?php echo htmlspecialchars($email); ?></div>
-                        </div>
-                    </div>
-
-                    <div class="info-row">
-                        <div class="info-icon"><i class="fa-solid <?php echo $genre_icon; ?>"></i></div>
-                        <div style="flex:1;">
-                            <div class="info-label">Genre</div>
-                            <div class="info-value">
-                                <span class="badge <?php echo $genre_badge; ?>">
-                                    <i class="fa-solid <?php echo $genre_icon; ?>"></i>
-                                    <?php echo $genre; ?>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="info-row">
-                        <div class="info-icon" style="background:var(--info-light); color:var(--info);">
-                            <i class="fa-solid fa-ruler-vertical"></i>
-                        </div>
-                        <div style="flex:1;">
-                            <div class="info-label">Taille</div>
-                            <div class="info-value"><?php echo number_format($taille, 1); ?> cm</div>
-                        </div>
-                    </div>
-
-                    <div class="info-row">
-                        <div class="info-icon" style="background:var(--gold-light); color:var(--gold-dark);">
-                            <i class="fa-solid fa-weight-scale"></i>
-                        </div>
-                        <div style="flex:1;">
-                            <div class="info-label">Poids initial</div>
-                            <div class="info-value"><?php echo number_format($poids_initial, 1); ?> kg</div>
-                        </div>
-                    </div>
-
-                    <div class="info-row">
-                        <div class="info-icon" style="background:var(--danger-light); color:var(--danger);">
-                            <i class="fa-solid fa-lock"></i>
-                        </div>
-                        <div style="flex:1;">
-                            <div class="info-label">Mot de passe</div>
-                            <div class="info-value" style="letter-spacing:0.2em; color:var(--text-muted);">••••••••
-                            </div>
-                        </div>
-                        <a href="change_password.php" class="btn btn-sm btn-outline">Changer</a>
-                    </div>
-
-                </div>
-            </div>
-
-            <!-- Actions -->
-            <div style="display:flex; gap:1rem;" class="delay-3 anim-fade-up">
-               
-                <a href="/logout" class="btn btn-danger" style="flex:1;">
-                    <i class="fa-solid fa-right-from-bracket"></i> Deconnexion
-                </a>
-            </div>
-
-                </div>
             </div>
         </div>
+    </div>
 
     <script src="/assets/js/app.js"></script>
     <script src="/assets/js/layout.js"></script>

@@ -6,6 +6,7 @@
     <title>Objectif — NutriFit</title>
     <link rel="stylesheet" href="/assets/css/style.css">
     <link rel="stylesheet" href="/assets/css/all.min.css">
+        <link rel="icon" href="/assets/logo.png">
     <style>
         .objectif-page {
             min-height: 100vh;
