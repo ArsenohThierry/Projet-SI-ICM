@@ -5,6 +5,8 @@ use CodeIgniter\Router\RouteCollection;
 /**
  * @var RouteCollection $routes
  */
-$routes->get('/', 'Home::index');
+$routes->get('/', 'HomeController::login');
 
-$routes->post('/imc', 'Home::IMCresult');
+$routes->post('/imc', 'UserController::IMCresult');
+
+$routes->get('/profile', 'UserController::userProfile');
