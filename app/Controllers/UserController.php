@@ -189,7 +189,7 @@ class UserController extends BaseController
         }
 
         $dureeEffective = $duree > 0 ? $duree : 4;
-        $end          = (clone $start)->add(new \DateInterval('P' . $dureeEffective . 'M'));
+        $end          = (clone $start)->add(new \DateInterval('P' . $dureeEffective . 'W'));
         $days         = $start->diff($end)->days;
         $variation    = (float) ($regime['variation_poids'] ?? 0);
         $objectifGain = $variation * $dureeEffective;
