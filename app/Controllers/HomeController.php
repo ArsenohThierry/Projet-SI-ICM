@@ -12,4 +12,9 @@ class HomeController extends BaseController
 
         return view('login');
     }
+
+    public function unauthorized()
+    {
+        return view('errors/unauthorized');
+    }
 }

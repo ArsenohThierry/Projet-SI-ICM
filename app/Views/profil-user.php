@@ -124,6 +124,7 @@
         prenom: "<?php echo esc($prenom ?? ''); ?>",
         nom: "<?php echo esc($nom ?? ''); ?>",
         email: "<?php echo esc($email ?? ''); ?>",
+        role_user: "<?php echo esc($role_user ?? ''); ?>",
         gold: <?php echo session()->get('user_option') === 'gold' ? 'true' : 'false'; ?>
     };
 </script>
@@ -141,6 +142,7 @@
     $poids_initial  = $user['poids_initial'];   
     $genre          = $user['genre'];           
     $taille         = $user['taille'];    
+    $role_user      = $user['role_user'] ?? '';
 
     /* -- Calculs dérivés -- */
     $initiales = strtoupper(substr($prenom, 0, 1) . substr($nom, 0, 1));
