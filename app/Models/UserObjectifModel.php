@@ -15,4 +15,12 @@ class UserObjectifModel extends Model
         'date_save'
     ];
 
+    public function assignObjectifToUser(int $userId, int $objectifId): bool
+    {
+        return (bool) $this->insert([
+            'user_id' => $userId,
+            'objectif_id' => $objectifId,
+            'date_save' => date('Y-m-d H:i:s')
+        ]);
+    }
 }

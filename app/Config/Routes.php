@@ -17,6 +17,9 @@ $routes->get('/unauthorized', 'HomeController::unauthorized');
 $routes->get('/imc', 'UserController::imcForm', ['filter' => 'auth']);
 $routes->get('/imc', 'UserController::getIMC', ['filter' => 'auth']);
 $routes->post('/imc', 'UserController::IMCresult', ['filter' => 'auth']);
+// aza adinoooooooooooooooooooooooooooooooo ['filter' => 'auth']
+$routes->get('/objectif', 'UserController::objectifUser', ['filter' => 'auth']);
+$routes->post('/objectif', 'UserController::setObjectif', ['filter' => 'auth']);
 $routes->get('/profile', 'UserController::userProfile', ['filter' => 'auth']);
 $routes->post('/upgrade/gold', 'UserController::upgradeToGold', ['filter' => 'auth']);
 

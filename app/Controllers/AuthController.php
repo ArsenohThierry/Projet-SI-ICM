@@ -107,7 +107,7 @@ class AuthController extends BaseController
 
         $data['imc'] = $imc;
         $data['user'] = $user;
-        return view('imc', $data);
+        return view('imcRegister', $data);
     }
 
     public function logout()

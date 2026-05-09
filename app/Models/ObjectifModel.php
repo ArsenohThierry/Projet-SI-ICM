@@ -12,5 +12,7 @@ class ObjectifModel extends Model
     protected $allowedFields = [
         'libelle'
     ];
-
+    public function getObjectifs(){
+        return $this->findAll();
+    }
 }
