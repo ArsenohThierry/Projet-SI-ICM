@@ -36,7 +36,7 @@ class AuthController extends BaseController
         $password = (string) $this->request->getPost('password');
 
         $userModel = new UserModel();
-        $user = $userModel->where('username', $username)->first();
+        $user = $userModel->findByUsername($username);
 
         if (!$user || !password_verify($password, $user['password_hash'])) {
             return redirect()->to('/login')
@@ -45,10 +45,11 @@ class AuthController extends BaseController
                 ->with('auth_tab', 'login');
         }
 
-        $plan = $this->getUserPlan((int) $user['id']);
+        $userOptionModel = new UserOptionModel();
+        $plan = $userOptionModel->getLatestPlanByUserId((int) $user['id']);
         $this->setUserSession($user, $plan);
 
-        return redirect()->to('/imc');
+        return redirect()->to('/profile');
     }
 
     public function register()
@@ -87,7 +88,7 @@ class AuthController extends BaseController
             'role_user' => 'user'
         ];
 
-        $userId = $userModel->insert($userData, true);
+        $userId = $userModel->createUser($userData);
         if (!$userId) {
             return redirect()->to('/login')
                 ->withInput()
@@ -100,7 +101,13 @@ class AuthController extends BaseController
         $user = $userModel->find($userId);
         $this->setUserSession($user, $plan);
 
-        return redirect()->to('/imc');
+        // Calcul direct de l'IMC avec les données initiales
+        $taille = (float) $userData['taille'] / 100; // convertir cm en m
+        $imc = (float) $userData['poids_initial'] / ($taille * $taille);
+
+        $data['imc'] = $imc;
+        $data['user'] = $user;
+        return view('imc', $data);
     }
 
     public function logout()
@@ -128,43 +135,22 @@ class AuthController extends BaseController
         $optionModel = new OptionModel();
         $userOptionModel = new UserOptionModel();
 
-        $freeOptionId = $this->ensureOptionExists('free', 0);
-        $this->ensureOptionExists('gold', 0);
+        $freeOptionId = $this->ensureOptionExists($optionModel, 'free', 0);
+        $this->ensureOptionExists($optionModel, 'gold', 0);
 
-        $userOptionModel->insert([
-            'user_id' => $userId,
-            'option_id' => $freeOptionId,
-            'date_save' => date('Y-m-d H:i:s')
-        ]);
+        $userOptionModel->assignOptionToUser($userId, $freeOptionId);
 
         return 'free';
     }
 
-    private function getUserPlan(int $userId): ?string
+    private function ensureOptionExists(OptionModel $optionModel, string $label, float $amount): int
     {
-        $userOptionModel = new UserOptionModel();
-        $row = $userOptionModel
-            ->select('option.libelle')
-            ->join('option', 'option.id = user_option.option_id', 'left')
-            ->where('user_option.user_id', $userId)
-            ->orderBy('user_option.date_save', 'DESC')
-            ->first();
-
-        return $row['libelle'] ?? null;
-    }
-
-    private function ensureOptionExists(string $label, float $amount): int
-    {
-        $optionModel = new OptionModel();
-        $existing = $optionModel->where('libelle', $label)->first();
+        $existing = $optionModel->findByLabel($label);
 
         if ($existing) {
             return (int) $existing['id'];
         }
 
-        return (int) $optionModel->insert([
-            'libelle' => $label,
-            'montant' => $amount
-        ], true);
+        return $optionModel->createOption($label, $amount);
     }
 }

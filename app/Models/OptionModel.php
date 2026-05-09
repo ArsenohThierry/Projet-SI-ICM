@@ -13,4 +13,17 @@ class OptionModel extends Model
         'libelle',
         'montant'
     ];
+
+    public function findByLabel(string $label): ?array
+    {
+        return $this->where('libelle', $label)->first();
+    }
+
+    public function createOption(string $label, float $amount): int
+    {
+        return (int) $this->insert([
+            'libelle' => $label,
+            'montant' => $amount,
+        ], true);
+    }
 }

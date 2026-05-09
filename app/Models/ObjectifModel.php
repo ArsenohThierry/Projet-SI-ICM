@@ -4,13 +4,13 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class SportModel extends Model
+class ObjectifModel extends Model
 {
-    protected $table = 'sport';
+    protected $table = 'objectif';
     protected $primaryKey = 'id';
 
     protected $allowedFields = [
-        'nom'
+        'libelle'
     ];
 
 }

@@ -15,6 +15,8 @@ class RegimeModel extends Model
         'pourcentage_volaille',
         'pourcentage_poisson',
         'montant',
-        'variation_poids'
+        'variation_poids',
+        'objectif_id'
     ];
+
 }
