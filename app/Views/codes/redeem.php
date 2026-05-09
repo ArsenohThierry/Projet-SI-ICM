@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nouvelle activite</title>
+    <title>Utiliser un code</title>
     <link rel="stylesheet" href="/assets/css/style.css">
     <link rel="stylesheet" href="/assets/css/all.min.css">
 </head>
@@ -24,17 +24,31 @@
     <div class="page-header">
     <div class="header-title">
       <div class="logo-icon" style="background: var(--primary);">
-        <i class="fa-solid fa-plus" style="color:white;"></i>
+        <i class="fa-solid fa-ticket" style="color:white;"></i>
       </div>
       <div>
-        <h2>Ajouter une activite</h2>
-        <p class="text-muted">Nouvelle activite sportive.</p>
+        <h2>Valider un code</h2>
+        <p class="text-muted">Saisissez votre code pour crediter votre compte.</p>
       </div>
     </div>
     <div class="header-actions">
-      <a href="/admin/sports" class="btn btn-outline">Retour</a>
+      <a href="/profile" class="btn btn-outline">Retour</a>
     </div>
     </div>
+
+    <?php if (session()->getFlashdata('error')): ?>
+      <div class="toast error" style="position:relative; margin-bottom:1rem;">
+        <i class="fa-solid fa-times-circle toast-icon"></i>
+        <span><?php echo esc(session()->getFlashdata('error')); ?></span>
+      </div>
+    <?php endif; ?>
+
+    <?php if (session()->getFlashdata('success')): ?>
+      <div class="toast success" style="position:relative; margin-bottom:1rem;">
+        <i class="fa-solid fa-check-circle toast-icon"></i>
+        <span><?php echo esc(session()->getFlashdata('success')); ?></span>
+      </div>
+    <?php endif; ?>
 
     <?php $errors = session()->getFlashdata('errors') ?? []; ?>
     <?php if (!empty($errors)): ?>
@@ -45,28 +59,28 @@
     <?php endif; ?>
 
     <div class="card">
-        <div class="card-header">
-            <h3>Informations principales</h3>
-        </div>
-        <div class="card-body">
-            <form method="post" action="/admin/sports" class="form-stack">
-              <div class="form-group">
-                <label class="form-label">Nom</label>
-                <input class="form-control" name="nom" value="<?php echo esc(old('nom')); ?>" required>
-              </div>
-              <div class="form-actions">
-                <a href="/admin/sports" class="btn btn-outline">Annuler</a>
-                <button class="btn btn-primary" type="submit">Enregistrer</button>
-              </div>
-            </form>
-        </div>
+      <div class="card-header">
+        <h3>Informations principales</h3>
+      </div>
+      <div class="card-body">
+        <form method="post" action="/codes/redeem" class="form-stack">
+          <div class="form-group">
+            <label class="form-label">Code</label>
+            <input class="form-control" name="code" value="<?php echo esc(old('code')); ?>" required>
+          </div>
+          <div class="form-actions">
+            <a href="/profile" class="btn btn-outline">Annuler</a>
+            <button class="btn btn-primary" type="submit">Appliquer</button>
+          </div>
+        </form>
+      </div>
     </div>
 </div>
 
 <script src="/assets/js/app.js"></script>
 <script src="/assets/js/layout.js"></script>
 <script>
-  NF_LAYOUT.inject('admin-sports', 'Administration', 'Activites');
+  NF_LAYOUT.inject('codes', 'Codes', 'Credit');
   const mc = document.getElementById('mainContent');
   const content = document.getElementById('pageContent');
   if (mc && content) {

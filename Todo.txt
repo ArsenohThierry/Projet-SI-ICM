@@ -69,9 +69,11 @@ Page: pour afficher le tableau de bord
       statistiques
       graphes: visualisation evolution poids reel de l'Utilisateur
                visualisation simulation poids de l'Utilisateur selon le regime qu'il a pris
-               
---Authentification--
 
 
 
 
+-- se connecter en root puis :
+CREATE USER 'admin'@'localhost' IDENTIFIED BY 'admin';
+GRANT ALL PRIVILEGES ON regime.* TO 'admin'@'localhost';
+FLUSH PRIVILEGES;
