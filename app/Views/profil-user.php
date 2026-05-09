@@ -134,14 +134,14 @@
        VARIABLES À RELIER AU CONTROLLER
        $user = tableau associatif retourné par le DAO/Controller
        ============================================================ */
-    $id             = $user['id'];
-    $nom            = $user['nom'];
-    $prenom         = $user['prenom'];
-    $email          = $user['email'];
-    $username       = $user['username'];
-    $poids_initial  = $user['poids_initial'];   
-    $genre          = $user['genre'];           
-    $taille         = $user['taille'];    
+    $id             = $user['id'] ?? 0;
+    $nom            = $user['nom'] ?? '';
+    $prenom         = $user['prenom'] ?? '';
+    $email          = $user['email'] ?? '';
+    $username       = $user['username'] ?? '';
+    $poids_initial  = $user['poids_initial'] ?? 0;   
+    $genre          = $user['genre'] ?? '';           
+    $taille         = $user['taille'] ?? 0;    
     $role_user      = $user['role_user'] ?? '';
 
     /* -- Calculs dérivés -- */

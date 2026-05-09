@@ -23,14 +23,16 @@ class SportObjectifModel extends Model
     {
         $objectifId = 2;
 
-        return $this->where('objectif_id', $objectifId)
-            ->where('age_min <=', $age)
-            ->where('age_max >=', $age)
+        return $this->select('sport_objectif.*, sport.nom')
+            ->join('sport', 'sport.id = sport_objectif.sport_id')
+            ->where('sport_objectif.objectif_id', $objectifId)
+            ->where('sport_objectif.age_min <=', $age)
+            ->where('sport_objectif.age_max >=', $age)
             ->groupStart()
-            ->where('genre', $genre)
-            ->orWhere('genre IS NULL')
+            ->where('sport_objectif.genre', $genre)
+            ->orWhere('sport_objectif.genre IS NULL')
             ->groupEnd()
-            ->orderBy('(calories_brulees * duree_recommandee)', 'ASC')
+            ->orderBy('(sport_objectif.calories_brulees * sport_objectif.duree_recommandee)', 'ASC')
             ->limit(3)
             ->findAll();
     }
@@ -39,14 +41,16 @@ class SportObjectifModel extends Model
     {
         $objectifId = 1;
 
-        return $this->where('objectif_id', $objectifId)
-            ->where('age_min <=', $age)
-            ->where('age_max >=', $age)
+        return $this->select('sport_objectif.*, sport.nom')
+            ->join('sport', 'sport.id = sport_objectif.sport_id')
+            ->where('sport_objectif.objectif_id', $objectifId)
+            ->where('sport_objectif.age_min <=', $age)
+            ->where('sport_objectif.age_max >=', $age)
             ->groupStart()
-            ->where('genre', $genre)
-            ->orWhere('genre IS NULL')
+            ->where('sport_objectif.genre', $genre)
+            ->orWhere('sport_objectif.genre IS NULL')
             ->groupEnd()
-            ->orderBy('(calories_brulees * duree_recommandee)', 'DESC')
+            ->orderBy('(sport_objectif.calories_brulees * sport_objectif.duree_recommandee)', 'DESC')
             ->limit(3)
             ->findAll();
     }
@@ -55,15 +59,17 @@ class SportObjectifModel extends Model
     {
         $objectifId = 3;
 
-        return $this->where('objectif_id', $objectifId)
-            ->where('age_min <=', $age)
-            ->where('age_max >=', $age)
+        return $this->select('sport_objectif.*, sport.nom')
+            ->join('sport', 'sport.id = sport_objectif.sport_id')
+            ->where('sport_objectif.objectif_id', $objectifId)
+            ->where('sport_objectif.age_min <=', $age)
+            ->where('sport_objectif.age_max >=', $age)
             ->groupStart()
-            ->where('genre', $genre)
-            ->orWhere('genre IS NULL')
+            ->where('sport_objectif.genre', $genre)
+            ->orWhere('sport_objectif.genre IS NULL')
             ->groupEnd()
-            ->where('(calories_brulees * duree_proposee) BETWEEN 200 AND 400')
-            ->orderBy('(calories_brulees * duree_recommandee)', 'DESC')
+            ->where('(sport_objectif.calories_brulees * sport_objectif.duree_recommandee) BETWEEN 200 AND 400')
+            ->orderBy('(sport_objectif.calories_brulees * sport_objectif.duree_recommandee)', 'DESC')
             ->limit(3)
             ->findAll();
     }

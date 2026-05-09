@@ -19,6 +19,10 @@ $routes->get('/imc', 'UserController::getIMC', ['filter' => 'auth']);
 $routes->post('/imc', 'UserController::IMCresult', ['filter' => 'auth']);
 $routes->get('/objectif', 'UserController::objectifUser', ['filter' => 'auth']);
 $routes->post('/objectif', 'UserController::setObjectif', ['filter' => 'auth']);
+$routes->get('/regime', 'UserController::regimeSelection', ['filter' => 'auth']);
+$routes->post('/regime', 'UserController::setRegime', ['filter' => 'auth']);
+$routes->get('/sport', 'UserController::sportSelection', ['filter' => 'auth']);
+$routes->post('/sport', 'UserController::setSport', ['filter' => 'auth']);
 $routes->get('/profile', 'UserController::userProfile', ['filter' => 'auth']);
 $routes->post('/upgrade/gold', 'UserController::upgradeToGold', ['filter' => 'auth']);
 
