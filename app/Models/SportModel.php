@@ -12,4 +12,5 @@ class SportModel extends Model
     protected $allowedFields = [
         'nom'
     ];
+
 }

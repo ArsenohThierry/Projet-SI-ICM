@@ -16,9 +16,9 @@ class UserModel extends Model
         'password_hash',
         'username',
         'poids_initial',
+        'age',
         'genre',
         'taille',
-        'age',
         'role_user'
     ];
 
@@ -34,5 +34,15 @@ class UserModel extends Model
     public function getUserById($id)
     {
         return $this->find($id);
+    }
+
+    public function findByUsername(string $username): ?array
+    {
+        return $this->where('username', $username)->first();
+    }
+
+    public function createUser(array $data): int
+    {
+        return (int) $this->insert($data, true);
     }
 }

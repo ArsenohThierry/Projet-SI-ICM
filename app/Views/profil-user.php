@@ -134,14 +134,14 @@
        VARIABLES À RELIER AU CONTROLLER
        $user = tableau associatif retourné par le DAO/Controller
        ============================================================ */
-    $id             = $user['id'];
-    $nom            = $user['nom'];
-    $prenom         = $user['prenom'];
-    $email          = $user['email'];
-    $username       = $user['username'];
-    $poids_initial  = $user['poids_initial'];   
-    $genre          = $user['genre'];           
-    $taille         = $user['taille'];    
+    $id             = $user['id'] ?? 0;
+    $nom            = $user['nom'] ?? '';
+    $prenom         = $user['prenom'] ?? '';
+    $email          = $user['email'] ?? '';
+    $username       = $user['username'] ?? '';
+    $poids_initial  = $user['poids_initial'] ?? 0;   
+    $genre          = $user['genre'] ?? '';           
+    $taille         = $user['taille'] ?? 0;    
     $role_user      = $user['role_user'] ?? '';
 
     /* -- Calculs dérivés -- */
@@ -316,9 +316,7 @@
 
             <!-- Actions -->
             <div style="display:flex; gap:1rem;" class="delay-3 anim-fade-up">
-                <a href="/imc" class="btn btn-outline" style="flex:1;">
-                    <i class="fa-solid fa-arrow-left"></i> Calculer mon IMC
-                </a>
+               
                 <a href="/logout" class="btn btn-danger" style="flex:1;">
                     <i class="fa-solid fa-right-from-bracket"></i> Deconnexion
                 </a>
