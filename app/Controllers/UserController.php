@@ -60,10 +60,13 @@ class UserController extends BaseController
         }
 
         $objectifModel = new ObjectifModel();
+        $session = session();
+
         $data['user'] = $user;
         $data['objectifs'] = $objectifModel->getObjectifs();
-        $data['disableUnavailable'] = false;
-        $data['availableObjectifIds'] = [];
+        $data['disableUnavailable'] = (bool) $session->getFlashdata('disable_unavailable');
+        $data['availableObjectifIds'] = $session->getFlashdata('available_objectif_ids') ?? [];
+        $data['errorMessage'] = $session->getFlashdata('objectif_validation_error');
 
         return view('objectifUser', $data);
     }
@@ -102,13 +105,10 @@ class UserController extends BaseController
                 $objectifsDisponibles
             )));
 
-            return view('objectifUser', [
-                'user' => $user,
-                'objectifs' => $objectifModel->getObjectifs(),
-                'disableUnavailable' => true,
-                'availableObjectifIds' => $availableObjectifIds,
-                'errorMessage' => "Cet objectif ne correspond pas avec votre IMC. Merci de choisir parmi les objectifs disponibles.",
-            ]);
+            return redirect()->to('/objectif')
+                ->with('disable_unavailable', true)
+                ->with('available_objectif_ids', $availableObjectifIds)
+                ->with('objectif_validation_error', "Cet objectif ne correspond pas avec votre IMC. Merci de choisir parmi les objectifs disponibles.");
         }
 
         $userId = (int) session()->get('user_id');
