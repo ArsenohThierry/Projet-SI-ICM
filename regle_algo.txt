@@ -162,4 +162,4 @@ Table ilaina:
 - user_objectif ok
 - sport ok
 - sport_objectif ok
-- user_sport
+- user_sport ok
