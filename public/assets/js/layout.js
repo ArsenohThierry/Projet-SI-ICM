@@ -3,11 +3,19 @@
    ============================================================ */
 
 const NF_LAYOUT = {
+  getUser() {
+    if (typeof window !== 'undefined' && window.NF_USER) return window.NF_USER;
+    if (typeof Storage !== 'undefined') return Storage.getUser() || null;
+    return null;
+  },
+
   sidebar(activePage) {
-    const user = Storage.getUser() || { prenom: 'Jean', nom: 'Rakoto', gold: false };
+    const user = this.getUser() || { prenom: 'Jean', nom: 'Rakoto', gold: false };
     const initials = ((user.prenom || 'J')[0] + (user.nom || 'R')[0]).toUpperCase();
 
     const navItems = [
+      { id: 'imc',         icon: 'fa-calculator',    label: 'IMC',               href: '/imc' },
+      { id: 'profile',     icon: 'fa-user',          label: 'Profil',            href: '/profile' },
       { id: 'dashboard',   icon: 'fa-gauge',         label: 'Tableau de bord',   href: 'dashboard.html' },
       { id: 'regimes',     icon: 'fa-bowl-food',     label: 'Régimes',           href: 'regimes.html',   badge: null },
       { id: 'activities',  icon: 'fa-dumbbell',      label: 'Activités',         href: 'activities.html' },
@@ -35,7 +43,7 @@ const NF_LAYOUT = {
           <div class="nav-section-title">Menu</div>
           ${links}
           <div class="nav-section-title" style="margin-top:1rem">Compte</div>
-          <a href="login.html" class="nav-item" onclick="Storage.set('nf_user',null)">
+          <a href="/logout" class="nav-item">
             <i class="fa-solid fa-right-from-bracket nav-icon"></i> Déconnexion
           </a>
         </nav>
@@ -55,7 +63,7 @@ const NF_LAYOUT = {
   },
 
   navbar(title, subtitle) {
-    const user = Storage.getUser() || { prenom: 'Jean', nom: 'Rakoto' };
+    const user = this.getUser() || { prenom: 'Jean', nom: 'Rakoto' };
     const initials = ((user.prenom || 'J')[0] + (user.nom || 'R')[0]).toUpperCase();
     return `
       <header class="navbar">

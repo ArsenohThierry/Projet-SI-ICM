@@ -119,6 +119,15 @@
 
 <body>
 
+<script>
+    window.NF_USER = {
+        prenom: "<?php echo esc($prenom ?? ''); ?>",
+        nom: "<?php echo esc($nom ?? ''); ?>",
+        email: "<?php echo esc($email ?? ''); ?>",
+        gold: <?php echo session()->get('user_option') === 'gold' ? 'true' : 'false'; ?>
+    };
+</script>
+
     <?php
     /* ============================================================
        VARIABLES À RELIER AU CONTROLLER
@@ -141,8 +150,9 @@
     $genre_badge = ($genre === 'Femme') ? 'badge-info' : 'badge-green';
     ?>
 
-    <div class="profile-page">
-        <div class="profile-wrapper anim-fade-up">
+        <div id="pageContent">
+            <div class="profile-page">
+                <div class="profile-wrapper anim-fade-up">
 
             <!-- Brand -->
             <div style="display:flex; align-items:center; gap:10px;">
@@ -296,16 +306,28 @@
 
             <!-- Actions -->
             <div style="display:flex; gap:1rem;" class="delay-3 anim-fade-up">
-                <a href="dashboard.php" class="btn btn-outline" style="flex:1;">
-                    <i class="fa-solid fa-arrow-left"></i> Tableau de bord
+                <a href="/imc" class="btn btn-outline" style="flex:1;">
+                    <i class="fa-solid fa-arrow-left"></i> Calculer mon IMC
                 </a>
-                <a href="logout.php" class="btn btn-danger" style="flex:1;">
-                    <i class="fa-solid fa-right-from-bracket"></i> Déconnexion
+                <a href="/logout" class="btn btn-danger" style="flex:1;">
+                    <i class="fa-solid fa-right-from-bracket"></i> Deconnexion
                 </a>
             </div>
 
+                </div>
+            </div>
         </div>
-    </div>
+
+    <script src="/assets/js/app.js"></script>
+    <script src="/assets/js/layout.js"></script>
+    <script>
+        NF_LAYOUT.inject('profile', 'Profil', 'Mon compte');
+        const mc = document.getElementById('mainContent');
+        const content = document.getElementById('pageContent');
+        if (mc && content) {
+            mc.appendChild(content);
+        }
+    </script>
 
 </body>
 
