@@ -22,11 +22,16 @@
 
 <div id="pageContent">
     <div class="page-header">
-        <div>
-            <h2><?php echo esc($regime['nom']); ?></h2>
-            <p class="text-muted">Details du regime.</p>
+        <div class="header-title">
+            <div class="logo-icon" style="background: var(--primary);">
+                <i class="fa-solid fa-bowl-food" style="color:white;"></i>
+            </div>
+            <div>
+                <h2><?php echo esc($regime['nom']); ?></h2>
+                <p class="text-muted">Details du regime.</p>
+            </div>
         </div>
-        <div style="display:flex; gap:0.5rem;">
+        <div class="header-actions">
             <a href="/admin/regimes" class="btn btn-outline">Retour</a>
             <a href="/admin/regimes/<?php echo $regime['id']; ?>/edit" class="btn btn-primary">Modifier</a>
         </div>

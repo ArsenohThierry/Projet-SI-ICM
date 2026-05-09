@@ -1,0 +1,28 @@
+<?php
+
+namespace App\Filters;
+
+use CodeIgniter\Filters\FilterInterface;
+use CodeIgniter\HTTP\RequestInterface;
+use CodeIgniter\HTTP\ResponseInterface;
+
+class UserFilter implements FilterInterface
+{
+    public function before(RequestInterface $request, $arguments = null)
+    {
+        $session = session();
+        if (!$session->get('user_id')) {
+            $session->setFlashdata('error', 'Veuillez vous connecter pour acceder a cette page.');
+            return redirect()->to('/login');
+        }
+
+        if ($session->get('role_user') === 'admin') {
+            return redirect()->to('/admin/regimes');
+        }
+    }
+
+    public function after(RequestInterface $request, ResponseInterface $response, $arguments = null)
+    {
+        return;
+    }
+}

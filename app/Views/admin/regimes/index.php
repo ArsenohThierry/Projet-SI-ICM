@@ -22,13 +22,20 @@
 
 <div id="pageContent">
     <div class="page-header">
-        <div>
-            <h2>Regimes alimentaires</h2>
-            <p class="text-muted">Gestion des regimes et de leurs proportions.</p>
-        </div>
-        <a href="/admin/regimes/new" class="btn btn-primary">
-            <i class="fa-solid fa-plus"></i> Nouveau regime
-        </a>
+    <div class="header-title">
+      <div class="logo-icon" style="background: var(--primary);">
+        <i class="fa-solid fa-bowl-food" style="color:white;"></i>
+      </div>
+      <div>
+        <h2>Regimes alimentaires</h2>
+        <p class="text-muted">Gestion des regimes et de leurs proportions.</p>
+      </div>
+    </div>
+    <div class="header-actions">
+      <a href="/admin/regimes/new" class="btn btn-primary">
+        <i class="fa-solid fa-plus"></i> Nouveau regime
+      </a>
+    </div>
     </div>
 
     <?php if (session()->getFlashdata('error')): ?>
@@ -46,8 +53,9 @@
     <?php endif; ?>
 
     <div class="card">
-        <div class="card-body" style="padding:0;">
-            <table class="table">
+      <div class="card-body" style="padding:0;">
+        <div class="table-wrapper">
+          <table class="table">
                 <thead>
                     <tr>
                         <th>Nom</th>
@@ -69,7 +77,7 @@
                         <td><?php echo esc($r['pourcentage_poisson']); ?></td>
                         <td><?php echo esc($r['montant']); ?></td>
                         <td><?php echo esc($r['variation_poids']); ?></td>
-                        <td style="display:flex; gap:0.4rem;">
+                        <td class="table-actions">
                             <a href="/admin/regimes/<?php echo $r['id']; ?>" class="btn btn-outline btn-sm">Voir</a>
                             <a href="/admin/regimes/<?php echo $r['id']; ?>/edit" class="btn btn-outline btn-sm">Modifier</a>
                             <form method="post" action="/admin/regimes/<?php echo $r['id']; ?>/delete" onsubmit="return confirm('Supprimer ce regime ?');">
@@ -84,7 +92,8 @@
                     </tr>
                 <?php endif; ?>
                 </tbody>
-            </table>
+                </table>
+              </div>
         </div>
     </div>
 </div>

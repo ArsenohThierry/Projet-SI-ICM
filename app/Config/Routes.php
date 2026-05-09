@@ -16,7 +16,6 @@ $routes->get('/unauthorized', 'HomeController::unauthorized');
 
 $routes->get('/imc', 'UserController::imcForm', ['filter' => 'auth']);
 $routes->get('/imc', 'UserController::getIMC', ['filter' => 'auth']);
-$routes->post('/imc', 'UserController::IMCresult', ['filter' => 'auth']);
 $routes->get('/objectif', 'UserController::objectifUser', ['filter' => 'auth']);
 $routes->post('/objectif', 'UserController::setObjectif', ['filter' => 'auth']);
 $routes->get('/regime', 'UserController::regimeSelection', ['filter' => 'auth']);
@@ -24,7 +23,10 @@ $routes->post('/regime', 'UserController::setRegime', ['filter' => 'auth']);
 $routes->get('/sport', 'UserController::sportSelection', ['filter' => 'auth']);
 $routes->post('/sport', 'UserController::setSport', ['filter' => 'auth']);
 $routes->get('/profile', 'UserController::userProfile', ['filter' => 'auth']);
-$routes->post('/upgrade/gold', 'UserController::upgradeToGold', ['filter' => 'auth']);
+$routes->post('/upgrade/gold', 'UserController::upgradeToGold', ['filter' => 'user']);
+
+$routes->get('/codes/redeem', 'CodeController::redeemForm', ['filter' => 'user']);
+$routes->post('/codes/redeem', 'CodeController::redeem', ['filter' => 'user']);
 
 $routes->group('admin', ['filter' => 'admin'], static function ($routes) {
 	$routes->get('regimes', 'Admin\RegimeController::index');
@@ -42,4 +44,9 @@ $routes->group('admin', ['filter' => 'admin'], static function ($routes) {
 	$routes->get('sports/(:num)/edit', 'Admin\SportController::edit/$1');
 	$routes->post('sports/(:num)/update', 'Admin\SportController::update/$1');
 	$routes->post('sports/(:num)/delete', 'Admin\SportController::delete/$1');
+
+	$routes->get('codes', 'Admin\CodeController::index');
+	$routes->get('codes/new', 'Admin\CodeController::create');
+	$routes->post('codes', 'Admin\CodeController::store');
+	$routes->post('codes/(:num)/delete', 'Admin\CodeController::delete/$1');
 });
