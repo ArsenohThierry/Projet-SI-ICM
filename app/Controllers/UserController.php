@@ -108,7 +108,7 @@ class UserController extends BaseController
             return redirect()->to('/objectif')
                 ->with('disable_unavailable', true)
                 ->with('available_objectif_ids', $availableObjectifIds)
-                ->with('objectif_validation_error', 'Cet objectif ne correspond pas avec votre IMC. Merci de choisir parmi les objectifs disponibles.');
+                ->with('objectif_validation_error', "Cet objectif ne correspond pas avec votre IMC. Pour votre bien-être, merci de choisir parmi les objectifs disponibles.");
         }
 
         $userId = (int) session()->get('user_id');

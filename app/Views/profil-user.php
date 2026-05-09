@@ -153,38 +153,45 @@
     $genre_badge = ($genre === 'Femme') ? 'badge-info' : 'badge-green';
     ?>
 
-    <div id="pageContent">
-        <div class="profile-page">
-            <div class="profile-wrapper anim-fade-up">
-
-                <!-- Brand -->
-                <div style="display:flex; align-items:center; gap:10px;">
-                    <div class="logo-icon">
-                        <i class="fa-solid fa-leaf" style="color:white;"></i>
+        <div id="pageContent">
+            <div class="page-header">
+                <div class="header-title">
+                    <div class="logo-icon" style="background: var(--primary);">
+                        <i class="fa-solid fa-user" style="color:white;"></i>
                     </div>
-                    <span class="logo-text">Nutri<span>Fit</span></span>
+                    <div>
+                        <h2>Mon profil</h2>
+                        <p class="text-muted">Informations personnelles et sante.</p>
+                    </div>
                 </div>
+                <div class="header-actions">
+                    <a href="/codes/redeem" class="btn btn-outline">Codes</a>
+                    <a href="/imc" class="btn btn-primary">IMC</a>
+                </div>
+            </div>
 
-                <!-- Header Profil -->
-                <div class="card">
-                    <div class="card-body" style="display:flex; align-items:center; gap:1.5rem;">
-                        <div class="avatar-circle"><?php echo $initiales; ?></div>
-                        <div style="flex:1;">
-                            <div
-                                style="display:flex; align-items:center; gap:0.75rem; flex-wrap:wrap; margin-bottom:0.3rem;">
-                                <h2 style="font-size:1.5rem;"><?php echo htmlspecialchars($prenom . ' ' . $nom); ?></h2>
-                                <span class="badge <?php echo $genre_badge; ?>">
-                                    <i class="fa-solid <?php echo $genre_icon; ?>"></i>
-                                    <?php echo $genre; ?>
-                                </span>
-                            </div>
-                            <div style="color:var(--text-muted); font-size:0.88rem;">
-                                <i class="fa-solid fa-at"
-                                    style="margin-right:5px;"></i><?php echo htmlspecialchars($username); ?>
-                            </div>
-                            <div style="color:var(--text-muted); font-size:0.82rem; margin-top:3px;">
-                                <i class="fa-solid fa-hashtag" style="margin-right:5px;"></i>ID : <?php echo $id; ?>
-                            </div>
+            <div class="profile-page">
+                <div class="profile-wrapper anim-fade-up">
+
+            <!-- Header Profil -->
+            <div class="card">
+                <div class="card-body" style="display:flex; align-items:center; gap:1.5rem;">
+                    <div class="avatar-circle"><?php echo $initiales; ?></div>
+                    <div style="flex:1;">
+                        <div
+                            style="display:flex; align-items:center; gap:0.75rem; flex-wrap:wrap; margin-bottom:0.3rem;">
+                            <h2 style="font-size:1.5rem;"><?php echo htmlspecialchars($prenom . ' ' . $nom); ?></h2>
+                            <span class="badge <?php echo $genre_badge; ?>">
+                                <i class="fa-solid <?php echo $genre_icon; ?>"></i>
+                                <?php echo $genre; ?>
+                            </span>
+                        </div>
+                        <div style="color:var(--text-muted); font-size:0.88rem;">
+                            <i class="fa-solid fa-at"
+                                style="margin-right:5px;"></i><?php echo htmlspecialchars($username); ?>
+                        </div>
+                        <div style="color:var(--text-muted); font-size:0.82rem; margin-top:3px;">
+                            <i class="fa-solid fa-hashtag" style="margin-right:5px;"></i>ID : <?php echo $id; ?>
                         </div>
                         <a href="edit_profil.php" class="btn btn-outline btn-sm" style="flex-shrink:0;">
                             <i class="fa-solid fa-pen"></i> Modifier
