@@ -12,14 +12,16 @@ class UserObjectifModel extends Model
     protected $allowedFields = [
         'user_id',
         'objectif_id',
+        'objectif_applique_id',
         'date_save'
     ];
 
-    public function assignObjectifToUser(int $userId, int $objectifId): bool
+    public function assignObjectifToUser(int $userId, int $objectifId, int $objectifAppliqueId): bool
     {
         return (bool) $this->insert([
             'user_id' => $userId,
             'objectif_id' => $objectifId,
+            'objectif_applique_id' => $objectifAppliqueId,
             'date_save' => date('Y-m-d H:i:s')
         ]);
     }
