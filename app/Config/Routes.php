@@ -33,6 +33,8 @@ $routes->post('/codes/redeem-register', 'CodeController::redeemRegister', ['filt
 $routes->get('/dashboard', 'DashboardController::showDashboard', ['filter' => 'auth']);
 $routes->post('/dashboard/add-poids', 'DashboardController::addPoids', ['filter' => 'auth']);
 
+$routes->get('/api/balance', 'UserController::apiBalance', ['filter' => 'auth']);
+
 $routes->get('/abonnement', 'UserController::pageAbonnement', ['filter' => 'auth']);
 $routes->post('/abonnement/gold', 'UserController::upgradeToGold', ['filter' => 'auth']);
 
