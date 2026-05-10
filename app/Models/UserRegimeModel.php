@@ -14,7 +14,8 @@ class UserRegimeModel extends Model
         'regime_id',
         'date_save',
         'date_debut',
-        'duree'
+        'duree',
+        'objectif_applique_id'
     ];
 
 }

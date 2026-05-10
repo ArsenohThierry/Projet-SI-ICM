@@ -6,6 +6,7 @@
     <title>Nouvelle activite</title>
     <link rel="stylesheet" href="/assets/css/style.css">
     <link rel="stylesheet" href="/assets/css/all.min.css">
+    <link rel="icon" type="image/png" href="/assets/logo.png">
 </head>
 <body>
 
@@ -24,7 +25,7 @@
   };
 </script>
 
-<div id="pageContent">
+<div id="pageContent" class="page-content">
     <div class="page-header">
     <div class="header-title">
       <div class="logo-icon" style="background: var(--primary);">

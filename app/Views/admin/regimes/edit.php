@@ -24,7 +24,7 @@
   };
 </script>
 
-<div id="pageContent">
+<div id="pageContent" class="page-content">
     <div class="page-header">
         <div class="header-title">
             <div class="logo-icon" style="background: var(--info);">
@@ -53,33 +53,33 @@
             <h3>Informations principales</h3>
         </div>
         <div class="card-body">
-            <form method="post" action="/admin/regimes/<?php echo $regime['id']; ?>/update" class="form-stack">
+            <form method="post" action="/admin/regimes/<?php echo $regime['id'] ?? ''; ?>/update" class="form-stack">
                 <div class="form-group">
                     <label class="form-label">Nom</label>
-                    <input class="form-control" name="nom" value="<?php echo esc(old('nom', $regime['nom'])); ?>" required>
+                    <input class="form-control" name="nom" value="<?php echo esc(old('nom', $regime['nom'] ?? '')); ?>" required>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
                         <label class="form-label">% Viande</label>
-                        <input type="number" class="form-control" name="pourcentage_viande" value="<?php echo esc(old('pourcentage_viande', $regime['pourcentage_viande'])); ?>" required>
+                        <input type="number" class="form-control" name="pourcentage_viande" value="<?php echo esc(old('pourcentage_viande', $regime['pourcentage_viande'] ?? '')); ?>" required>
                     </div>
                     <div class="form-group">
                         <label class="form-label">% Volaille</label>
-                        <input type="number" class="form-control" name="pourcentage_volaille" value="<?php echo esc(old('pourcentage_volaille', $regime['pourcentage_volaille'])); ?>" required>
+                        <input type="number" class="form-control" name="pourcentage_volaille" value="<?php echo esc(old('pourcentage_volaille', $regime['pourcentage_volaille'] ?? '')); ?>" required>
                     </div>
                     <div class="form-group">
                         <label class="form-label">% Poisson</label>
-                        <input type="number" class="form-control" name="pourcentage_poisson" value="<?php echo esc(old('pourcentage_poisson', $regime['pourcentage_poisson'])); ?>" required>
+                        <input type="number" class="form-control" name="pourcentage_poisson" value="<?php echo esc(old('pourcentage_poisson', $regime['pourcentage_poisson'] ?? '')); ?>" required>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
                         <label class="form-label">Prix / jour</label>
-                        <input type="number" class="form-control" name="montant" value="<?php echo esc(old('montant', $regime['montant'])); ?>" required>
+                        <input type="number" class="form-control" name="montant" value="<?php echo esc(old('montant', $regime['montant'] ?? '')); ?>" required>
                     </div>
                     <div class="form-group">
                         <label class="form-label">Variation poids / jour</label>
-                        <input type="number" class="form-control" name="variation_poids" value="<?php echo esc(old('variation_poids', $regime['variation_poids'])); ?>" required>
+                        <input type="number" class="form-control" name="variation_poids" value="<?php echo esc(old('variation_poids', $regime['variation_poids'] ?? '')); ?>" required>
                     </div>
                 </div>
                 <div class="form-actions">

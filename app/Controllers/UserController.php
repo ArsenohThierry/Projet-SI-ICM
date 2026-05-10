@@ -79,6 +79,10 @@ class UserController extends BaseController
         }
 
         $id = (int) $this->request->getPost('objectif_id');
+        // objectif_applique_id can be computed server-side based on chosen objectif and IMC
+        $idObjectifApplique = (int) $this->request->getPost('objectif_applique_id');
+
+        
         if ($id <= 0) {
             return redirect()->back()->with('error', 'Veuillez sélectionner un objectif.');
         }
@@ -111,14 +115,32 @@ class UserController extends BaseController
                 ->with('objectif_validation_error', "Cet objectif ne correspond pas avec votre IMC. Pour votre bien-être, merci de choisir parmi les objectifs disponibles.");
         }
 
+        $chosenId = (int) $objectif['id'];
+        $appliqueId = $chosenId;
+        if ($chosenId === 3) {
+            if ($imc < 18.5) {
+                $appliqueId = 2; // prise de poids
+            } elseif ($imc >= 25) {
+                $appliqueId = 1; // perte de poids
+            } else {
+                $appliqueId = 3; // imc ideal
+            }
+        }
+
+        if ($idObjectifApplique > 0) {
+            $appliqueId = $idObjectifApplique;
+        }
+
         $userId = (int) session()->get('user_id');
-        $saved = (new UserModel())->assignObjectifToUser($userId, (int) $objectif['id']);
+        $userObjectifModel = new UserObjectifModel();
+        $saved = $userObjectifModel->assignObjectifToUser($userId, $chosenId, $appliqueId);
 
         if (!$saved) {
             return redirect()->back()->with('error', 'Impossible d’enregistrer l’objectif.');
         }
 
-        session()->set('user_objectif', $objectif['id']);
+        session()->set('user_objectif', $chosenId);
+        session()->set('user_objectif_applique', $appliqueId);
         session()->setFlashdata('success', 'Objectif enregistré.');
 
         return redirect()->to('/regime');
@@ -694,7 +716,7 @@ class UserController extends BaseController
             return redirect()->to('/login');
         }
 
-        $objectifId = (int) session()->get('user_objectif');
+        $objectifId = (int) (session()->get('user_objectif_applique') ?: session()->get('user_objectif'));
         if ($objectifId <= 0) {
             return redirect()->to('/objectif')->with('error', 'Veuillez d\'abord choisir un objectif.');
         }
@@ -740,6 +762,8 @@ class UserController extends BaseController
         }
 
         $objectifId = (int) session()->get('user_objectif');
+        $objectifAppliqueId = (int) (session()->get('user_objectif_applique') ?: $objectifId);
+
         if ($objectifId <= 0) {
             return redirect()->to('/objectif')->with('error', 'Session expirée, veuillez rechoisir votre objectif.');
         }
@@ -747,7 +771,7 @@ class UserController extends BaseController
         $regimeService = new RegimeService();
         $regime = (new \App\Models\RegimeModel())->find($regimeId);
 
-        if (!$regime || (int) ($regime['objectif_id'] ?? 0) !== $objectifId) {
+        if (!$regime || (int) ($regime['objectif_id'] ?? 0) !== $objectifAppliqueId) {
             return redirect()->back()->with('error', 'Régime invalide pour cet objectif.');
         }
 
@@ -784,7 +808,7 @@ class UserController extends BaseController
             return redirect()->to('/login');
         }
 
-        $objectifId = (int) session()->get('user_objectif');
+        $objectifId = (int) (session()->get('user_objectif_applique') ?: session()->get('user_objectif'));
         if ($objectifId <= 0) {
             return redirect()->to('/objectif')->with('error', 'Veuillez d\'abord choisir un objectif.');
         }
@@ -825,7 +849,7 @@ class UserController extends BaseController
             return redirect()->back()->with('error', 'Veuillez sélectionner un sport.');
         }
 
-        $objectifId = (int) session()->get('user_objectif');
+        $objectifId = (int) (session()->get('user_objectif_applique') ?: session()->get('user_objectif'));
         if ($objectifId <= 0) {
             return redirect()->to('/objectif')->with('error', 'Session expirée, veuillez rechoisir votre objectif.');
         }

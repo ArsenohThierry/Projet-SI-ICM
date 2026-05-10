@@ -6,6 +6,7 @@
     <title>Detail activite</title>
     <link rel="stylesheet" href="/assets/css/style.css">
     <link rel="stylesheet" href="/assets/css/all.min.css">
+    <link rel="icon" type="image/png" href="/assets/logo.png">
 </head>
 <body>
 
@@ -24,15 +25,15 @@
   };
 </script>
 
-<div id="pageContent">
+<div id="pageContent" class="page-content">
     <div class="page-header">
         <div>
-            <h2><?php echo esc($sport['nom']); ?></h2>
+            <h2><?php echo esc((string) ($sport['nom'] ?? '')); ?></h2>
             <p class="text-muted">Detail de l'activite.</p>
         </div>
         <div style="display:flex; gap:0.5rem;">
             <a href="/admin/sports" class="btn btn-outline">Retour</a>
-            <a href="/admin/sports/<?php echo $sport['id']; ?>/edit" class="btn btn-primary">Modifier</a>
+            <a href="/admin/sports/<?php echo $sport['id'] ?? ''; ?>/edit" class="btn btn-primary">Modifier</a>
         </div>
     </div>
 
@@ -40,7 +41,7 @@
         <div class="card-body">
             <div class="info-row">
                 <div class="info-label">Nom</div>
-                <div class="info-value"><?php echo esc($sport['nom']); ?></div>
+                <div class="info-value"><?php echo esc((string) ($sport['nom'] ?? '')); ?></div>
             </div>
         </div>
     </div>
