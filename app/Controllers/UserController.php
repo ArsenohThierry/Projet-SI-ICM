@@ -127,9 +127,9 @@ class UserController extends BaseController
         $chosenId = (int) $objectif['id'];
         $appliqueId = $chosenId;
         if ($chosenId === 3) {
-            if ($imc < 18.5) {
+            if ($imc < 22) {
                 $appliqueId = 2; // prise de poids
-            } elseif ($imc >= 25) {
+            } elseif ($imc > 22) {
                 $appliqueId = 1; // perte de poids
             } else {
                 $appliqueId = 3; // imc ideal
@@ -850,10 +850,10 @@ class UserController extends BaseController
             return redirect()->back()->with('error', 'Date de début invalide.');
         }
 
-        $objectifId = (int) (session()->get('pending_objectif') ?: session()->get('user_objectif'));
+        $objectifId = (int) (session()->get('pending_objectif') ?? session()->get('user_objectif'));
         $objectifAppliqueId = (int) (session()->get('pending_objectif_applique')
-            ?: session()->get('user_objectif_applique')
-            ?: $objectifId);
+            ?? session()->get('user_objectif_applique')
+            ?? $objectifId);
 
         if ($objectifId <= 0) {
             return redirect()->to('/objectif')->with('error', 'Session expirée, veuillez rechoisir votre objectif.');
@@ -894,14 +894,14 @@ class UserController extends BaseController
         }
 
         $objectifId = (int) (session()->get('pending_objectif_applique')
-            ?: session()->get('pending_objectif')
-            ?: session()->get('user_objectif_applique')
-            ?: session()->get('user_objectif'));
+            ?? session()->get('pending_objectif')
+            ?? session()->get('user_objectif_applique')
+            ?? session()->get('user_objectif'));
         if ($objectifId <= 0) {
             return redirect()->to('/objectif')->with('error', 'Veuillez d\'abord choisir un objectif.');
         }
 
-        $dateDebutRegime = session()->get('pending_date_debut_regime') ?: session()->get('date_debut_regime');
+        $dateDebutRegime = session()->get('pending_date_debut_regime') ?? session()->get('date_debut_regime');
         if (!$dateDebutRegime) {
             return redirect()->to('/regime')->with('error', 'Veuillez d\'abord choisir un régime.');
         }
@@ -938,14 +938,14 @@ class UserController extends BaseController
         }
 
         $objectifId = (int) (session()->get('pending_objectif_applique')
-            ?: session()->get('pending_objectif')
-            ?: session()->get('user_objectif_applique')
-            ?: session()->get('user_objectif'));
+            ?? session()->get('pending_objectif')
+            ?? session()->get('user_objectif_applique')
+            ?? session()->get('user_objectif'));
         if ($objectifId <= 0) {
             return redirect()->to('/objectif')->with('error', 'Session expirée, veuillez rechoisir votre objectif.');
         }
 
-        $dateDebutStr = trim((string) (session()->get('pending_date_debut_regime') ?: session()->get('date_debut_regime')));
+        $dateDebutStr = trim((string) (session()->get('pending_date_debut_regime') ?? session()->get('date_debut_regime')));
         if (!$dateDebutStr) {
             return redirect()->to('/regime')->with('error', 'Session expirée, veuillez rechoisir un régime.');
         }
@@ -965,10 +965,10 @@ class UserController extends BaseController
             return redirect()->to('/regime')->with('error', 'Date invalide, veuillez rechoisir un régime.');
         }
 
-        $pendingObjectifId = (int) (session()->get('pending_objectif') ?: 0);
-        $pendingObjectifAppliqueId = (int) (session()->get('pending_objectif_applique') ?: 0);
-        $pendingRegimeId = (int) (session()->get('pending_regime') ?: 0);
-        $pendingDureeRegime = (int) (session()->get('pending_duree_regime') ?: 0);
+        $pendingObjectifId = (int) (session()->get('pending_objectif') ?? 0);
+        $pendingObjectifAppliqueId = (int) (session()->get('pending_objectif_applique') ?? 0);
+        $pendingRegimeId = (int) (session()->get('pending_regime') ?? 0);
+        $pendingDureeRegime = (int) (session()->get('pending_duree_regime') ?? 0);
 
         // Nouveau flow (objectif -> regime -> sport): persistence unique en fin de parcours.
         if ($pendingObjectifId > 0 && $pendingRegimeId > 0) {

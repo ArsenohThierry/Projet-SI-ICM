@@ -153,7 +153,8 @@ class DashboardService
 
         $regimeActif = $this->userRegimeModel
             ->where('user_id', $userId)
-            ->orderBy('date_debut', 'DESC')
+            ->orderBy('date_save', 'DESC')
+            ->orderBy('id', 'DESC')
             ->first();
 
         $regimeActifName = null;
@@ -244,7 +245,7 @@ class DashboardService
 
         $derniereRegime = $this->userRegimeModel
             ->where('user_id', $userId)
-            ->orderBy('date_debut', 'DESC')
+            ->orderBy('date_save', 'DESC')
             ->orderBy('id', 'DESC')
             ->first();
 
