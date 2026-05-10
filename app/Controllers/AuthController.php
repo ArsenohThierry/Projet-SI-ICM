@@ -144,9 +144,10 @@ class AuthController extends BaseController
     {
         $optionModel = new OptionModel();
         $userOptionModel = new UserOptionModel();
+        $goldDefaultAmount = 20.0;
 
         $freeOptionId = $this->ensureOptionExists($optionModel, 'free', 0);
-        $this->ensureOptionExists($optionModel, 'gold', 0);
+        $this->ensureOptionExists($optionModel, 'gold', $goldDefaultAmount);
 
         $userOptionModel->assignOptionToUser($userId, $freeOptionId);
 
@@ -158,6 +159,10 @@ class AuthController extends BaseController
         $existing = $optionModel->findByLabel($label);
 
         if ($existing) {
+            if ((float) ($existing['montant'] ?? 0) <= 0 && $amount > 0) {
+                $optionModel->update((int) $existing['id'], ['montant' => $amount]);
+            }
+
             return (int) $existing['id'];
         }
 

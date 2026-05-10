@@ -7,10 +7,41 @@ use App\Models\UserModel;
 
 class CodeController extends BaseController
 {
+    public function redeemRegisterForm()
+    {
+        $data['user'] = $this->getSessionUser();
+        return view('redeemRegister', $data);
+    }
+
     public function redeemForm()
     {
         $data['user'] = $this->getSessionUser();
         return view('codes/redeem', $data);
+    }
+
+    public function redeemRegister()
+    {
+        $rules = [
+            'code' => 'required|min_length[4]'
+        ];
+
+        if (!$this->validate($rules)) {
+            return redirect()->to('/codes/redeem')
+                ->withInput()
+                ->with('errors', $this->validator->getErrors());
+        }
+
+        $userId = (int) session()->get('user_id');
+        $codeValue = trim((string) $this->request->getPost('code'));
+
+        $codeModel = new CodeModel();
+        $result = $codeModel->redeemForUser($codeValue, $userId);
+
+        if (!$result['ok']) {
+            return redirect()->to('/abonnement')->with('error', $result['message']);
+        }
+
+        return redirect()->to('/abonnement')->with('success', 'Code applique. Montant credite: ' . $result['montant']);
     }
 
     public function redeem()

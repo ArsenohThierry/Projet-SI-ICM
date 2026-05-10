@@ -25,13 +25,17 @@ $routes->post('/sport', 'UserController::setSport', ['filter' => 'auth']);
 $routes->get('/programme', 'UserController::programme', ['filter' => 'auth']);
 $routes->get('/profile', 'UserController::userProfile', ['filter' => 'auth']);
 $routes->get('/profile/export-pdf', 'UserController::exportPdf', ['filter' => 'auth']);
-$routes->post('/upgrade/gold', 'UserController::upgradeToGold', ['filter' => 'auth']);
 
 $routes->get('/codes/redeem', 'CodeController::redeemForm', ['filter' => 'user']);
 $routes->post('/codes/redeem', 'CodeController::redeem', ['filter' => 'user']);
+$routes->get('/codes/redeem-register', 'CodeController::redeemRegisterForm', ['filter' => 'user']);
+$routes->post('/codes/redeem-register', 'CodeController::redeemRegister', ['filter' => 'user']);
 
 $routes->get('/dashboard', 'DashboardController::showDashboard', ['filter' => 'auth']);
 $routes->post('/dashboard/add-poids', 'DashboardController::addPoids', ['filter' => 'auth']);
+
+$routes->get('/abonnement', 'UserController::pageAbonnement', ['filter' => 'auth']);
+$routes->post('/abonnement/gold', 'UserController::upgradeToGold', ['filter' => 'auth']);
 
 $routes->group('admin', ['filter' => 'admin'], static function ($routes) {
 	$routes->get('regimes', 'Admin\RegimeController::index');

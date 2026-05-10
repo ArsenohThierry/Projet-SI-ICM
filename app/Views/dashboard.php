@@ -449,7 +449,7 @@
         <!-- Objectifs & Historique poids -->
         <div class="card">
           <div class="card-header">
-            <h3><i class="fa-solid fa-bullseye" style="color:var(--danger);margin-right:6px"></i> Mes objectifs</h3>
+            <h3><i class="fa-solid fa-bullseye" style="color:var(--danger);margin-right:6px"></i> Enregistrer votre poids</h3>
           </div>
           <div class="card-body">
             <?php if ($objectifActif): ?>

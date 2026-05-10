@@ -97,4 +97,22 @@ class UserModel extends Model
     {
         return (int) $this->insert($data, true);
     }
+
+    public function assignObjectifToUser(int $userId, int $objectifId): bool
+    {
+        return (bool) $this->db->table('user_objectif')->insert([
+            'user_id' => $userId,
+            'objectif_id' => $objectifId,
+            'date_save' => date('Y-m-d H:i:s')
+        ]);
+    }
+
+    public function assignOptionToUser(int $userId, int $optionId): bool
+    {
+        return (bool) $this->db->table('user_option')->insert([
+            'user_id' => $userId,
+            'option_id' => $optionId,
+            'date_save' => date('Y-m-d H:i:s')
+        ]);
+    }
 }

@@ -26,4 +26,9 @@ class OptionModel extends Model
             'montant' => $amount,
         ], true);
     }
+
+    public function getAllOptions(): array
+    {
+        return $this->orderBy('id', 'ASC')->findAll();
+    }
 }
