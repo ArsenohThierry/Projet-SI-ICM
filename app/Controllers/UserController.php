@@ -642,31 +642,71 @@ class UserController extends BaseController
         return $pdf->Output('D', $filename);
     }
 
+    public function pageAbonnement()
+    {
+        $user = $this->getSessionUser();
+        if (!$user) {
+            return redirect()->to('/login');
+        }
+
+        $optionModel = new OptionModel();
+        $mouvementModel = new \App\Models\MouvementModel();
+
+        return view('abonnement', [
+            'user' => $user,
+            'options' => $optionModel->getAllOptions(),
+            'balance' => $mouvementModel->getBalanceByUserId((int) $user['id']),
+        ]);
+    }
+
     public function upgradeToGold()
     {
         $userId = (int) session()->get('user_id');
         $optionModel = new OptionModel();
-        $userOptionModel = new UserOptionModel();
-
-        $gold = $optionModel->where('libelle', 'gold')->first();
+        $mouvementModel = new \App\Models\MouvementModel();
+        $goldLabel = 'gold';
+        $goldDefaultAmount = 20.0;
+        
+        // Récupérer l'option GOLD
+        $gold = $optionModel->where('libelle', $goldLabel)->first();
         if (!$gold) {
             $goldId = (int) $optionModel->insert([
-                'libelle' => 'gold',
-                'montant' => 0,
+                'libelle' => $goldLabel,
+                'montant' => $goldDefaultAmount,
             ], true);
+            $goldMontant = $goldDefaultAmount;
         } else {
             $goldId = (int) $gold['id'];
+            $goldMontant = (float) ($gold['montant'] ?? 0);
+            if ($goldMontant <= 0) {
+                $goldMontant = $goldDefaultAmount;
+                $optionModel->update($goldId, ['montant' => $goldMontant]);
+            }
         }
 
-        $userOptionModel->insert([
-            'user_id' => $userId,
-            'option_id' => $goldId,
-            'date_save' => date('Y-m-d H:i:s'),
-        ]);
+        // Vérifier la balance
+        $balance = $mouvementModel->getBalanceByUserId($userId);
+        if ($balance < $goldMontant) {
+            return redirect()->to('/codes/redeem-register')
+                ->with('error', 'Solde insuffisant pour s\'abonner à GOLD. Veuillez créditer votre compte.');
+        }
+
+        // Assigner l'option GOLD à l'utilisateur
+        (new UserModel())->assignOptionToUser($userId, $goldId);
+
+        // Déduire le montant de la balance
+        if ($goldMontant > 0) {
+            $mouvementModel->insert([
+                'type' => 'depense',
+                'user_id' => $userId,
+                'montant' => -$goldMontant,
+                'date_mouvement' => date('Y-m-d H:i:s'),
+            ]);
+        }
 
         session()->set('user_option', 'gold');
 
-        return redirect()->to('/profile');
+        return redirect()->to('/regime')->with('success', 'Abonnement GOLD activé avec succès !');
     }
 
     public function regimeSelection()
@@ -693,6 +733,7 @@ class UserController extends BaseController
         $data['user'] = $user;
         $data['regimes'] = is_string($regimes) ? [] : $regimes;
         $data['errorMessage'] = is_string($regimes) ? $regimes : null;
+        $data['isGold'] = session()->get('user_option') === 'gold';
 
         return view('suggestion_regime', $data);
     }
