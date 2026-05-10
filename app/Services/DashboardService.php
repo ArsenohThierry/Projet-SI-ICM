@@ -38,7 +38,7 @@ class DashboardService
 
     public function getObjectifActif($userId): ?array
     {
-        $user = $this->userModel->getUserById($userId);
+        $user = $this->userModel->getUserWithMenuSelections($userId);
         if (!$user) {
             return null;
         }
@@ -124,7 +124,7 @@ class DashboardService
 
     public function getStatistiques($userId)
     {
-        $user = $this->userModel->getUserById($userId);
+        $user = $this->userModel->getUserWithMenuSelections($userId);
 
         if (!$user) {
             return null;
@@ -195,6 +195,9 @@ class DashboardService
             'prenom' => $user['prenom'] ?? '',
             'username' => $user['username'] ?? '',
             'email' => $user['email'] ?? '',
+            'objectif_choisi' => $user['objectif_choisi'] ?? '',
+            'regime_choisi' => $user['regime_choisi'] ?? '',
+            'sport_choisi' => $user['sport_choisi'] ?? '',
             'age' => $user['age'],
             'taille' => $user['taille'],
             'genre' => $user['genre']

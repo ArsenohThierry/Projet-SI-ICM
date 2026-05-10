@@ -22,6 +22,7 @@ $routes->get('/regime', 'UserController::regimeSelection', ['filter' => 'auth'])
 $routes->post('/regime', 'UserController::setRegime', ['filter' => 'auth']);
 $routes->get('/sport', 'UserController::sportSelection', ['filter' => 'auth']);
 $routes->post('/sport', 'UserController::setSport', ['filter' => 'auth']);
+$routes->get('/programme', 'UserController::programme', ['filter' => 'auth']);
 $routes->get('/profile', 'UserController::userProfile', ['filter' => 'auth']);
 $routes->get('/profile/export-pdf', 'UserController::exportPdf', ['filter' => 'auth']);
 $routes->post('/upgrade/gold', 'UserController::upgradeToGold', ['filter' => 'auth']);

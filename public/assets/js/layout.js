@@ -24,9 +24,7 @@ const NF_LAYOUT = {
     ] : [
       { id: 'dashboard', icon: 'fa-gauge', label: 'Tableau de bord', href: '/dashboard' },
       { id: 'imc', icon: 'fa-calculator', label: 'IMC', href: '/imc' },
-      { id: 'objectif', icon: 'fa-bullseye', label: 'Objectif', href: '/objectif' },
-      { id: 'regime', icon: 'fa-bowl-food', label: 'Régimes alimentaires', href: '/regime' },
-      { id: 'sport', icon: 'fa-dumbbell', label: 'Activités sportives', href: '/sport' },
+      { id: 'programme', icon: 'fa-bullseye', label: 'programme', href: '/programme' },
       { id: 'profile', icon: 'fa-user', label: 'Profil', href: '/profile' },
       { id: 'codes', icon: 'fa-ticket', label: 'Codes', href: '/codes/redeem' }
     ];

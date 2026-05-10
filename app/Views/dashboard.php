@@ -260,77 +260,19 @@
   }
   ?>
 
-  <div class="sidebar-overlay"></div>
-  <aside class="sidebar" id="sidebar">
-    <div class="sidebar-logo">
-      <div class="logo-icon"><i class="fa-solid fa-leaf"></i></div>
-      <span class="logo-text">Nutri<span>Fit</span></span>
-    </div>
-    <nav class="sidebar-nav">
-      <div class="nav-section-title">Menu</div>
-      <a href="<?= site_url('/dashboard') ?>" class="nav-item active">
-        <i class="fa-solid fa-gauge nav-icon"></i> Tableau de bord
-      </a>
-      <a href="<?= site_url('/imc') ?>" class="nav-item">
-        <i class="fa-solid fa-calculator nav-icon"></i> IMC
-      </a>
-      <a href="<?= site_url('/objectif') ?>" class="nav-item">
-        <i class="fa-solid fa-bullseye nav-icon"></i> Objectif
-      </a>
-      <a href="<?= site_url('/regime') ?>" class="nav-item">
-        <i class="fa-solid fa-bowl-food nav-icon"></i> Régimes alimentaires
-      </a>
-      <a href="<?= site_url('/sport') ?>" class="nav-item">
-        <i class="fa-solid fa-dumbbell nav-icon"></i> Activités sportives
-      </a>
-      <a href="<?= site_url('/profile') ?>" class="nav-item">
-        <i class="fa-solid fa-user nav-icon"></i> Profil
-      </a>
-      <a href="<?= site_url('/codes/redeem') ?>" class="nav-item">
-        <i class="fa-solid fa-ticket nav-icon"></i> Codes
-      </a>
-      <div class="nav-section-title" style="margin-top:1rem">Compte</div>
-      <a href="<?= site_url('/logout') ?>" class="nav-item">
-        <i class="fa-solid fa-right-from-bracket nav-icon"></i> Déconnexion
-      </a>
-    </nav>
-    <div class="sidebar-footer">
-      <div class="sidebar-user" id="sidebarUser">
-        <div class="user-avatar" id="sidebarAvatar"><?= esc($initials) ?></div>
-        <div>
-          <div class="user-name" id="sidebarName"><?= esc($username) ?></div>
-          <div class="user-role" id="sidebarEmail"><?= esc($email) ?></div>
-        </div>
-      </div>
-    </div>
-  </aside>
+  <?php $sessionUser = $user ?? []; ?>
+  <script>
+    window.NF_USER = {
+      prenom: "<?= esc($prenom) ?>",
+      nom: "<?= esc($nom) ?>",
+      username: "<?= esc($username) ?>",
+      email: "<?= esc($email) ?>",
+      role_user: "<?= esc((string) ($sessionUser['role_user'] ?? session()->get('role_user') ?? '')) ?>",
+      gold: <?= session()->get('user_option') === 'gold' ? 'true' : 'false' ?>
+    };
+  </script>
 
-  <div class="main-content">
-    <!-- Navbar -->
-    <header class="navbar">
-      <div class="navbar-left">
-        <button class="hamburger" onclick="document.getElementById('sidebar').classList.toggle('open');document.querySelector('.sidebar-overlay').style.display='block'">
-          <i class="fa-solid fa-bars"></i>
-        </button>
-        <div>
-          <div class="page-title">Tableau de bord</div>
-          <div class="breadcrumb">NutriFit / <span>Dashboard</span></div>
-        </div>
-      </div>
-      <div class="navbar-right">
-        <div class="search-box">
-          <i class="fa-solid fa-search"></i>
-          <input type="text" placeholder="Rechercher...">
-        </div>
-        <button class="nav-btn" data-tooltip="Notifications">
-          <i class="fa-solid fa-bell"></i>
-          <span class="notif-dot"></span>
-        </button>
-        <div class="navbar-avatar" id="navAvatar" title="Mon profil"><?= esc($initials) ?></div>
-      </div>
-    </header>
-
-    <!-- Page Content -->
+  <div id="pageContent">
     <div class="page-content">
 
       <!-- Welcome Banner -->
@@ -577,11 +519,21 @@
       </div>
 
     </div>
-    <!-- end page-content -->
   </div>
-  <!-- end main-content -->
 
   <script src="<?= base_url('assets/js/app.js') ?>"></script>
+  <script src="<?= base_url('assets/js/layout.js') ?>"></script>
+  <script>
+    if (typeof NF_LAYOUT !== 'undefined' && NF_LAYOUT.inject) {
+      NF_LAYOUT.inject('dashboard', 'Tableau de bord', 'Dashboard');
+    }
+    const mc = document.getElementById('mainContent');
+    const content = document.getElementById('pageContent');
+    if (mc && content) {
+      mc.appendChild(content);
+    }
+  </script>
+  
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       const historyData = <?= json_encode($history, JSON_UNESCAPED_UNICODE) ?>;
@@ -632,15 +584,6 @@
         });
       }
 
-      document.querySelector('.hamburger')?.addEventListener('click', () => {
-        document.getElementById('sidebar').classList.toggle('open');
-        document.querySelector('.sidebar-overlay').style.display = 'block';
-      });
-
-      document.querySelector('.sidebar-overlay')?.addEventListener('click', () => {
-        document.getElementById('sidebar').classList.remove('open');
-        document.querySelector('.sidebar-overlay').style.display = 'none';
-      });
     });
   </script>
 </body>
