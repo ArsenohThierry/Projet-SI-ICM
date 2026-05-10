@@ -72,6 +72,9 @@ const NF_LAYOUT = {
   navbar(title, subtitle) {
     const user = this.getUser() || { prenom: 'Jean', nom: 'Rakoto' };
     const initials = `${(user.nom || '')[0] || ''}${(user.prenom || '')[0] || ''}`.toUpperCase() || 'JR';
+    const balance = Number(user.balance || 0);
+    const balanceFormatted = (isNaN(balance) ? '0' : balance.toLocaleString('fr-FR', { maximumFractionDigits: 0 }));
+
     return `
       <header class="navbar">
         <div class="navbar-left">
@@ -86,6 +89,10 @@ const NF_LAYOUT = {
             <i class="fa-solid fa-bell"></i>
             <span class="notif-dot"></span>
           </button>
+          <div class="nav-balance" style="display:flex;align-items:center;gap:0.45rem;padding:0.45rem 0.75rem;border:1px solid var(--border);border-radius:999px;background:var(--bg-card);margin-right:0.5rem;">
+            <span style="font-size:0.8rem;color:var(--text-muted);">Compte</span>
+            <strong style="font-family:'Sora',sans-serif;color:var(--primary);">${balanceFormatted} Ar</strong>
+          </div>
           <div class="navbar-avatar" title="${user.prenom}">${initials}</div>
         </div>
       </header>
@@ -131,5 +138,18 @@ const NF_LAYOUT = {
     const mc = document.getElementById('mainContent');
     mc.insertAdjacentHTML('afterbegin', this.navbar(title, subtitle));
     document.body.insertAdjacentHTML('beforeend', this.deleteModal());
+    // Try to refresh balance from server (if API available)
+    try {
+      if (typeof window !== 'undefined' && window.fetch) {
+        fetch('/api/balance', { credentials: 'same-origin' })
+          .then(r => r.json())
+          .then(j => {
+            if (j && typeof j.balance !== 'undefined') {
+              const el = document.querySelector('.nav-balance strong');
+              if (el) el.textContent = Number(j.balance).toLocaleString('fr-FR', { maximumFractionDigits: 0 }) + ' Ar';
+            }
+          }).catch(() => {});
+      }
+    } catch (e) {}
   }
 };
