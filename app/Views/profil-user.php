@@ -10,31 +10,55 @@
     <link rel="icon" href="/assets/logo.png">
     <style>
         .profile-page {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 2rem;
+            min-height: auto;
+            display: block;
+            padding: 0.35rem 0 0;
         }
 
         .profile-wrapper {
             width: 100%;
-            max-width: 620px;
+            max-width: 100%;
             display: flex;
             flex-direction: column;
             gap: 1.25rem;
         }
 
+        .profile-header-main {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .profile-header-name {
+            display: flex;
+            align-items: center;
+            gap: 0.65rem;
+            flex-wrap: wrap;
+            margin-bottom: 0.45rem;
+        }
+
+        .profile-header-username {
+            color: var(--text-muted);
+            font-size: 0.88rem;
+            margin-bottom: 0.2rem;
+        }
+
+        .profile-header-id {
+            color: var(--text-muted);
+            font-size: 0.82rem;
+            margin-bottom: 0.65rem;
+        }
+
         .avatar-circle {
-            width: 80px;
-            height: 80px;
+            width: 64px;
+            height: 64px;
             border-radius: 50%;
             background: linear-gradient(135deg, var(--primary), var(--primary-dark));
             display: flex;
             align-items: center;
             justify-content: center;
             font-family: 'Sora', sans-serif;
-            font-size: 2rem;
+            font-size: 1.5rem;
             font-weight: 800;
             color: white;
             box-shadow: 0 8px 24px var(--primary-glow);
@@ -45,7 +69,7 @@
             display: flex;
             align-items: center;
             gap: 1rem;
-            padding: 0.9rem 0;
+            padding: 0.75rem 0;
             border-bottom: 1px solid var(--border);
         }
 
@@ -54,30 +78,28 @@
         }
 
         .info-icon {
-            width: 36px;
-            height: 36px;
-            border-radius: var(--radius-sm);
+            width: 44px;
+            height: 44px;
+            border-radius: var(--radius);
             background: var(--primary-light);
             color: var(--primary-dark);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 0.85rem;
+            font-size: 1rem;
             flex-shrink: 0;
         }
 
         .info-label {
-            font-size: 0.75rem;
+            font-size: 0.78rem;
             font-family: 'Sora', sans-serif;
-            font-weight: 700;
+            font-weight: 600;
             color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
         }
 
         .info-value {
-            font-size: 0.95rem;
-            font-weight: 500;
+            font-size: 0.88rem;
+            font-weight: 600;
             color: var(--text-primary);
         }
 
@@ -85,11 +107,11 @@
             flex: 1;
             background: var(--bg-card);
             border: 1px solid var(--border);
-            border-radius: var(--radius-lg);
-            padding: 1.1rem 1.25rem;
+            border-radius: var(--radius);
+            padding: 1rem;
             display: flex;
             flex-direction: column;
-            gap: 0.3rem;
+            gap: 0.35rem;
             transition: var(--transition);
         }
 
@@ -100,13 +122,13 @@
 
         .stat-mini-value {
             font-family: 'Sora', sans-serif;
-            font-size: 1.8rem;
+            font-size: 1.35rem;
             font-weight: 800;
             line-height: 1;
         }
 
         .stat-mini-label {
-            font-size: 0.75rem;
+            font-size: 0.82rem;
             color: var(--text-muted);
             font-weight: 500;
         }
@@ -114,6 +136,19 @@
         .stats-row {
             display: flex;
             gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .profile-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 0.1rem;
+        }
+
+        @media (max-width: 900px) {
+            .stats-row {
+                flex-direction: column;
+            }
         }
     </style>
 </head>
@@ -145,19 +180,20 @@
 
     <script>
         window.NF_USER = {
-            prenom: "<?php echo esc($prenom ?? ''); ?>",
-            nom: "<?php echo esc($nom ?? ''); ?>",
-            username: "<?php echo esc($username ?? session()->get('username') ?? ''); ?>",
-            email: "<?php echo esc($email ?? ''); ?>",
-            objectif_choisi: "<?php echo esc($user['objectif_choisi'] ?? ''); ?>",
-            regime_choisi: "<?php echo esc($user['regime_choisi'] ?? ''); ?>",
-            sport_choisi: "<?php echo esc($user['sport_choisi'] ?? ''); ?>",
-            role_user: "<?php echo esc($role_user ?? ''); ?>",
+            prenom: "<?php echo esc((string) ($prenom ?? '')); ?>",
+            nom: "<?php echo esc((string) ($nom ?? '')); ?>",
+            username: "<?php echo esc((string) ($username ?? session()->get('username') ?? '')); ?>",
+            email: "<?php echo esc((string) ($email ?? '')); ?>",
+            objectif_choisi: "<?php echo esc((string) ($user['objectif_choisi'] ?? '')); ?>",
+            regime_choisi: "<?php echo esc((string) ($user['regime_choisi'] ?? '')); ?>",
+            sport_choisi: "<?php echo esc((string) ($user['sport_choisi'] ?? '')); ?>",
+            role_user: "<?php echo esc((string) ($role_user ?? '')); ?>",
             gold: <?php echo session()->get('user_option') === 'gold' ? 'true' : 'false'; ?>
         };
     </script>
 
         <div id="pageContent">
+            <div class="page-content">
             <div class="page-header">
                 <div class="header-title">
                     <div class="logo-icon" style="background: var(--primary);">
@@ -169,8 +205,8 @@
                     </div>
                 </div>
                 <div class="header-actions">
-                    <a href="/codes/redeem" class="btn btn-outline">Codes</a>
-                    <a href="/imc" class="btn btn-primary">IMC</a>
+                    <a href="/codes/redeem" class="btn btn-outline btn-sm">Codes</a>
+                    <a href="/imc" class="btn btn-primary btn-sm">IMC</a>
                 </div>
             </div>
 
@@ -179,22 +215,21 @@
 
             <!-- Header Profil -->
             <div class="card">
-                <div class="card-body" style="display:flex; align-items:center; gap:1.5rem;">
+                <div class="card-body profile-header-main">
                     <div class="avatar-circle"><?php echo $initiales; ?></div>
                     <div style="flex:1;">
-                        <div
-                            style="display:flex; align-items:center; gap:0.75rem; flex-wrap:wrap; margin-bottom:0.3rem;">
-                            <h2 style="font-size:1.5rem;"><?php echo htmlspecialchars($prenom . ' ' . $nom); ?></h2>
+                        <div class="profile-header-name">
+                            <h2 style="font-size:1.15rem;"><?php echo htmlspecialchars($prenom . ' ' . $nom); ?></h2>
                             <span class="badge <?php echo $genre_badge; ?>">
                                 <i class="fa-solid <?php echo $genre_icon; ?>"></i>
                                 <?php echo $genre; ?>
                             </span>
                         </div>
-                        <div style="color:var(--text-muted); font-size:0.88rem;">
+                        <div class="profile-header-username">
                             <i class="fa-solid fa-at"
                                 style="margin-right:5px;"></i><?php echo htmlspecialchars($username); ?>
                         </div>
-                        <div style="color:var(--text-muted); font-size:0.82rem; margin-top:3px;">
+                        <div class="profile-header-id">
                             <i class="fa-solid fa-hashtag" style="margin-right:5px;"></i>ID : <?php echo $id; ?>
                         </div>
                         <a href="edit_profil.php" class="btn btn-outline btn-sm" style="flex-shrink:0;">
@@ -202,6 +237,7 @@
                         </a>
                     </div>
                 </div>
+            </div>
 
                 <!-- Stats rapides -->
                 <div class="stats-row delay-1 anim-fade-up">
@@ -319,7 +355,7 @@
                 </div>
 
                 <!-- Actions -->
-                <div style="display:flex; gap:1rem;" class="delay-3 anim-fade-up">
+                <div class="profile-actions delay-3 anim-fade-up">
 
                     <a href="/profile/export-pdf" class="btn btn-outline" style="flex:1;">
                         <i class="fa-solid fa-file-pdf"></i> Exporter en PDF
@@ -332,6 +368,7 @@
 
             </div>
         </div>
+    </div>
     </div>
 
     <script src="/assets/js/app.js"></script>
