@@ -6,6 +6,7 @@
     <title>Modifier activite</title>
     <link rel="stylesheet" href="/assets/css/style.css">
     <link rel="stylesheet" href="/assets/css/all.min.css">
+    <link rel="icon" type="image/png" href="/assets/logo.png">
 </head>
 <body>
 
@@ -24,7 +25,7 @@
   };
 </script>
 
-<div id="pageContent">
+<div id="pageContent" class="page-content">
     <div class="page-header">
     <div class="header-title">
       <div class="logo-icon" style="background: var(--info);">
@@ -53,10 +54,10 @@
             <h3>Informations principales</h3>
         </div>
         <div class="card-body">
-            <form method="post" action="/admin/sports/<?php echo $sport['id']; ?>/update" class="form-stack">
+            <form method="post" action="/admin/sports/<?php echo $sport['id'] ?? ''; ?>/update" class="form-stack">
               <div class="form-group">
                 <label class="form-label">Nom</label>
-                <input class="form-control" name="nom" value="<?php echo esc(old('nom', $sport['nom'])); ?>" required>
+                <input class="form-control" name="nom" value="<?php echo esc(old('nom', $sport['nom'] ?? '')); ?>" required>
               </div>
               <div class="form-actions">
                 <a href="/admin/sports" class="btn btn-outline">Annuler</a>

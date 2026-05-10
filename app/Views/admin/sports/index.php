@@ -6,6 +6,7 @@
     <title>Admin Activites</title>
     <link rel="stylesheet" href="/assets/css/style.css">
     <link rel="stylesheet" href="/assets/css/all.min.css">
+    <link rel="icon" type="image/png" href="/assets/logo.png">
 </head>
 <body>
 
@@ -24,7 +25,7 @@
   };
 </script>
 
-<div id="pageContent">
+<div id="pageContent" class="page-content">
     <div class="page-header">
     <div class="header-title">
       <div class="logo-icon" style="background: var(--primary);">
@@ -45,14 +46,14 @@
     <?php if (session()->getFlashdata('error')): ?>
       <div class="toast error" style="position:relative; margin-bottom:1rem;">
         <i class="fa-solid fa-times-circle toast-icon"></i>
-        <span><?php echo esc(session()->getFlashdata('error')); ?></span>
+        <span><?php echo esc((string) session()->getFlashdata('error')); ?></span>
       </div>
     <?php endif; ?>
 
     <?php if (session()->getFlashdata('success')): ?>
       <div class="toast success" style="position:relative; margin-bottom:1rem;">
         <i class="fa-solid fa-check-circle toast-icon"></i>
-        <span><?php echo esc(session()->getFlashdata('success')); ?></span>
+        <span><?php echo esc((string) session()->getFlashdata('success')); ?></span>
       </div>
     <?php endif; ?>
 
@@ -70,7 +71,7 @@
                 <?php if (!empty($sports)): ?>
                     <?php foreach ($sports as $s): ?>
                     <tr>
-                        <td><?php echo esc($s['nom']); ?></td>
+                        <td><?php echo esc((string) ($s['nom'] ?? '')); ?></td>
                         <td class="table-actions">
                             <a href="/admin/sports/<?php echo $s['id']; ?>" class="btn btn-outline btn-sm">Voir</a>
                             <a href="/admin/sports/<?php echo $s['id']; ?>/edit" class="btn btn-outline btn-sm">Modifier</a>
