@@ -123,11 +123,11 @@ class RegimeService
         } elseif ($objectifId == 1) {
             return $this->regimeModel->getSuggestionsRegimePerteDePoids();
         } elseif ($objectifId == 3) {
-            if ($imc >= 18.5 && $imc < 25) {
+            if ($imc == 22) {
                 return $this->regimeModel->getSuggestionsRegimeIMCIdeal();
-            } elseif ($imc < 18.5) {
+            } elseif ($imc < 22) {
                 return $this->regimeModel->getSuggestionsRegimePriseDePoids();
-            } elseif ($imc >= 25) {
+            } elseif ($imc > 22) {
                 return $this->regimeModel->getSuggestionsRegimePerteDePoids();
             } else {
                 return "Aucun régime ne correspond à votre IMC et à votre objectif.";
@@ -154,11 +154,11 @@ class RegimeService
         } elseif ($objectifId == 1) {
             return $this->sportObjectifModel->getSuggestionsSportPerteDePoids($age, $genre);
         } elseif ($objectifId == 3) {
-            if ($imc >= 18.5 && $imc < 25) {
+            if ($imc == 22) {
             return $this->sportObjectifModel->getSuggestionsSportIMCIdeal($age, $genre);
-            } elseif ($imc < 18.5) {
+            } elseif ($imc < 22) {
             return $this->sportObjectifModel->getSuggestionsSportPriseDePoids($age, $genre);
-            } elseif ($imc >= 25) {
+            } elseif ($imc > 22) {
             return $this->sportObjectifModel->getSuggestionsSportPerteDePoids($age, $genre);
             } else {
                 return "Aucun sports ne correspond à votre IMC et à votre objectif.";
