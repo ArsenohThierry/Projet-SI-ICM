@@ -659,6 +659,19 @@ class UserController extends BaseController
         ]);
     }
 
+    public function apiBalance()
+    {
+        $user = $this->getSessionUser();
+        if (!$user) {
+            return $this->response->setStatusCode(401)->setJSON(['error' => 'Unauthorized']);
+        }
+
+        $mouvementModel = new \App\Models\MouvementModel();
+        $balance = $mouvementModel->getBalanceByUserId((int) $user['id']);
+
+        return $this->response->setJSON(['balance' => (float) $balance]);
+    }
+
     public function upgradeToGold()
     {
         $userId = (int) session()->get('user_id');
@@ -697,9 +710,9 @@ class UserController extends BaseController
         // Déduire le montant de la balance
         if ($goldMontant > 0) {
             $mouvementModel->insert([
-                'type' => 'depense',
+                'type' => 'mamoaka',
                 'user_id' => $userId,
-                'montant' => -$goldMontant,
+                'montant' => $goldMontant,
                 'date_mouvement' => date('Y-m-d H:i:s'),
             ]);
         }
