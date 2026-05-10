@@ -140,17 +140,10 @@ class UserController extends BaseController
             $appliqueId = $idObjectifApplique;
         }
 
-        $userId = (int) session()->get('user_id');
-        $userObjectifModel = new UserObjectifModel();
-        $saved = $userObjectifModel->assignObjectifToUser($userId, $chosenId, $appliqueId);
-
-        if (!$saved) {
-            return redirect()->back()->with('error', 'Impossible d’enregistrer l’objectif.');
-        }
-
-        session()->set('user_objectif', $chosenId);
-        session()->set('user_objectif_applique', $appliqueId);
-        session()->setFlashdata('success', 'Objectif enregistré.');
+        // Etape intermediaire: on conserve le choix en session, sans persistance en base.
+        session()->set('pending_objectif', $chosenId);
+        session()->set('pending_objectif_applique', $appliqueId);
+        session()->setFlashdata('success', 'Objectif sélectionné.');
 
         return redirect()->to('/regime');
     }
@@ -809,7 +802,10 @@ class UserController extends BaseController
             return redirect()->to('/login');
         }
 
-        $objectifId = (int) (session()->get('user_objectif_applique') ?: session()->get('user_objectif'));
+        $objectifId = (int) (session()->get('pending_objectif_applique')
+            ?: session()->get('pending_objectif')
+            ?: session()->get('user_objectif_applique')
+            ?: session()->get('user_objectif'));
         if ($objectifId <= 0) {
             return redirect()->to('/objectif')->with('error', 'Veuillez d\'abord choisir un objectif.');
         }
@@ -854,8 +850,10 @@ class UserController extends BaseController
             return redirect()->back()->with('error', 'Date de début invalide.');
         }
 
-        $objectifId = (int) session()->get('user_objectif');
-        $objectifAppliqueId = (int) (session()->get('user_objectif_applique') ?: $objectifId);
+        $objectifId = (int) (session()->get('pending_objectif') ?: session()->get('user_objectif'));
+        $objectifAppliqueId = (int) (session()->get('pending_objectif_applique')
+            ?: session()->get('user_objectif_applique')
+            ?: $objectifId);
 
         if ($objectifId <= 0) {
             return redirect()->to('/objectif')->with('error', 'Session expirée, veuillez rechoisir votre objectif.');
@@ -868,7 +866,6 @@ class UserController extends BaseController
             return redirect()->back()->with('error', 'Régime invalide pour cet objectif.');
         }
 
-        $userId = (int) session()->get('user_id');
         $poidsIdeal = $regimeService->calculPoidsIdeal((float) ($user['taille'] ?? 0));
         $dureeRegime = (int) ceil($regimeService->calculDureeRegime(
             (float) ($user['poids_initial'] ?? 0),
@@ -880,16 +877,11 @@ class UserController extends BaseController
             $dureeRegime = 30;
         }
 
-        $regimeService->enregistrerChoixRegime(
-            $userId,
-            $regimeId,
-            $dateDebut,
-            $dureeRegime
-        );
-
-        session()->set('user_regime', $regimeId);
-        session()->set('date_debut_regime', $dateDebut->format('Y-m-d'));
-        session()->setFlashdata('success', 'Régime enregistré avec succès !');
+        // Etape intermediaire: on conserve le choix en session, sans persistance en base.
+        session()->set('pending_regime', $regimeId);
+        session()->set('pending_date_debut_regime', $dateDebut->format('Y-m-d'));
+        session()->set('pending_duree_regime', $dureeRegime);
+        session()->setFlashdata('success', 'Régime sélectionné.');
 
         return redirect()->to('/sport');
     }
@@ -901,12 +893,15 @@ class UserController extends BaseController
             return redirect()->to('/login');
         }
 
-        $objectifId = (int) (session()->get('user_objectif_applique') ?: session()->get('user_objectif'));
+        $objectifId = (int) (session()->get('pending_objectif_applique')
+            ?: session()->get('pending_objectif')
+            ?: session()->get('user_objectif_applique')
+            ?: session()->get('user_objectif'));
         if ($objectifId <= 0) {
             return redirect()->to('/objectif')->with('error', 'Veuillez d\'abord choisir un objectif.');
         }
 
-        $dateDebutRegime = session()->get('date_debut_regime');
+        $dateDebutRegime = session()->get('pending_date_debut_regime') ?: session()->get('date_debut_regime');
         if (!$dateDebutRegime) {
             return redirect()->to('/regime')->with('error', 'Veuillez d\'abord choisir un régime.');
         }
@@ -942,12 +937,15 @@ class UserController extends BaseController
             return redirect()->back()->with('error', 'Veuillez sélectionner un sport.');
         }
 
-        $objectifId = (int) (session()->get('user_objectif_applique') ?: session()->get('user_objectif'));
+        $objectifId = (int) (session()->get('pending_objectif_applique')
+            ?: session()->get('pending_objectif')
+            ?: session()->get('user_objectif_applique')
+            ?: session()->get('user_objectif'));
         if ($objectifId <= 0) {
             return redirect()->to('/objectif')->with('error', 'Session expirée, veuillez rechoisir votre objectif.');
         }
 
-        $dateDebutStr = trim((string) session()->get('date_debut_regime'));
+        $dateDebutStr = trim((string) (session()->get('pending_date_debut_regime') ?: session()->get('date_debut_regime')));
         if (!$dateDebutStr) {
             return redirect()->to('/regime')->with('error', 'Session expirée, veuillez rechoisir un régime.');
         }
@@ -967,6 +965,82 @@ class UserController extends BaseController
             return redirect()->to('/regime')->with('error', 'Date invalide, veuillez rechoisir un régime.');
         }
 
+        $pendingObjectifId = (int) (session()->get('pending_objectif') ?: 0);
+        $pendingObjectifAppliqueId = (int) (session()->get('pending_objectif_applique') ?: 0);
+        $pendingRegimeId = (int) (session()->get('pending_regime') ?: 0);
+        $pendingDureeRegime = (int) (session()->get('pending_duree_regime') ?: 0);
+
+        // Nouveau flow (objectif -> regime -> sport): persistence unique en fin de parcours.
+        if ($pendingObjectifId > 0 && $pendingRegimeId > 0) {
+            $objectifApplique = $pendingObjectifAppliqueId > 0 ? $pendingObjectifAppliqueId : $pendingObjectifId;
+
+            $regime = (new \App\Models\RegimeModel())->find($pendingRegimeId);
+            if (!$regime || (int) ($regime['objectif_id'] ?? 0) !== $objectifApplique) {
+                return redirect()->to('/regime')->with('error', 'Régime invalide pour cet objectif.');
+            }
+
+            if ($pendingDureeRegime <= 0) {
+                $poidsIdeal = $regimeService->calculPoidsIdeal((float) ($user['taille'] ?? 0));
+                $pendingDureeRegime = (int) ceil($regimeService->calculDureeRegime(
+                    (float) ($user['poids_initial'] ?? 0),
+                    $poidsIdeal,
+                    (float) ($regime['variation_poids'] ?? 0)
+                ));
+                if ($pendingDureeRegime <= 0) {
+                    $pendingDureeRegime = 30;
+                }
+            }
+
+            $db = \Config\Database::connect();
+            $db->transStart();
+
+            $objectifSaved = (new UserObjectifModel())->assignObjectifToUser(
+                $userId,
+                $pendingObjectifId,
+                $objectifApplique
+            );
+
+            if (!$objectifSaved) {
+                $db->transRollback();
+                return redirect()->to('/objectif')->with('error', 'Impossible d\'enregistrer l\'objectif.');
+            }
+
+            $regimeService->enregistrerChoixRegime(
+                $userId,
+                $pendingRegimeId,
+                $dateDebut,
+                $pendingDureeRegime
+            );
+
+            $regimeService->enregistrerChoixSportObjectif(
+                $userId,
+                $sportObjectifId,
+                $dateDebut
+            );
+
+            $db->transComplete();
+
+            if (!$db->transStatus()) {
+                return redirect()->to('/sport')->with('error', 'Impossible d\'enregistrer votre programme.');
+            }
+
+            session()->set('user_objectif', $pendingObjectifId);
+            session()->set('user_objectif_applique', $objectifApplique);
+            session()->set('user_regime', $pendingRegimeId);
+            session()->set('date_debut_regime', $dateDebut->format('Y-m-d'));
+            session()->set('user_sport_objectif', $sportObjectifId);
+
+            session()->remove('pending_objectif');
+            session()->remove('pending_objectif_applique');
+            session()->remove('pending_regime');
+            session()->remove('pending_date_debut_regime');
+            session()->remove('pending_duree_regime');
+
+            session()->setFlashdata('success', 'Programme enregistré avec succès !');
+            return redirect()->to('/profile');
+        }
+
+        // Compatibilité ancien flow: enregistrement direct du sport seulement.
         $regimeService->enregistrerChoixSportObjectif(
             $userId,
             $sportObjectifId,
