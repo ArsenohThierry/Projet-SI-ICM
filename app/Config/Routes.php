@@ -36,6 +36,9 @@ $routes->post('/dashboard/add-poids', 'DashboardController::addPoids', ['filter'
 $routes->get('/abonnement', 'UserController::pageAbonnement', ['filter' => 'auth']);
 $routes->post('/abonnement/gold', 'UserController::upgradeToGold', ['filter' => 'auth']);
 
+$routes->get('/abonnementLogin', 'UserController::pageAbonnementLogin', ['filter' => 'auth']);
+$routes->post('/abonnement/goldLogin', 'UserController::upgradeToGoldFromLogin', ['filter' => 'auth']);
+
 $routes->group('admin', ['filter' => 'admin'], static function ($routes) {
 	$routes->get('regimes', 'Admin\RegimeController::index');
 	$routes->get('regimes/new', 'Admin\RegimeController::create');

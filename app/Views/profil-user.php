@@ -374,7 +374,7 @@
     <script src="/assets/js/app.js"></script>
     <script src="/assets/js/layout.js"></script>
     <script>
-        NF_LAYOUT.inject('profile', 'Profil', 'Mon compte');
+        NF_LAYOUT.inject('profile', 'Profil', 'Mon compte', <?php echo $balance ?? 0; ?>);
         const mc = document.getElementById('mainContent');
         const content = document.getElementById('pageContent');
         if (mc && content) {

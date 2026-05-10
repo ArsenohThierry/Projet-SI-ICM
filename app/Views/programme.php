@@ -427,7 +427,7 @@
 <script src="/assets/js/layout.js"></script>
 <script>
   if (typeof NF_LAYOUT !== 'undefined' && NF_LAYOUT.inject) {
-    NF_LAYOUT.inject('programme', 'Mes choix', 'Programme actuel');
+    NF_LAYOUT.inject('programme', 'Mes choix', 'Programme actuel', <?php echo $balance ?? 0; ?>);
   }
   const mc = document.getElementById('mainContent');
   const content = document.getElementById('pageContent');
