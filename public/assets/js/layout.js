@@ -82,10 +82,6 @@ const NF_LAYOUT = {
           </div>
         </div>
         <div class="navbar-right">
-          <div class="search-box">
-            <i class="fa-solid fa-search"></i>
-            <input type="text" id="tableSearch" placeholder="Rechercher...">
-          </div>
           <button class="nav-btn" data-tooltip="Notifications">
             <i class="fa-solid fa-bell"></i>
             <span class="notif-dot"></span>

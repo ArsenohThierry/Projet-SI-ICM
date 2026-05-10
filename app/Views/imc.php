@@ -194,37 +194,6 @@
             <span class="logo-text">Nutri<span>Fit</span></span>
         </div>
 
-        <!-- Formulaire IMC -->
-        <div class="card">
-            <div class="card-header">
-                <h3><i class="fa-solid fa-calculator" style="color:var(--primary); margin-right:8px;"></i>Calculer votre IMC</h3>
-            </div>
-            <div class="card-body">
-                <form method="post" action="/imc" class="form-stack">
-                    <div class="form-group">
-                        <label class="form-label">Taille (cm)</label>
-                        <div class="input-wrapper">
-                            <i class="fa-solid fa-ruler-vertical input-icon"></i>
-                            <input type="number" class="form-control" name="taille" placeholder="170" min="100" max="250" required>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Poids (kg)</label>
-                        <div class="input-wrapper">
-                            <i class="fa-solid fa-weight-scale input-icon"></i>
-                            <input type="number" class="form-control" name="poids" placeholder="72" min="20" max="300" required>
-                        </div>
-                    </div>
-                    <div class="form-actions" style="justify-content:stretch;">
-                        <button class="btn btn-primary btn-block" type="submit">
-                            <i class="fa-solid fa-weight-scale"></i>
-                            Calculer
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-
         <?php if ($hasResult): ?>
         <!-- Card resultat principal -->
         <div class="card">
