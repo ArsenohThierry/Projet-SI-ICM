@@ -191,6 +191,10 @@ class DashboardService
             'regime_actif' => $regimeActifName,
             'duree_regime_jours' => $durationRegime,
             'user_name' => $user['prenom'] . ' ' . $user['nom'],
+            'nom' => $user['nom'] ?? '',
+            'prenom' => $user['prenom'] ?? '',
+            'username' => $user['username'] ?? '',
+            'email' => $user['email'] ?? '',
             'age' => $user['age'],
             'taille' => $user['taille'],
             'genre' => $user['genre']

@@ -154,6 +154,7 @@
 window.NF_USER = {
     prenom   : "<?php echo esc($sessionUser['prenom']    ?? ''); ?>",
     nom      : "<?php echo esc($sessionUser['nom']       ?? ''); ?>",
+    username : "<?php echo esc($sessionUser['username']  ?? session()->get('username') ?? ''); ?>",
     email    : "<?php echo esc($sessionUser['email']     ?? ''); ?>",
     role_user: "<?php echo esc($sessionUser['role_user'] ?? ''); ?>",
     gold     : <?php echo session()->get('user_option') === 'gold' ? 'true' : 'false'; ?>

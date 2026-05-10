@@ -10,17 +10,23 @@ const NF_LAYOUT = {
   },
 
   sidebar(activePage) {
-    const user = this.getUser() || { prenom: 'Jean', nom: 'Rakoto', gold: false };
-    const initials = ((user.prenom || 'J')[0] + (user.nom || 'R')[0]).toUpperCase();
+    const user = this.getUser() || { username: 'utilisateur', email: '', gold: false };
+    const username = user.username || (user.email ? user.email.split('@')[0] : `${user.prenom || ''} ${user.nom || ''}`.trim()) || 'Utilisateur';
+    const email = user.email || '';
+    const initials = `${(user.nom || '')[0] || ''}${(user.prenom || '')[0] || ''}`.toUpperCase() || username[0].toUpperCase();
     const isAdmin = user.role_user === 'admin';
 
     const navItems = isAdmin ? [
-      { id: 'admin-regimes', icon: 'fa-bowl-food', label: 'Regimes', href: '/admin/regimes' },
-      { id: 'admin-sports', icon: 'fa-dumbbell', label: 'Activites', href: '/admin/sports' },
+      { id: 'admin-regimes', icon: 'fa-bowl-food', label: 'Régimes alimentaires', href: '/admin/regimes' },
+      { id: 'admin-sports', icon: 'fa-dumbbell', label: 'Activités sportives', href: '/admin/sports' },
       { id: 'admin-codes', icon: 'fa-ticket', label: 'Codes', href: '/admin/codes' },
       { id: 'profile', icon: 'fa-user', label: 'Profil', href: '/profile' }
     ] : [
+      { id: 'dashboard', icon: 'fa-gauge', label: 'Tableau de bord', href: '/dashboard' },
       { id: 'imc', icon: 'fa-calculator', label: 'IMC', href: '/imc' },
+      { id: 'objectif', icon: 'fa-bullseye', label: 'Objectif', href: '/objectif' },
+      { id: 'regime', icon: 'fa-bowl-food', label: 'Régimes alimentaires', href: '/regime' },
+      { id: 'sport', icon: 'fa-dumbbell', label: 'Activités sportives', href: '/sport' },
       { id: 'profile', icon: 'fa-user', label: 'Profil', href: '/profile' },
       { id: 'codes', icon: 'fa-ticket', label: 'Codes', href: '/codes/redeem' }
     ];
@@ -55,8 +61,8 @@ const NF_LAYOUT = {
           <div class="sidebar-user">
             <div class="user-avatar">${initials}</div>
             <div>
-              <div class="user-name">${user.prenom} ${user.nom}</div>
-              <div class="user-role">${user.email || 'utilisateur'}</div>
+              <div class="user-name">${username}</div>
+              <div class="user-role">${email}</div>
             </div>
             ${user.gold ? '<span class="gold-tag"><i class="fa-solid fa-crown"></i> GOLD</span>' : ''}
           </div>
@@ -67,7 +73,7 @@ const NF_LAYOUT = {
 
   navbar(title, subtitle) {
     const user = this.getUser() || { prenom: 'Jean', nom: 'Rakoto' };
-    const initials = ((user.prenom || 'J')[0] + (user.nom || 'R')[0]).toUpperCase();
+    const initials = `${(user.nom || '')[0] || ''}${(user.prenom || '')[0] || ''}`.toUpperCase() || 'JR';
     return `
       <header class="navbar">
         <div class="navbar-left">
