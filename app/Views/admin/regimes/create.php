@@ -24,7 +24,7 @@
   };
 </script>
 
-<div id="pageContent">
+<div id="pageContent" class="page-content">
     <div class="page-header">
         <div class="header-title">
             <div class="logo-icon" style="background: var(--primary);">

@@ -6,6 +6,7 @@
     <title>Utiliser un code</title>
     <link rel="stylesheet" href="/assets/css/style.css">
     <link rel="stylesheet" href="/assets/css/all.min.css">
+    <link rel="icon" type="image/png" href="/assets/logo.png">
     <style>
       .codes-wrapper {
         max-width: 760px;

@@ -9,6 +9,7 @@ $errorId = uniqid('error', true);
 <head>
     <meta charset="UTF-8">
     <meta name="robots" content="noindex">
+    <link rel="icon" type="image/png" href="/assets/logo.png">
 
     <title><?= esc($title) ?></title>
     <style>
