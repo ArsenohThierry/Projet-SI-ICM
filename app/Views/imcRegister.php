@@ -350,7 +350,7 @@ window.NF_USER = {
 </div>
 
 <script>
-    NF_LAYOUT.inject('imc', 'IMC', 'Calcul IMC');
+    NF_LAYOUT.inject('imc', 'IMC', 'Calcul IMC', <?php echo $balance ?? 0; ?>);
     const mc      = document.getElementById('mainContent');
     const content = document.getElementById('pageContent');
     if (mc && content) mc.appendChild(content);

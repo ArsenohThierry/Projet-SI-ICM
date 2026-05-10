@@ -8,6 +8,7 @@ use App\Models\UserModel;
 use App\Models\UserObjectifModel;
 use App\Models\UserOptionModel;
 use App\Services\RegimeService;
+use App\Models\MouvementModel;
 
 class UserController extends BaseController
 {
@@ -33,6 +34,9 @@ class UserController extends BaseController
             $data['imc'] = $poids / ($taille * $taille);
         }
 
+        $mouvementModel = new MouvementModel();
+        $data['balance'] = $mouvementModel->getBalanceByUserId((int) $user['id']);
+
         return view('imc', $data);
     }
 
@@ -47,8 +51,13 @@ class UserController extends BaseController
         $taille = $taille / 100;
         $imc = $poids / ($taille * $taille);
 
+        $user = $this->getSessionUser();
         $data['imc'] = $imc;
-        $data['user'] = $this->getSessionUser();
+        $data['user'] = $user;
+        
+        $mouvementModel = new MouvementModel();
+        $data['balance'] = $mouvementModel->getBalanceByUserId((int) $user['id']);
+        
         return view('imc', $data);
     }
 
@@ -82,7 +91,7 @@ class UserController extends BaseController
         // objectif_applique_id can be computed server-side based on chosen objectif and IMC
         $idObjectifApplique = (int) $this->request->getPost('objectif_applique_id');
 
-        
+        $mouvementModel = new MouvementModel();
         if ($id <= 0) {
             return redirect()->back()->with('error', 'Veuillez sélectionner un objectif.');
         }
@@ -157,7 +166,9 @@ class UserController extends BaseController
             return redirect()->to('/login');
         }
 
+        $mouvementModel = new MouvementModel();
         $data['user'] = $user;
+        $data['balance'] = $mouvementModel->getBalanceByUserId($id);
         return view('profil-user', $data);
     }
 
@@ -224,6 +235,7 @@ class UserController extends BaseController
 
         $progression = round((($poids_initial['poids'] - $poids_actuel['poids']) / ($poids_initial['poids'] - $poids_cible)) * 100, 2);
 
+        $mouvementModel = new MouvementModel();
         return view('programme', [
             'user' => $user,
             'objectif' => $objectif,
@@ -232,7 +244,8 @@ class UserController extends BaseController
             'imc_actuel' => $imc_actuel,
             'poids_actuel' => $poids_actuel['poids'],
             'poids_cible' => $poids_cible,
-            'progression' => $progression
+            'progression' => $progression,
+            'balance' => $mouvementModel->getBalanceByUserId($userId)
         ]);
     }
 
@@ -650,7 +663,7 @@ class UserController extends BaseController
         }
 
         $optionModel = new OptionModel();
-        $mouvementModel = new \App\Models\MouvementModel();
+        $mouvementModel = new MouvementModel();
 
         return view('abonnement', [
             'user' => $user,
@@ -670,13 +683,28 @@ class UserController extends BaseController
         $balance = $mouvementModel->getBalanceByUserId((int) $user['id']);
 
         return $this->response->setJSON(['balance' => (float) $balance]);
+        public function pageAbonnementLogin()
+    {
+        $user = $this->getSessionUser();
+        if (!$user) {
+            return redirect()->to('/login');
+        }
+
+        $optionModel = new OptionModel();
+        $mouvementModel = new MouvementModel();
+
+        return view('abonnementLogin', [
+            'user' => $user,
+            'options' => $optionModel->getAllOptions(),
+            'balance' => $mouvementModel->getBalanceByUserId((int) $user['id']),
+        ]);
     }
 
     public function upgradeToGold()
     {
         $userId = (int) session()->get('user_id');
         $optionModel = new OptionModel();
-        $mouvementModel = new \App\Models\MouvementModel();
+        $mouvementModel = new MouvementModel();
         $goldLabel = 'gold';
         $goldDefaultAmount = 20.0;
         
@@ -720,6 +748,56 @@ class UserController extends BaseController
         session()->set('user_option', 'gold');
 
         return redirect()->to('/regime')->with('success', 'Abonnement GOLD activé avec succès !');
+    }
+
+        public function upgradeToGoldFromLogin()
+    {
+        $userId = (int) session()->get('user_id');
+        $optionModel = new OptionModel();
+        $mouvementModel = new MouvementModel();
+        $goldLabel = 'gold';
+        $goldDefaultAmount = 20.0;
+        
+        // Récupérer l'option GOLD
+        $gold = $optionModel->where('libelle', $goldLabel)->first();
+        if (!$gold) {
+            $goldId = (int) $optionModel->insert([
+                'libelle' => $goldLabel,
+                'montant' => $goldDefaultAmount,
+            ], true);
+            $goldMontant = $goldDefaultAmount;
+        } else {
+            $goldId = (int) $gold['id'];
+            $goldMontant = (float) ($gold['montant'] ?? 0);
+            if ($goldMontant <= 0) {
+                $goldMontant = $goldDefaultAmount;
+                $optionModel->update($goldId, ['montant' => $goldMontant]);
+            }
+        }
+
+        // Vérifier la balance
+        $balance = $mouvementModel->getBalanceByUserId($userId);
+        if ($balance < $goldMontant) {
+            return redirect()->to('/codes/redeem-register')
+                ->with('error', 'Solde insuffisant pour s\'abonner à GOLD. Veuillez créditer votre compte.');
+        }
+
+        // Assigner l'option GOLD à l'utilisateur
+        (new UserModel())->assignOptionToUser($userId, $goldId);
+
+        // Déduire le montant de la balance
+        if ($goldMontant > 0) {
+            $mouvementModel->insert([
+                'type' => 'depense',
+                'user_id' => $userId,
+                'montant' => -$goldMontant,
+                'date_mouvement' => date('Y-m-d H:i:s'),
+            ]);
+        }
+
+        session()->set('user_option', 'gold');
+
+        return redirect()->to('/abonnementLogin')->with('success', 'Abonnement GOLD activé avec succès !');
     }
 
     public function regimeSelection()

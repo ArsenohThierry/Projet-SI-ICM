@@ -117,6 +117,10 @@ class AuthController extends BaseController
 
         $data['imc'] = $imc;
         $data['user'] = $user;
+        
+        $mouvementModel = new \App\Models\MouvementModel();
+        $data['balance'] = $mouvementModel->getBalanceByUserId($userId);
+        
         return view('imcRegister', $data);
     }
 

@@ -26,7 +26,7 @@ const NF_LAYOUT = {
       { id: 'imc', icon: 'fa-calculator', label: 'IMC', href: '/imc' },
       { id: 'programme', icon: 'fa-bullseye', label: 'programme', href: '/programme' },
       { id: 'profile', icon: 'fa-user', label: 'Profil', href: '/profile' },
-      { id: 'codes', icon: 'fa-ticket', label: 'Codes', href: '/codes/redeem' }
+      { id: 'abonnement', icon: 'fa-crown', label: 'Abonnements', href: '/abonnementLogin' }
     ];
 
     const links = navItems.map(n => `
@@ -69,12 +69,18 @@ const NF_LAYOUT = {
     `;
   },
 
-  navbar(title, subtitle) {
+  navbar(title, subtitle, balance = null) {
     const user = this.getUser() || { prenom: 'Jean', nom: 'Rakoto' };
     const initials = `${(user.nom || '')[0] || ''}${(user.prenom || '')[0] || ''}`.toUpperCase() || 'JR';
     const balance = Number(user.balance || 0);
     const balanceFormatted = (isNaN(balance) ? '0' : balance.toLocaleString('fr-FR', { maximumFractionDigits: 0 }));
 
+    const balanceDisplay = balance !== null ? `
+      <div style="display:flex; align-items:center; gap:0.5rem; padding:0 1rem; border-radius:6px; background:var(--primary-light); color:var(--primary);">
+        <span style="font-weight:600; font-size:0.9rem;">${parseFloat(balance).toFixed(2)} Ar</span>
+        <a href="/codes/redeem" style="display:flex; align-items:center; justify-content:center; width:24px; height:24px; background:var(--primary); color:white; border-radius:50%; text-decoration:none; font-weight:bold; cursor:pointer;">+</a>
+      </div>
+    ` : '';
     return `
       <header class="navbar">
         <div class="navbar-left">
@@ -85,6 +91,7 @@ const NF_LAYOUT = {
           </div>
         </div>
         <div class="navbar-right">
+          ${balanceDisplay}
           <button class="nav-btn" data-tooltip="Notifications">
             <i class="fa-solid fa-bell"></i>
             <span class="notif-dot"></span>
@@ -132,11 +139,11 @@ const NF_LAYOUT = {
     `;
   },
 
-  inject(activePage, title, subtitle) {
+  inject(activePage, title, subtitle, balance = null) {
     document.body.insertAdjacentHTML('afterbegin', this.sidebar(activePage));
     document.body.insertAdjacentHTML('afterbegin', '<div class="main-content" id="mainContent"></div>');
     const mc = document.getElementById('mainContent');
-    mc.insertAdjacentHTML('afterbegin', this.navbar(title, subtitle));
+    mc.insertAdjacentHTML('afterbegin', this.navbar(title, subtitle, balance));
     document.body.insertAdjacentHTML('beforeend', this.deleteModal());
     // Try to refresh balance from server (if API available)
     try {

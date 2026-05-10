@@ -31,12 +31,14 @@ class DashboardController extends BaseController
         $activitesSelectionnees = $this->dashboardService->getActivitesSelectionnees($userId);
         $objectifActif = $this->dashboardService->getObjectifActif($userId);
 
+        $mouvementModel = new \App\Models\MouvementModel();
         return view('dashboard', [
             'statistiques' => $statistiques,
             'historiquePoids' => $historiquePoids,
             'donneesSimulation' => $donneesSimulation,
             'activitesSelectionnees' => $activitesSelectionnees,
-            'objectifActif' => $objectifActif
+            'objectifActif' => $objectifActif,
+            'balance' => $mouvementModel->getBalanceByUserId($userId)
         ]);
     }
 
