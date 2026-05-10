@@ -232,6 +232,10 @@
   $objectifActif = $objectifActif ?? null;
 
   $fullName = trim(($stats['user_name'] ?? 'Utilisateur'));
+  $nom = trim((string) ($stats['nom'] ?? ''));
+  $prenom = trim((string) ($stats['prenom'] ?? ''));
+  $username = trim((string) ($stats['username'] ?? session()->get('username') ?? 'Utilisateur'));
+  $email = trim((string) ($stats['email'] ?? session()->get('email') ?? ''));
   $poidsActuel = (float) ($stats['poids_actuel'] ?? 0);
   $poidsInitial = (float) ($stats['poids_initial'] ?? 0);
   $progressKg = (float) ($stats['progression_kg'] ?? 0);
@@ -250,13 +254,9 @@
       $imc = round($poidsActuel / pow($taille / 100, 2), 1);
   }
 
-  $initials = 'US';
-  $parts = preg_split('/\s+/', $fullName);
-  if (!empty($parts[0])) {
-      $initials = strtoupper(substr($parts[0], 0, 1));
-      if (!empty($parts[1])) {
-          $initials .= strtoupper(substr($parts[1], 0, 1));
-      }
+  $initials = strtoupper(substr($nom, 0, 1) . substr($prenom, 0, 1));
+  if ($initials === '') {
+      $initials = strtoupper(substr($username !== '' ? $username : $fullName, 0, 1));
   }
   ?>
 
@@ -271,15 +271,23 @@
       <a href="<?= site_url('/dashboard') ?>" class="nav-item active">
         <i class="fa-solid fa-gauge nav-icon"></i> Tableau de bord
       </a>
+      <a href="<?= site_url('/imc') ?>" class="nav-item">
+        <i class="fa-solid fa-calculator nav-icon"></i> IMC
+      </a>
+      <a href="<?= site_url('/objectif') ?>" class="nav-item">
+        <i class="fa-solid fa-bullseye nav-icon"></i> Objectif
+      </a>
       <a href="<?= site_url('/regime') ?>" class="nav-item">
         <i class="fa-solid fa-bowl-food nav-icon"></i> Régimes alimentaires
       </a>
       <a href="<?= site_url('/sport') ?>" class="nav-item">
         <i class="fa-solid fa-dumbbell nav-icon"></i> Activités sportives
       </a>
-      <a href="abonnement.html" class="nav-item">
-        <i class="fa-solid fa-crown nav-icon"></i> Abonnement Gold
-        <span class="nav-badge" style="background:var(--gold);color:white">PRO</span>
+      <a href="<?= site_url('/profile') ?>" class="nav-item">
+        <i class="fa-solid fa-user nav-icon"></i> Profil
+      </a>
+      <a href="<?= site_url('/codes/redeem') ?>" class="nav-item">
+        <i class="fa-solid fa-ticket nav-icon"></i> Codes
       </a>
       <div class="nav-section-title" style="margin-top:1rem">Compte</div>
       <a href="<?= site_url('/logout') ?>" class="nav-item">
@@ -290,8 +298,8 @@
       <div class="sidebar-user" id="sidebarUser">
         <div class="user-avatar" id="sidebarAvatar"><?= esc($initials) ?></div>
         <div>
-          <div class="user-name" id="sidebarName"><?= esc($fullName) ?></div>
-          <div class="user-role" id="sidebarEmail">Membre</div>
+          <div class="user-name" id="sidebarName"><?= esc($username) ?></div>
+          <div class="user-role" id="sidebarEmail"><?= esc($email) ?></div>
         </div>
       </div>
     </div>

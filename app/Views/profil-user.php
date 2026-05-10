@@ -120,16 +120,6 @@
 
 <body>
 
-    <script>
-        window.NF_USER = {
-            prenom: "<?php echo esc($prenom ?? ''); ?>",
-            nom: "<?php echo esc($nom ?? ''); ?>",
-            email: "<?php echo esc($email ?? ''); ?>",
-            role_user: "<?php echo esc($role_user ?? ''); ?>",
-            gold: <?php echo session()->get('user_option') === 'gold' ? 'true' : 'false'; ?>
-        };
-    </script>
-
     <?php
     /* ============================================================
        VARIABLES À RELIER AU CONTROLLER
@@ -152,6 +142,17 @@
     $genre_icon = ($genre === 'Femme') ? 'fa-venus' : 'fa-mars';
     $genre_badge = ($genre === 'Femme') ? 'badge-info' : 'badge-green';
     ?>
+
+    <script>
+        window.NF_USER = {
+            prenom: "<?php echo esc($prenom ?? ''); ?>",
+            nom: "<?php echo esc($nom ?? ''); ?>",
+            username: "<?php echo esc($username ?? session()->get('username') ?? ''); ?>",
+            email: "<?php echo esc($email ?? ''); ?>",
+            role_user: "<?php echo esc($role_user ?? ''); ?>",
+            gold: <?php echo session()->get('user_option') === 'gold' ? 'true' : 'false'; ?>
+        };
+    </script>
 
         <div id="pageContent">
             <div class="page-header">
