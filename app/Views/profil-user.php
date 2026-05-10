@@ -149,6 +149,9 @@
             nom: "<?php echo esc($nom ?? ''); ?>",
             username: "<?php echo esc($username ?? session()->get('username') ?? ''); ?>",
             email: "<?php echo esc($email ?? ''); ?>",
+            objectif_choisi: "<?php echo esc($user['objectif_choisi'] ?? ''); ?>",
+            regime_choisi: "<?php echo esc($user['regime_choisi'] ?? ''); ?>",
+            sport_choisi: "<?php echo esc($user['sport_choisi'] ?? ''); ?>",
             role_user: "<?php echo esc($role_user ?? ''); ?>",
             gold: <?php echo session()->get('user_option') === 'gold' ? 'true' : 'false'; ?>
         };

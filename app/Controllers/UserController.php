@@ -130,7 +130,7 @@ class UserController extends BaseController
         $usermodel = new UserModel();
         $id = (int) session()->get('user_id');
 
-        $user = $usermodel->getUserById($id);
+        $user = $usermodel->getUserWithMenuSelections($id);
         if (!$user) {
             session()->destroy();
             return redirect()->to('/login');
@@ -138,6 +138,81 @@ class UserController extends BaseController
 
         $data['user'] = $user;
         return view('profil-user', $data);
+    }
+
+    public function programme()
+    {
+        $user = $this->getSessionUser();
+        if (!$user) {
+            return redirect()->to('/login');
+        }
+
+        $userId = (int) ($user['id'] ?? 0);
+        $db = \Config\Database::connect();
+
+        $objectif = $db->table('user_objectif')
+            ->select('objectif.*, user_objectif.date_save')
+            ->join('objectif', 'objectif.id = user_objectif.objectif_id')
+            ->where('user_objectif.user_id', $userId)
+            ->orderBy('user_objectif.date_save', 'DESC')
+            ->orderBy('user_objectif.id', 'DESC')
+            ->get()
+            ->getRowArray();
+
+        $regime = $db->table('user_regime')
+            ->select('regime.*, user_regime.date_save, user_regime.date_debut, user_regime.duree')
+            ->join('regime', 'regime.id = user_regime.regime_id')
+            ->where('user_regime.user_id', $userId)
+            ->orderBy('user_regime.date_save', 'DESC')
+            ->orderBy('user_regime.id', 'DESC')
+            ->get()
+            ->getRowArray();
+
+        $sport = $db->table('user_sport')
+            ->select('sport.nom, sport_objectif.calories_brulees, sport_objectif.duree_recommandee, user_sport.date_save, user_sport.date_debut, objectif.libelle AS objectif_libelle')
+            ->join('sport_objectif', 'sport_objectif.id = user_sport.sport_objectif_id')
+            ->join('sport', 'sport.id = sport_objectif.sport_id')
+            ->join('objectif', 'objectif.id = sport_objectif.objectif_id')
+            ->where('user_sport.user_id', $userId)
+            ->orderBy('user_sport.date_save', 'DESC')
+            ->orderBy('user_sport.id', 'DESC')
+            ->get()
+            ->getRowArray();
+
+        $regimeService = new RegimeService();
+        $poids_actuel = $db->table('poids_user')
+            ->select('poids')
+            ->where('user_id', $userId)
+            ->orderBy('date_save', 'DESC')
+            ->orderBy('id', 'DESC')
+            ->get()
+            ->getRowArray();
+
+        $poids_initial = $db->table('poids_user')
+            ->select('poids')
+            ->where('user_id', $userId)
+            ->orderBy('date_save', 'ASC')
+            ->get()
+            ->getRowArray();
+
+        $imc_actuel = $regimeService->calculIMC((float) ($poids_actuel['poids'] ?? 0), (float) ($user['taille'] ?? 0));
+
+        $poids_cible = $regimeService->calculPoidsIdeal(
+            (float) ($user['taille'] ?? 0),
+        );
+
+        $progression = round((($poids_initial['poids'] - $poids_actuel['poids']) / ($poids_initial['poids'] - $poids_cible)) * 100, 2);
+
+        return view('programme', [
+            'user' => $user,
+            'objectif' => $objectif,
+            'regime' => $regime,
+            'sport' => $sport,
+            'imc_actuel' => $imc_actuel,
+            'poids_actuel' => $poids_actuel['poids'],
+            'poids_cible' => $poids_cible,
+            'progression' => $progression
+        ]);
     }
 
     public function exportPdf()
@@ -768,6 +843,6 @@ class UserController extends BaseController
         }
 
         $userModel = new UserModel();
-        return $userModel->getUserById($id);
+        return $userModel->getUserWithMenuSelections($id);
     }
 }

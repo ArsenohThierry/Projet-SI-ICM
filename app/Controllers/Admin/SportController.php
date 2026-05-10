@@ -114,6 +114,6 @@ class SportController extends BaseController
         }
 
         $userModel = new UserModel();
-        return $userModel->getUserById($id);
+        return $userModel->getUserWithMenuSelections($id);
     }
 }
