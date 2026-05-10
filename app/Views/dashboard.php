@@ -525,7 +525,7 @@
   <script src="<?= base_url('assets/js/layout.js') ?>"></script>
   <script>
     if (typeof NF_LAYOUT !== 'undefined' && NF_LAYOUT.inject) {
-      NF_LAYOUT.inject('dashboard', 'Tableau de bord', 'Dashboard');
+      NF_LAYOUT.inject('dashboard', 'Tableau de bord', 'Dashboard', <?php echo $balance ?? 0; ?>);
     }
     const mc = document.getElementById('mainContent');
     const content = document.getElementById('pageContent');
