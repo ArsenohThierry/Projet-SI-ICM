@@ -683,7 +683,9 @@ class UserController extends BaseController
         $balance = $mouvementModel->getBalanceByUserId((int) $user['id']);
 
         return $this->response->setJSON(['balance' => (float) $balance]);
-        public function pageAbonnementLogin()
+    }
+    
+    public function pageAbonnementLogin()
     {
         $user = $this->getSessionUser();
         if (!$user) {

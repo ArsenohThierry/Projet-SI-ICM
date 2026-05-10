@@ -72,15 +72,15 @@ const NF_LAYOUT = {
   navbar(title, subtitle, balance = null) {
     const user = this.getUser() || { prenom: 'Jean', nom: 'Rakoto' };
     const initials = `${(user.nom || '')[0] || ''}${(user.prenom || '')[0] || ''}`.toUpperCase() || 'JR';
-    const balance = Number(user.balance || 0);
-    const balanceFormatted = (isNaN(balance) ? '0' : balance.toLocaleString('fr-FR', { maximumFractionDigits: 0 }));
+    const balanceValue = Number(balance ?? user.balance ?? 0);
+    const safeBalanceValue = isNaN(balanceValue) ? 0 : balanceValue;
 
-    const balanceDisplay = balance !== null ? `
+    const balanceDisplay = `
       <div style="display:flex; align-items:center; gap:0.5rem; padding:0 1rem; border-radius:6px; background:var(--primary-light); color:var(--primary);">
-        <span style="font-weight:600; font-size:0.9rem;">${parseFloat(balance).toFixed(2)} Ar</span>
+        <span class="nav-balance-amount" style="font-weight:600; font-size:0.9rem;">${safeBalanceValue.toFixed(2)} Ar</span>
         <a href="/codes/redeem" style="display:flex; align-items:center; justify-content:center; width:24px; height:24px; background:var(--primary); color:white; border-radius:50%; text-decoration:none; font-weight:bold; cursor:pointer;">+</a>
       </div>
-    ` : '';
+    `;
     return `
       <header class="navbar">
         <div class="navbar-left">
@@ -96,10 +96,6 @@ const NF_LAYOUT = {
             <i class="fa-solid fa-bell"></i>
             <span class="notif-dot"></span>
           </button>
-          <div class="nav-balance" style="display:flex;align-items:center;gap:0.45rem;padding:0.45rem 0.75rem;border:1px solid var(--border);border-radius:999px;background:var(--bg-card);margin-right:0.5rem;">
-            <span style="font-size:0.8rem;color:var(--text-muted);">Compte</span>
-            <strong style="font-family:'Sora',sans-serif;color:var(--primary);">${balanceFormatted} Ar</strong>
-          </div>
           <div class="navbar-avatar" title="${user.prenom}">${initials}</div>
         </div>
       </header>
@@ -152,8 +148,8 @@ const NF_LAYOUT = {
           .then(r => r.json())
           .then(j => {
             if (j && typeof j.balance !== 'undefined') {
-              const el = document.querySelector('.nav-balance strong');
-              if (el) el.textContent = Number(j.balance).toLocaleString('fr-FR', { maximumFractionDigits: 0 }) + ' Ar';
+              const el = document.querySelector('.nav-balance-amount');
+              if (el) el.textContent = Number(j.balance).toFixed(2) + ' Ar';
             }
           }).catch(() => {});
       }
