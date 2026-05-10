@@ -12,6 +12,7 @@ class UserObjectifModel extends Model
     protected $allowedFields = [
         'user_id',
         'objectif_id',
+        'objectif_applique_id',
         'date_save'
     ];
 
