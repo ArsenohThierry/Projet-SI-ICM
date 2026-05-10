@@ -29,6 +29,9 @@ $routes->post('/upgrade/gold', 'UserController::upgradeToGold', ['filter' => 'au
 $routes->get('/codes/redeem', 'CodeController::redeemForm', ['filter' => 'user']);
 $routes->post('/codes/redeem', 'CodeController::redeem', ['filter' => 'user']);
 
+$routes->get('/dashboard', 'DashboardController::showDashboard', ['filter' => 'auth']);
+$routes->post('/dashboard/add-poids', 'DashboardController::addPoids', ['filter' => 'auth']);
+
 $routes->group('admin', ['filter' => 'admin'], static function ($routes) {
 	$routes->get('regimes', 'Admin\RegimeController::index');
 	$routes->get('regimes/new', 'Admin\RegimeController::create');

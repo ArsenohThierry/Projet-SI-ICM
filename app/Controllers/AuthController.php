@@ -93,6 +93,12 @@ class AuthController extends BaseController
         ];
 
         $userId = $userModel->createUser($userData);
+        $poidsUserId = (new \App\Models\PoidsUserModel())->insert([
+            'user_id' => $userId,
+            'poids' => $userData['poids_initial'],
+            'date_save' => date('Y-m-d H:i:s')
+        ]);
+        
         if (!$userId) {
             return redirect()->to('/login')
                 ->withInput()
