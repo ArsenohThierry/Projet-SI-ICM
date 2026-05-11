@@ -17,10 +17,10 @@ const NF_LAYOUT = {
     const isAdmin = user.role_user === 'admin';
 
     const navItems = isAdmin ? [
+      { id: 'admin-dashboard', icon: 'fa-gauge', label: 'Tableau de bord', href: '/admin/dashboard' },
       { id: 'admin-regimes', icon: 'fa-bowl-food', label: 'Régimes alimentaires', href: '/admin/regimes' },
       { id: 'admin-sports', icon: 'fa-dumbbell', label: 'Activités sportives', href: '/admin/sports' },
       { id: 'admin-codes', icon: 'fa-ticket', label: 'Codes', href: '/admin/codes' },
-      { id: 'profile', icon: 'fa-user', label: 'Profil', href: '/profile' }
     ] : [
       { id: 'dashboard', icon: 'fa-gauge', label: 'Tableau de bord', href: '/dashboard' },
       { id: 'imc', icon: 'fa-calculator', label: 'IMC', href: '/imc' },

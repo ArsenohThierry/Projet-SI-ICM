@@ -42,6 +42,7 @@ $routes->get('/abonnementLogin', 'UserController::pageAbonnementLogin', ['filter
 $routes->post('/abonnement/goldLogin', 'UserController::upgradeToGoldFromLogin', ['filter' => 'auth']);
 
 $routes->group('admin', ['filter' => 'admin'], static function ($routes) {
+	$routes->get('dashboard', 'Admin\DashboardAdminController::index');
 	$routes->get('regimes', 'Admin\RegimeController::index');
 	$routes->get('regimes/new', 'Admin\RegimeController::create');
 	$routes->post('regimes', 'Admin\RegimeController::store');
