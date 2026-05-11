@@ -232,9 +232,6 @@
                         <div class="profile-header-id">
                             <i class="fa-solid fa-hashtag" style="margin-right:5px;"></i>ID : <?php echo $id; ?>
                         </div>
-                        <a href="edit_profil.php" class="btn btn-outline btn-sm" style="flex-shrink:0;">
-                            <i class="fa-solid fa-pen"></i> Modifier
-                        </a>
                     </div>
                 </div>
             </div>
@@ -337,18 +334,6 @@
                                 <div class="info-label">Poids initial</div>
                                 <div class="info-value"><?php echo number_format($poids_initial, 1); ?> kg</div>
                             </div>
-                        </div>
-
-                        <div class="info-row">
-                            <div class="info-icon" style="background:var(--danger-light); color:var(--danger);">
-                                <i class="fa-solid fa-lock"></i>
-                            </div>
-                            <div style="flex:1;">
-                                <div class="info-label">Mot de passe</div>
-                                <div class="info-value" style="letter-spacing:0.2em; color:var(--text-muted);">••••••••
-                                </div>
-                            </div>
-                            <a href="change_password.php" class="btn btn-sm btn-outline">Changer</a>
                         </div>
 
                     </div>
