@@ -73,15 +73,20 @@ const Modal = {
 // ── Password Toggle ──────────────────────────────────────────
 function initPasswordToggles() {
   document.querySelectorAll('.toggle-password').forEach(btn => {
+    if (btn.dataset.passwordToggleReady === 'true') return;
+    btn.dataset.passwordToggleReady = 'true';
+
     btn.addEventListener('click', () => {
       const input = btn.closest('.input-wrapper').querySelector('input');
       const icon  = btn.querySelector('i');
       if (input.type === 'password') {
         input.type = 'text';
         icon.className = 'fa-solid fa-eye-slash';
+        btn.setAttribute('aria-label', 'Masquer le mot de passe');
       } else {
         input.type = 'password';
         icon.className = 'fa-solid fa-eye';
+        btn.setAttribute('aria-label', 'Afficher le mot de passe');
       }
     });
   });
