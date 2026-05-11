@@ -188,6 +188,20 @@ class RegimeService
             'date_debut' => $dateDebut->format('Y-m-d H:i:s')
         ]);
     }
+
+    public function getObjectifPrincipal(int $userId)
+    {
+        $userObjectif = $this->userObjectifModel
+            ->where('user_id', $userId)
+            ->orderBy('date_save', 'DESC')
+            ->first();
+
+        if (!$userObjectif) {
+            return null; // Aucun objectif trouvé pour cet utilisateur
+        }
+
+        return $this->objectifModel->find($userObjectif['objectif_id']);
+    }
 }
 
 

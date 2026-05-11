@@ -245,6 +245,8 @@ class UserController extends BaseController
     public function exportPdf()
     {
         $user = $this->getSessionUser();
+        $userId = session()->get('user_id');
+
         if (!$user) {
             return redirect()->to('/login');
         }
@@ -255,9 +257,18 @@ class UserController extends BaseController
         $sportCal   = 0;
         $sportDuree = 0;
 
-        $objectifId = (int) session()->get('user_objectif');
-        if ($objectifId > 0) {
-            $objectif = (new \App\Models\ObjectifModel())->find($objectifId);
+        $objectifPrincipal = (new \App\Services\RegimeService())->getObjectifPrincipal($userId);
+
+        if (is_array($objectifPrincipal) && !empty($objectifPrincipal['id'])) {
+            $objectif = (new \App\Models\ObjectifModel())->find((int) $objectifPrincipal['id']);
+        } elseif (is_array($objectifPrincipal) && !empty($objectifPrincipal['libelle'])) {
+            $objectif = ['libelle' => $objectifPrincipal['libelle']];
+        } else {
+            $regimeService = new \App\Services\RegimeService();
+            $lastObj = $regimeService->getObjectifPrincipal((int) $userId);
+            if ($lastObj) {
+                $objectif = is_array($lastObj) ? $lastObj : (array) $lastObj;
+            }
         }
 
         $userRegimeModel = new \App\Models\UserRegimeModel();
