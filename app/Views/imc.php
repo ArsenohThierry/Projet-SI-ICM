@@ -6,6 +6,7 @@
     <title>Résultat IMC — NutriFit</title>
     <link rel="stylesheet" href="/assets/css/style.css">
     <link rel="stylesheet" href="/assets/css/all.min.css">
+        <link rel="icon" href="/assets/logo.png">
     <style>
         .imc-page {
             min-height: 100vh;
@@ -119,13 +120,18 @@
     window.NF_USER = {
         prenom: "<?php echo esc($sessionUser['prenom'] ?? ''); ?>",
         nom: "<?php echo esc($sessionUser['nom'] ?? ''); ?>",
+        username: "<?php echo esc($sessionUser['username'] ?? session()->get('username') ?? ''); ?>",
         email: "<?php echo esc($sessionUser['email'] ?? ''); ?>",
+        objectif_choisi: "<?php echo esc($sessionUser['objectif_choisi'] ?? ''); ?>",
+        regime_choisi: "<?php echo esc($sessionUser['regime_choisi'] ?? ''); ?>",
+        sport_choisi: "<?php echo esc($sessionUser['sport_choisi'] ?? ''); ?>",
         role_user: "<?php echo esc($sessionUser['role_user'] ?? ''); ?>",
         gold: <?php echo session()->get('user_option') === 'gold' ? 'true' : 'false'; ?>
     };
 </script>
 
 <?php
+    $imc = $imc ?? null;
     $hasResult = isset($imc);
 
     // Calcul de la catégorie IMC
@@ -186,37 +192,6 @@
                 <i class="fa-solid fa-leaf" style="color:white;"></i>
             </div>
             <span class="logo-text">Nutri<span>Fit</span></span>
-        </div>
-
-        <!-- Formulaire IMC -->
-        <div class="card">
-            <div class="card-header">
-                <h3><i class="fa-solid fa-calculator" style="color:var(--primary); margin-right:8px;"></i>Calculer votre IMC</h3>
-            </div>
-            <div class="card-body">
-                <form method="post" action="/imc" class="form-stack">
-                    <div class="form-group">
-                        <label class="form-label">Taille (cm)</label>
-                        <div class="input-wrapper">
-                            <i class="fa-solid fa-ruler-vertical input-icon"></i>
-                            <input type="number" class="form-control" name="taille" placeholder="170" min="100" max="250" required>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Poids (kg)</label>
-                        <div class="input-wrapper">
-                            <i class="fa-solid fa-weight-scale input-icon"></i>
-                            <input type="number" class="form-control" name="poids" placeholder="72" min="20" max="300" required>
-                        </div>
-                    </div>
-                    <div class="form-actions" style="justify-content:stretch;">
-                        <button class="btn btn-primary btn-block" type="submit">
-                            <i class="fa-solid fa-weight-scale"></i>
-                            Calculer
-                        </button>
-                    </div>
-                </form>
-            </div>
         </div>
 
         <?php if ($hasResult): ?>
@@ -289,7 +264,7 @@
     <script src="/assets/js/app.js"></script>
     <script src="/assets/js/layout.js"></script>
     <script>
-        NF_LAYOUT.inject('imc', 'IMC', 'Calcul IMC');
+        NF_LAYOUT.inject('imc', 'IMC', 'Calcul IMC', <?php echo $balance ?? 0; ?>);
         const mc = document.getElementById('mainContent');
         const content = document.getElementById('pageContent');
         if (mc && content) {

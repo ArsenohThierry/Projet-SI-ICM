@@ -6,6 +6,7 @@
     <title>Nouvelle activite</title>
     <link rel="stylesheet" href="/assets/css/style.css">
     <link rel="stylesheet" href="/assets/css/all.min.css">
+    <link rel="icon" type="image/png" href="/assets/logo.png">
 </head>
 <body>
 
@@ -14,13 +15,17 @@
   window.NF_USER = {
     prenom: "<?php echo esc($sessionUser['prenom'] ?? ''); ?>",
     nom: "<?php echo esc($sessionUser['nom'] ?? ''); ?>",
+    username: "<?php echo esc($sessionUser['username'] ?? session()->get('username') ?? ''); ?>",
     email: "<?php echo esc($sessionUser['email'] ?? ''); ?>",
+    objectif_choisi: "<?php echo esc($sessionUser['objectif_choisi'] ?? ''); ?>",
+    regime_choisi: "<?php echo esc($sessionUser['regime_choisi'] ?? ''); ?>",
+    sport_choisi: "<?php echo esc($sessionUser['sport_choisi'] ?? ''); ?>",
     role_user: "<?php echo esc($sessionUser['role_user'] ?? ''); ?>",
     gold: <?php echo session()->get('user_option') === 'gold' ? 'true' : 'false'; ?>
   };
 </script>
 
-<div id="pageContent">
+<div id="pageContent" class="page-content">
     <div class="page-header">
     <div class="header-title">
       <div class="logo-icon" style="background: var(--primary);">

@@ -6,6 +6,31 @@
     <title>Utiliser un code</title>
     <link rel="stylesheet" href="/assets/css/style.css">
     <link rel="stylesheet" href="/assets/css/all.min.css">
+    <link rel="icon" type="image/png" href="/assets/logo.png">
+    <style>
+      .codes-wrapper {
+        max-width: 760px;
+      }
+
+      .codes-card .card-header h3 {
+        font-size: 1.15rem;
+      }
+
+      .codes-card .form-label {
+        font-size: 0.88rem;
+        font-weight: 600;
+      }
+
+      .codes-card .form-control {
+        font-size: 0.88rem;
+        padding: 0.75rem 0.9rem;
+      }
+
+      .codes-card .form-actions .btn {
+        font-size: 0.88rem;
+        padding: 0.55rem 0.95rem;
+      }
+    </style>
 </head>
 <body>
 
@@ -14,13 +39,18 @@
   window.NF_USER = {
     prenom: "<?php echo esc($sessionUser['prenom'] ?? ''); ?>",
     nom: "<?php echo esc($sessionUser['nom'] ?? ''); ?>",
+    username: "<?php echo esc($sessionUser['username'] ?? session()->get('username') ?? ''); ?>",
     email: "<?php echo esc($sessionUser['email'] ?? ''); ?>",
+    objectif_choisi: "<?php echo esc($sessionUser['objectif_choisi'] ?? ''); ?>",
+    regime_choisi: "<?php echo esc($sessionUser['regime_choisi'] ?? ''); ?>",
+    sport_choisi: "<?php echo esc($sessionUser['sport_choisi'] ?? ''); ?>",
     role_user: "<?php echo esc($sessionUser['role_user'] ?? ''); ?>",
     gold: <?php echo session()->get('user_option') === 'gold' ? 'true' : 'false'; ?>
   };
 </script>
 
 <div id="pageContent">
+  <div class="page-content codes-wrapper">
     <div class="page-header">
     <div class="header-title">
       <div class="logo-icon" style="background: var(--primary);">
@@ -39,14 +69,14 @@
     <?php if (session()->getFlashdata('error')): ?>
       <div class="toast error" style="position:relative; margin-bottom:1rem;">
         <i class="fa-solid fa-times-circle toast-icon"></i>
-        <span><?php echo esc(session()->getFlashdata('error')); ?></span>
+        <span><?php echo esc((string) session()->getFlashdata('error')); ?></span>
       </div>
     <?php endif; ?>
 
     <?php if (session()->getFlashdata('success')): ?>
       <div class="toast success" style="position:relative; margin-bottom:1rem;">
         <i class="fa-solid fa-check-circle toast-icon"></i>
-        <span><?php echo esc(session()->getFlashdata('success')); ?></span>
+        <span><?php echo esc((string) session()->getFlashdata('success')); ?></span>
       </div>
     <?php endif; ?>
 
@@ -58,7 +88,7 @@
       </div>
     <?php endif; ?>
 
-    <div class="card">
+    <div class="card codes-card">
       <div class="card-header">
         <h3>Informations principales</h3>
       </div>
@@ -75,6 +105,7 @@
         </form>
       </div>
     </div>
+  </div>
 </div>
 
 <script src="/assets/js/app.js"></script>

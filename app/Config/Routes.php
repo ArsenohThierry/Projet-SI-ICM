@@ -14,7 +14,6 @@ $routes->get('/logout', 'AuthController::logout');
 
 $routes->get('/unauthorized', 'HomeController::unauthorized');
 
-$routes->get('/imc', 'UserController::imcForm', ['filter' => 'auth']);
 $routes->get('/imc', 'UserController::getIMC', ['filter' => 'auth']);
 $routes->get('/objectif', 'UserController::objectifUser', ['filter' => 'auth']);
 $routes->post('/objectif', 'UserController::setObjectif', ['filter' => 'auth']);
@@ -22,11 +21,25 @@ $routes->get('/regime', 'UserController::regimeSelection', ['filter' => 'auth'])
 $routes->post('/regime', 'UserController::setRegime', ['filter' => 'auth']);
 $routes->get('/sport', 'UserController::sportSelection', ['filter' => 'auth']);
 $routes->post('/sport', 'UserController::setSport', ['filter' => 'auth']);
+$routes->get('/programme', 'UserController::programme', ['filter' => 'auth']);
 $routes->get('/profile', 'UserController::userProfile', ['filter' => 'auth']);
-$routes->post('/upgrade/gold', 'UserController::upgradeToGold', ['filter' => 'user']);
+$routes->get('/profile/export-pdf', 'UserController::exportPdf', ['filter' => 'auth']);
 
 $routes->get('/codes/redeem', 'CodeController::redeemForm', ['filter' => 'user']);
 $routes->post('/codes/redeem', 'CodeController::redeem', ['filter' => 'user']);
+$routes->get('/codes/redeem-register', 'CodeController::redeemRegisterForm', ['filter' => 'user']);
+$routes->post('/codes/redeem-register', 'CodeController::redeemRegister', ['filter' => 'user']);
+
+$routes->get('/dashboard', 'DashboardController::showDashboard', ['filter' => 'auth']);
+$routes->post('/dashboard/add-poids', 'DashboardController::addPoids', ['filter' => 'auth']);
+
+$routes->get('/api/balance', 'UserController::apiBalance', ['filter' => 'auth']);
+
+$routes->get('/abonnement', 'UserController::pageAbonnement', ['filter' => 'auth']);
+$routes->post('/abonnement/gold', 'UserController::upgradeToGold', ['filter' => 'auth']);
+
+$routes->get('/abonnementLogin', 'UserController::pageAbonnementLogin', ['filter' => 'auth']);
+$routes->post('/abonnement/goldLogin', 'UserController::upgradeToGoldFromLogin', ['filter' => 'auth']);
 
 $routes->group('admin', ['filter' => 'admin'], static function ($routes) {
 	$routes->get('regimes', 'Admin\RegimeController::index');

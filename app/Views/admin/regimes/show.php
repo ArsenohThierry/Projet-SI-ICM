@@ -6,6 +6,7 @@
     <title>Detail regime</title>
     <link rel="stylesheet" href="/assets/css/style.css">
     <link rel="stylesheet" href="/assets/css/all.min.css">
+    <link rel="icon" type="image/png" href="/assets/logo.png">
 </head>
 <body>
 
@@ -14,26 +15,30 @@
   window.NF_USER = {
     prenom: "<?php echo esc($sessionUser['prenom'] ?? ''); ?>",
     nom: "<?php echo esc($sessionUser['nom'] ?? ''); ?>",
+    username: "<?php echo esc($sessionUser['username'] ?? session()->get('username') ?? ''); ?>",
     email: "<?php echo esc($sessionUser['email'] ?? ''); ?>",
+    objectif_choisi: "<?php echo esc($sessionUser['objectif_choisi'] ?? ''); ?>",
+    regime_choisi: "<?php echo esc($sessionUser['regime_choisi'] ?? ''); ?>",
+    sport_choisi: "<?php echo esc($sessionUser['sport_choisi'] ?? ''); ?>",
     role_user: "<?php echo esc($sessionUser['role_user'] ?? ''); ?>",
     gold: <?php echo session()->get('user_option') === 'gold' ? 'true' : 'false'; ?>
   };
 </script>
 
-<div id="pageContent">
+<div id="pageContent" class="page-content">
     <div class="page-header">
         <div class="header-title">
             <div class="logo-icon" style="background: var(--primary);">
                 <i class="fa-solid fa-bowl-food" style="color:white;"></i>
             </div>
             <div>
-                <h2><?php echo esc($regime['nom']); ?></h2>
+                <h2><?php echo esc((string) ($regime['nom'] ?? '')); ?></h2>
                 <p class="text-muted">Details du regime.</p>
             </div>
         </div>
         <div class="header-actions">
             <a href="/admin/regimes" class="btn btn-outline">Retour</a>
-            <a href="/admin/regimes/<?php echo $regime['id']; ?>/edit" class="btn btn-primary">Modifier</a>
+            <a href="/admin/regimes/<?php echo $regime['id'] ?? ''; ?>/edit" class="btn btn-primary">Modifier</a>
         </div>
     </div>
 
@@ -41,23 +46,23 @@
         <div class="card-body">
             <div class="info-row">
                 <div class="info-label">% Viande</div>
-                <div class="info-value"><?php echo esc($regime['pourcentage_viande']); ?></div>
+                <div class="info-value"><?php echo esc((string) ($regime['pourcentage_viande'] ?? '')); ?></div>
             </div>
             <div class="info-row">
                 <div class="info-label">% Volaille</div>
-                <div class="info-value"><?php echo esc($regime['pourcentage_volaille']); ?></div>
+                <div class="info-value"><?php echo esc((string) ($regime['pourcentage_volaille'] ?? '')); ?></div>
             </div>
             <div class="info-row">
                 <div class="info-label">% Poisson</div>
-                <div class="info-value"><?php echo esc($regime['pourcentage_poisson']); ?></div>
+                <div class="info-value"><?php echo esc((string) ($regime['pourcentage_poisson'] ?? '')); ?></div>
             </div>
             <div class="info-row">
                 <div class="info-label">Prix / jour</div>
-                <div class="info-value"><?php echo esc($regime['montant']); ?></div>
+                <div class="info-value"><?php echo esc((string) ($regime['montant'] ?? '')); ?></div>
             </div>
             <div class="info-row">
                 <div class="info-label">Variation poids / jour</div>
-                <div class="info-value"><?php echo esc($regime['variation_poids']); ?></div>
+                <div class="info-value"><?php echo esc((string) ($regime['variation_poids'] ?? '')); ?></div>
             </div>
         </div>
     </div>

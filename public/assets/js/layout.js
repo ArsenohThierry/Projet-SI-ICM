@@ -10,18 +10,25 @@ const NF_LAYOUT = {
   },
 
   sidebar(activePage) {
-    const user = this.getUser() || { prenom: 'Jean', nom: 'Rakoto', gold: false };
-    const initials = ((user.prenom || 'J')[0] + (user.nom || 'R')[0]).toUpperCase();
+    const user = this.getUser() || { username: 'utilisateur', email: '', gold: false };
+    const username = user.username || (user.email ? user.email.split('@')[0] : `${user.prenom || ''} ${user.nom || ''}`.trim()) || 'Utilisateur';
+    const email = user.email || '';
+    const initials = `${(user.nom || '')[0] || ''}${(user.prenom || '')[0] || ''}`.toUpperCase() || username[0].toUpperCase();
     const isAdmin = user.role_user === 'admin';
 
     const navItems = isAdmin ? [
+
       { id: 'admin-regimes', icon: 'fa-bowl-food', label: 'Regimes', href: '/admin/regimes' },
       { id: 'admin-sports', icon: 'fa-dumbbell', label: 'Activites', href: '/admin/sports' },
       { id: 'admin-codes', icon: 'fa-ticket', label: 'Codes', href: '/admin/codes' }
+
+  
     ] : [
+      { id: 'dashboard', icon: 'fa-gauge', label: 'Tableau de bord', href: '/dashboard' },
       { id: 'imc', icon: 'fa-calculator', label: 'IMC', href: '/imc' },
+      { id: 'programme', icon: 'fa-bullseye', label: 'programme', href: '/programme' },
       { id: 'profile', icon: 'fa-user', label: 'Profil', href: '/profile' },
-      { id: 'codes', icon: 'fa-ticket', label: 'Codes', href: '/codes/redeem' }
+      { id: 'abonnement', icon: 'fa-crown', label: 'Abonnements', href: '/abonnementLogin' }
     ];
 
     const links = navItems.map(n => `
@@ -54,8 +61,8 @@ const NF_LAYOUT = {
           <div class="sidebar-user">
             <div class="user-avatar">${initials}</div>
             <div>
-              <div class="user-name">${user.prenom} ${user.nom}</div>
-              <div class="user-role">${user.email || 'utilisateur'}</div>
+              <div class="user-name">${username}</div>
+              <div class="user-role">${email}</div>
             </div>
             ${user.gold ? '<span class="gold-tag"><i class="fa-solid fa-crown"></i> GOLD</span>' : ''}
           </div>
@@ -64,9 +71,18 @@ const NF_LAYOUT = {
     `;
   },
 
-  navbar(title, subtitle) {
+  navbar(title, subtitle, balance = null) {
     const user = this.getUser() || { prenom: 'Jean', nom: 'Rakoto' };
-    const initials = ((user.prenom || 'J')[0] + (user.nom || 'R')[0]).toUpperCase();
+    const initials = `${(user.nom || '')[0] || ''}${(user.prenom || '')[0] || ''}`.toUpperCase() || 'JR';
+    const balanceValue = Number(balance ?? user.balance ?? 0);
+    const safeBalanceValue = isNaN(balanceValue) ? 0 : balanceValue;
+
+    const balanceDisplay = `
+      <div style="display:flex; align-items:center; gap:0.5rem; padding:0 1rem; border-radius:6px; background:var(--primary-light); color:var(--primary);">
+        <span class="nav-balance-amount" style="font-weight:600; font-size:0.9rem;">${safeBalanceValue.toFixed(2)} Ar</span>
+        <a href="/codes/redeem" style="display:flex; align-items:center; justify-content:center; width:24px; height:24px; background:var(--primary); color:white; border-radius:50%; text-decoration:none; font-weight:bold; cursor:pointer;">+</a>
+      </div>
+    `;
     return `
       <header class="navbar">
         <div class="navbar-left">
@@ -77,10 +93,7 @@ const NF_LAYOUT = {
           </div>
         </div>
         <div class="navbar-right">
-          <div class="search-box">
-            <i class="fa-solid fa-search"></i>
-            <input type="text" id="tableSearch" placeholder="Rechercher...">
-          </div>
+          ${balanceDisplay}
           <button class="nav-btn" data-tooltip="Notifications">
             <i class="fa-solid fa-bell"></i>
             <span class="notif-dot"></span>
@@ -124,11 +137,24 @@ const NF_LAYOUT = {
     `;
   },
 
-  inject(activePage, title, subtitle) {
+  inject(activePage, title, subtitle, balance = null) {
     document.body.insertAdjacentHTML('afterbegin', this.sidebar(activePage));
     document.body.insertAdjacentHTML('afterbegin', '<div class="main-content" id="mainContent"></div>');
     const mc = document.getElementById('mainContent');
-    mc.insertAdjacentHTML('afterbegin', this.navbar(title, subtitle));
+    mc.insertAdjacentHTML('afterbegin', this.navbar(title, subtitle, balance));
     document.body.insertAdjacentHTML('beforeend', this.deleteModal());
+    // Try to refresh balance from server (if API available)
+    try {
+      if (typeof window !== 'undefined' && window.fetch) {
+        fetch('/api/balance', { credentials: 'same-origin' })
+          .then(r => r.json())
+          .then(j => {
+            if (j && typeof j.balance !== 'undefined') {
+              const el = document.querySelector('.nav-balance-amount');
+              if (el) el.textContent = Number(j.balance).toFixed(2) + ' Ar';
+            }
+          }).catch(() => {});
+      }
+    } catch (e) {}
   }
 };

@@ -6,6 +6,7 @@
     <title>Résultat IMC — NutriFit</title>
     <link rel="stylesheet" href="/assets/css/style.css">
     <link rel="stylesheet" href="/assets/css/all.min.css">
+        <link rel="icon" href="/assets/logo.png">
     <style>
         .imc-page {
             min-height: calc(100vh - 64px);
@@ -153,7 +154,11 @@
 window.NF_USER = {
     prenom   : "<?php echo esc($sessionUser['prenom']    ?? ''); ?>",
     nom      : "<?php echo esc($sessionUser['nom']       ?? ''); ?>",
+    username : "<?php echo esc($sessionUser['username']  ?? session()->get('username') ?? ''); ?>",
     email    : "<?php echo esc($sessionUser['email']     ?? ''); ?>",
+    objectif_choisi: "<?php echo esc($sessionUser['objectif_choisi'] ?? ''); ?>",
+    regime_choisi  : "<?php echo esc($sessionUser['regime_choisi']   ?? ''); ?>",
+    sport_choisi   : "<?php echo esc($sessionUser['sport_choisi']    ?? ''); ?>",
     role_user: "<?php echo esc($sessionUser['role_user'] ?? ''); ?>",
     gold     : <?php echo session()->get('user_option') === 'gold' ? 'true' : 'false'; ?>
 };
@@ -345,7 +350,7 @@ window.NF_USER = {
 </div>
 
 <script>
-    NF_LAYOUT.inject('imc', 'IMC', 'Calcul IMC');
+    NF_LAYOUT.inject('imc', 'IMC', 'Calcul IMC', <?php echo $balance ?? 0; ?>);
     const mc      = document.getElementById('mainContent');
     const content = document.getElementById('pageContent');
     if (mc && content) mc.appendChild(content);

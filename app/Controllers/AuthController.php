@@ -93,6 +93,12 @@ class AuthController extends BaseController
         ];
 
         $userId = $userModel->createUser($userData);
+        $poidsUserId = (new \App\Models\PoidsUserModel())->insert([
+            'user_id' => $userId,
+            'poids' => $userData['poids_initial'],
+            'date_save' => date('Y-m-d H:i:s')
+        ]);
+        
         if (!$userId) {
             return redirect()->to('/login')
                 ->withInput()
@@ -111,6 +117,10 @@ class AuthController extends BaseController
 
         $data['imc'] = $imc;
         $data['user'] = $user;
+        
+        $mouvementModel = new \App\Models\MouvementModel();
+        $data['balance'] = $mouvementModel->getBalanceByUserId($userId);
+        
         return view('imcRegister', $data);
     }
 
@@ -138,9 +148,10 @@ class AuthController extends BaseController
     {
         $optionModel = new OptionModel();
         $userOptionModel = new UserOptionModel();
+        $goldDefaultAmount = 20.0;
 
         $freeOptionId = $this->ensureOptionExists($optionModel, 'free', 0);
-        $this->ensureOptionExists($optionModel, 'gold', 0);
+        $this->ensureOptionExists($optionModel, 'gold', $goldDefaultAmount);
 
         $userOptionModel->assignOptionToUser($userId, $freeOptionId);
 
@@ -152,6 +163,10 @@ class AuthController extends BaseController
         $existing = $optionModel->findByLabel($label);
 
         if ($existing) {
+            if ((float) ($existing['montant'] ?? 0) <= 0 && $amount > 0) {
+                $optionModel->update((int) $existing['id'], ['montant' => $amount]);
+            }
+
             return (int) $existing['id'];
         }
 
