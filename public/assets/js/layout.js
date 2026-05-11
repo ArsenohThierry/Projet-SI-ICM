@@ -17,8 +17,7 @@ const NF_LAYOUT = {
     const navItems = isAdmin ? [
       { id: 'admin-regimes', icon: 'fa-bowl-food', label: 'Regimes', href: '/admin/regimes' },
       { id: 'admin-sports', icon: 'fa-dumbbell', label: 'Activites', href: '/admin/sports' },
-      { id: 'admin-codes', icon: 'fa-ticket', label: 'Codes', href: '/admin/codes' },
-      { id: 'profile', icon: 'fa-user', label: 'Profil', href: '/profile' }
+      { id: 'admin-codes', icon: 'fa-ticket', label: 'Codes', href: '/admin/codes' }
     ] : [
       { id: 'imc', icon: 'fa-calculator', label: 'IMC', href: '/imc' },
       { id: 'profile', icon: 'fa-user', label: 'Profil', href: '/profile' },

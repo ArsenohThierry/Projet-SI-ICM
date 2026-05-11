@@ -81,6 +81,27 @@ require FCPATH . '../app/Config/Paths.php';
 
 $paths = new Paths();
 
+// If the CLI command is 'serve' and no port was provided, default to port 8000.
+if (isset($argv) && is_array($argv)) {
+    $hasServe = in_array('serve', $argv, true);
+    $hasPort = false;
+    foreach ($argv as $a) {
+        if (str_starts_with($a, '--port') || $a === '-p' || preg_match('/^-(?:p|\-\-port)=?/', $a)) {
+            $hasPort = true;
+            break;
+        }
+    }
+    if ($hasServe && !$hasPort) {
+        $argv[] = '--port';
+        $argv[] = '8000';
+        $argc = count($argv);
+        if (is_array($_SERVER)) {
+            $_SERVER['argv'] = $argv;
+            $_SERVER['argc'] = $argc;
+        }
+    }
+}
+
 // LOAD THE FRAMEWORK BOOTSTRAP FILE
 require $paths->systemDirectory . '/Boot.php';
 
