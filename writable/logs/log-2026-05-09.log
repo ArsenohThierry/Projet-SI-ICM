@@ -1,0 +1,64 @@
+CRITICAL - 2026-05-09 19:26:58 --> Error: Call to undefined function set_select()
+[Method: GET, Route: admin/sports/new]
+in APPPATH\Views\admin\sports\create.php on line 63.
+ 1 SYSTEMPATH\View\View.php(240): include()
+ 2 SYSTEMPATH\View\View.php(243): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 3 SYSTEMPATH\Common.php(1250): CodeIgniter\View\View->render('admin/sports/create', [], true)
+ 4 APPPATH\Controllers\Admin\SportController.php(39): view('admin/sports/create', [...])
+ 5 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Admin\SportController->create()
+ 6 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\SportController))
+ 7 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+11 SYSTEMPATH\rewrite.php(44): require_once('C:\\Users\\USER\\Desktop\\L2\\S4\\SI\\3-IMC\\Projet-SI-ICM\\public\\index.php')
+CRITICAL - 2026-05-09 19:38:23 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "admin/sports/index.php"
+[Method: GET, Route: admin/sports]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(228): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('admin/sports/index.php')
+ 2 SYSTEMPATH\Common.php(1250): CodeIgniter\View\View->render('admin/sports/index', [], true)
+ 3 APPPATH\Controllers\Admin\SportController.php(16): view('admin/sports/index', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Admin\SportController->index()
+ 5 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\SportController))
+ 6 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+10 SYSTEMPATH\rewrite.php(44): require_once('C:\\Users\\USER\\Desktop\\L2\\S4\\SI\\3-IMC\\Projet-SI-ICM\\public\\index.php')
+CRITICAL - 2026-05-09 19:38:26 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "admin/sports/index.php"
+[Method: GET, Route: admin/sports]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(228): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('admin/sports/index.php')
+ 2 SYSTEMPATH\Common.php(1250): CodeIgniter\View\View->render('admin/sports/index', [], true)
+ 3 APPPATH\Controllers\Admin\SportController.php(16): view('admin/sports/index', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Admin\SportController->index()
+ 5 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\SportController))
+ 6 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+10 SYSTEMPATH\rewrite.php(44): require_once('C:\\Users\\USER\\Desktop\\L2\\S4\\SI\\3-IMC\\Projet-SI-ICM\\public\\index.php')
+CRITICAL - 2026-05-09 19:38:26 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "admin/sports/index.php"
+[Method: GET, Route: admin/sports]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(228): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('admin/sports/index.php')
+ 2 SYSTEMPATH\Common.php(1250): CodeIgniter\View\View->render('admin/sports/index', [], true)
+ 3 APPPATH\Controllers\Admin\SportController.php(16): view('admin/sports/index', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Admin\SportController->index()
+ 5 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\SportController))
+ 6 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+10 SYSTEMPATH\rewrite.php(44): require_once('C:\\Users\\USER\\Desktop\\L2\\S4\\SI\\3-IMC\\Projet-SI-ICM\\public\\index.php')
+CRITICAL - 2026-05-09 19:40:31 --> ErrorException: Undefined property: App\Controllers\Admin\SportController::$sportModel
+[Method: POST, Route: admin/sports/9/delete]
+in APPPATH\Controllers\Admin\SportController.php on line 154.
+ 1 APPPATH\Controllers\Admin\SportController.php(154): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined property: App\\Controllers\\Admin\\SportController::$sportModel', 'C:\\Users\\USER\\Desktop\\L2\\S4\\SI\\3-IMC\\Projet-SI-ICM\\app\\Controllers\\Admin\\SportController.php', 154)
+ 2 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Admin\SportController->delete('9')
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\SportController))
+ 4 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 8 SYSTEMPATH\rewrite.php(44): require_once('C:\\Users\\USER\\Desktop\\L2\\S4\\SI\\3-IMC\\Projet-SI-ICM\\public\\index.php')
