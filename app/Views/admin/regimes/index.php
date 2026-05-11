@@ -86,6 +86,7 @@
                             <a href="/admin/regimes/<?php echo $r['id']; ?>" class="btn btn-outline btn-sm">Voir</a>
                             <a href="/admin/regimes/<?php echo $r['id']; ?>/edit" class="btn btn-outline btn-sm">Modifier</a>
                             <form method="post" action="/admin/regimes/<?php echo $r['id']; ?>/delete" onsubmit="return confirm('Supprimer ce regime ?');">
+                              <?php echo csrf_field(); ?>
                                 <button type="submit" class="btn btn-danger btn-sm">Supprimer</button>
                             </form>
                         </td>

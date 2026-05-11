@@ -76,6 +76,7 @@
                             <a href="/admin/sports/<?php echo $s['id']; ?>" class="btn btn-outline btn-sm">Voir</a>
                             <a href="/admin/sports/<?php echo $s['id']; ?>/edit" class="btn btn-outline btn-sm">Modifier</a>
                             <form method="post" action="/admin/sports/<?php echo $s['id']; ?>/delete" onsubmit="return confirm('Supprimer cette activite ?');">
+                              <?php echo csrf_field(); ?>
                                 <button type="submit" class="btn btn-danger btn-sm">Supprimer</button>
                             </form>
                         </td>

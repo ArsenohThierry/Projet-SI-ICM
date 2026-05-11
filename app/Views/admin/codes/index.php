@@ -79,6 +79,7 @@
                         </td>
                         <td class="table-actions">
                             <form method="post" action="/admin/codes/<?php echo $c['id']; ?>/delete" onsubmit="return confirm('Supprimer ce code ?');">
+                              <?php echo csrf_field(); ?>
                                 <button type="submit" class="btn btn-danger btn-sm">Supprimer</button>
                             </form>
                         </td>
