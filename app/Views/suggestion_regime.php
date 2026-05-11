@@ -403,7 +403,7 @@
                         </div>
 
                         <div class="regime-price">
-                            <span class="regime-price-amount"><?php echo number_format($montant, 2); ?> €/jour</span>
+                            <span class="regime-price-amount"><?php echo number_format($montant, 2); ?> Ar/jour</span>
                         </div>
                     </div>
                 <?php endforeach; ?>
